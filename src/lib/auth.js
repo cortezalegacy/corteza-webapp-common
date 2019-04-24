@@ -22,7 +22,6 @@ export default class Auth {
     }
 
     return systemAPI.setJWT(jwt).authCheck().then(({ user }) => {
-      console.log({ user })
       if (!user) {
         return Promise.reject(new Error('unexpected resposne'))
       }
@@ -45,13 +44,13 @@ export default class Auth {
     return this[jwt]
   }
 
-  set JWT (jwt) {
-    if (!jwt) {
+  set JWT (JWT) {
+    if (!JWT) {
       this[jwt] = null
       localStorage.removeItem(lsAuthJWTKey)
-    } else if (this[jwt] !== jwt) {
-      this[jwt] = jwt
-      localStorage.setItem(lsAuthJWTKey, jwt)
+    } else if (this[jwt] !== JWT) {
+      this[jwt] = JWT
+      localStorage.setItem(lsAuthJWTKey, JWT)
     }
   }
 
