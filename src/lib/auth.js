@@ -16,12 +16,12 @@ export default class Auth {
   // loaded user.
   //
   // We're explicitly passing systemAPI to minimize plugin initialization complexity
-  async check (systemAPI, jwt = this.JWT) {
-    if (!jwt) {
+  async check (systemAPI, _jwt = this.JWT) {
+    if (!_jwt) {
       return Promise.reject(new Error('invalid or empty JWT value'))
     }
 
-    return systemAPI.setJWT(jwt).authCheck().then(({ user }) => {
+    return systemAPI.setJWT(_jwt).authCheck().then(({ user, jwt = _jwt }) => {
       if (!user) {
         return Promise.reject(new Error('unexpected resposne'))
       }
