@@ -62,13 +62,13 @@ export default class Auth {
     return this[user] || {}
   }
 
-  set user (user) {
-    if (!user) {
+  set user (u) {
+    if (!u) {
       this[user] = null
       localStorage.removeItem(lsAuthUserKey)
-    } else if (this[user] !== user) {
-      this[user] = user
-      localStorage.setItem(lsAuthUserKey, JSON.stringify(user))
+    } else if (this[user] !== u) {
+      this[user] = u
+      localStorage.setItem(lsAuthUserKey, JSON.stringify(u))
     }
   }
 }
