@@ -3,5 +3,6 @@
   "description": "Crust common plugins, libs, components",
   "author": "Denis Arh <denis.arh@crust.tech>",
   "version": "2019.3.5",
+  "license": "Apache-2.0",
   "private": true
 }
