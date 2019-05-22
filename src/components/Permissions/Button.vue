@@ -1,6 +1,6 @@
 <template>
-    <a v-if="link" @click="onClick">
-      <i class="action icon-fatlock" />
+    <a v-if="link" class="action" @click="onClick">
+      <i class="icon-fatlock" />
     </a>
     <b-button v-else @click="onClick" :variant="buttonVariant">
       <slot><i class="action icon-fatlock" /></slot>

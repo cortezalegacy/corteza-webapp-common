@@ -42,6 +42,11 @@ export default {
       required: true,
     },
 
+    target: {
+      type: String,
+      required: false,
+    },
+
     backendServiceName: {
       type: String,
       default () {
@@ -197,7 +202,12 @@ export default {
       }
 
       const tString = `permission.${resource}.${operation}`
-      let title = this.$t(`${tString}.title`)
+      let title = ''
+      if (this.target) {
+        title = this.$t(`${tString}.specific`, { target: this.target })
+      } else {
+        title = this.$t(`${tString}.title`)
+      }
 
       return {
         title,

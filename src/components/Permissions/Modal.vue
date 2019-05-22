@@ -5,9 +5,9 @@
       hide-footer
       size="xl"
       @hide="onHide"
-      :title="title"
+      :title="getTitle"
       lazy>
-      <permissions-form v-if="resource" :resource="resource" />
+      <permissions-form v-if="resource" :resource="resource" :target="title" />
     </b-modal>
   </div>
 </template>
@@ -40,6 +40,18 @@ export default {
           this.clear()
         }
       },
+    },
+
+    getTitle () {
+      if (this.resource) {
+        let [resource, targetName, target] = this.resource.split(':')
+        if (target === '*') {
+          target = this.$t(`permission.${targetName}.all`)
+        } else {
+          target = this.$t(`permission.${targetName}.specific`, { target: this.title })
+        }
+        return this.$t('permission.setFor', { target: target }).replace(/&amp;quot;|&quot;/g,'"')
+      }
     },
   },
 
