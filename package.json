@@ -5,6 +5,10 @@
   "version": "2019.3.8",
   "license": "Apache-2.0",
   "private": true,
+  "dependencies": {
+    "mime-types": "^2.1.24",
+    "pdfjs-dist": "^2.0.943"
+  },
   "devDependencies": {
     "@vue/test-utils": "1.0.0-beta.29"
   }
