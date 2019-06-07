@@ -1,7 +1,7 @@
 <template>
   <div :class="{ inline }">
     <div :class="{ inline }">
-      <img v-on="$listeners" :key="src" :src="src" :title="title" :alt="alt" :class="getClass" :style="previewStyle">
+      <img v-on="$listeners" :key="src" :src="src" :title="title" :alt="alt" :class="getClass" :style="previewStyle" @error.once="reloadBrokenImage">
     </div>
   </div>
 </template>
@@ -11,6 +11,14 @@ import props from '../props'
 
 export default {
   mixins: [ props ],
+
+  methods: {
+    reloadBrokenImage (ev) {
+      window.setTimeout(() => {
+        ev.target.src = ev.target.src
+      }, 500)
+    },
+  },
 
   computed: {
     getClass () {
