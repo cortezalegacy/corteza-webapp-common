@@ -72,7 +72,12 @@ export default {
           canvas.width = viewport.width
 
           console.debug('page.render', { page, canvas, scale, viewport, canvasContext, renderContext })
-          page.render(renderContext).then(() => console.debug('page.rendered'), (err) => this.$emit('error', err))
+          page.render(renderContext).then(() => {
+            console.debug('page.rendered')
+            if (this.inline) {
+              // Inital canvas must be max width, to get the entire page painted
+              canvas.classList.add('inline')
+            }}, (err) => this.$emit('error', err))
         })
       }
     },
@@ -92,7 +97,7 @@ export default {
     }
 
     return (
-      <div style={this.previewStyle} class={this.previewClass.concat(['pdf'])}>
+      <div onclick={(e) => this.$emit('click', e)} style={this.previewStyle} class={[...this.previewClass, 'pdf', this.inline ? 'inline' : '', this.$listeners.click ? 'clickable' : '']}>
         {canvases()}
       </div>
     )
@@ -103,13 +108,26 @@ export default {
 <style scoped>
 .pdf {
   text-align: center;
+}
+.pdf:not(.inline) {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-.pdf canvas {
+.pdf.inline {
+  max-height: 200px;
+  overflow: hidden;
+  box-shadow: 0 0 3px #1E1E1E41;
+  display: inline-block;
+}
+.pdf:not(.inline) canvas {
   box-shadow: 0 0 3px #1E1E1E41;
 }
 .pdf div {
   height: 10px;
+}
+
+.pdf canvas.inline {
+  width: 100%;
+  max-width: 500px;
 }
 </style>

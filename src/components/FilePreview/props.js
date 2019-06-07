@@ -43,6 +43,11 @@ export default {
     initialScale: {
       required: false,
       default: 1,
-    }
+    },
+
+    inline: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
