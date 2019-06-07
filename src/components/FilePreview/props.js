@@ -5,6 +5,11 @@ export default {
       default: null,
     },
 
+    meta: {
+      type: Object,
+      default: () => ({}),
+    },
+
     name: {
       required: false,
       default: null,

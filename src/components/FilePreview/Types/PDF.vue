@@ -114,7 +114,7 @@ export default {
   padding-bottom: 20px;
 }
 .pdf.inline {
-  max-height: 200px;
+  height: 200px;
   overflow-y: scroll;
   box-shadow: 0 0 3px #1E1E1E41;
   display: inline-block;
@@ -124,6 +124,9 @@ export default {
 }
 .pdf div {
   height: 10px;
+}
+.pdf.inline {
+  cursor: zoom-in;
 }
 
 .pdf canvas.inline {

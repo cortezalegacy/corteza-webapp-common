@@ -1,7 +1,7 @@
 <template>
   <div :class="{ inline }">
     <div :class="{ inline }">
-      <img v-on="$listeners" :key="src" :src="src" :title="title" :alt="alt" :class="getClass" :style="previewStyle" @error.once="reloadBrokenImage">
+      <img ref="image" v-on="$listeners" :key="src" :src="src" :title="title" :alt="alt" :class="getClass" :style="previewStyle" @error.once="reloadBrokenImage" @load="loaded=true">
     </div>
   </div>
 </template>
@@ -11,6 +11,12 @@ import props from '../props'
 
 export default {
   mixins: [ props ],
+
+  data () {
+    return {
+      loaded: false,
+    }
+  },
 
   methods: {
     reloadBrokenImage (ev) {
@@ -24,11 +30,21 @@ export default {
     getClass () {
       const rtr = [...this.previewClass]
       if (this.$listeners.click) {
-        return rtr.concat('clickable')
+        rtr.push('clickable')
+      }
+      if (this.loaded) {
+        rtr.push('loaded')
       }
       return rtr
-    }
-  }
+    },
+  },
+
+  created () {
+    this.$nextTick(() => {
+      this.$refs.image.width = this.meta.width
+      this.$refs.image.height = this.meta.height
+    })
+  },
 }
 </script>
 
@@ -56,7 +72,11 @@ div:not(.inline) img {
   max-width: 100%;
 }
 
-img.clickable {
-  cursor: pointer;
+div.inline img {
+  cursor: zoom-in;
+}
+img.loaded {
+  width: 100%;
+  height: 100%;
 }
 </style>
