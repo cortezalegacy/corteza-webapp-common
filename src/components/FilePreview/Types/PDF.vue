@@ -115,7 +115,7 @@ export default {
 }
 .pdf.inline {
   max-height: 200px;
-  overflow: hidden;
+  overflow-y: scroll;
   box-shadow: 0 0 3px #1E1E1E41;
   display: inline-block;
 }
