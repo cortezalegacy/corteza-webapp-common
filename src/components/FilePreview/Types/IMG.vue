@@ -1,7 +1,7 @@
 <template>
   <div :class="{ inline }">
     <div :class="{ inline }">
-      <img ref="image" v-on="$listeners" :key="src" :src="src" :title="title" :alt="alt" :class="getClass" :style="previewStyle" @error.once="reloadBrokenImage" @load="loaded=true">
+      <img ref="image" @click="$emit('openPreview', {})" :key="src" :src="src" :title="title" :alt="alt" :class="getClass" :style="previewStyle" @error.once="reloadBrokenImage" @load="loaded=true">
     </div>
   </div>
 </template>

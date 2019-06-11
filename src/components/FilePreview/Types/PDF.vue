@@ -39,7 +39,11 @@ export default {
     }
 
     this.$nextTick(() => {
-      pdfjs.getDocument(this.src).then(this.documentLoaded, (err) => this.$emit('error', err))
+      if (typeof this.src === 'object') {
+        this.documentLoaded(this.src)
+      } else {
+        pdfjs.getDocument(this.src).then(this.documentLoaded, (err) => this.$emit('error', err))
+      }
     })
   },
 
@@ -97,7 +101,7 @@ export default {
     }
 
     return (
-      <div onclick={(e) => this.$emit('click', e)} style={this.previewStyle} class={[...this.previewClass, 'pdf', this.inline ? 'inline' : '', this.$listeners.click ? 'clickable' : '']}>
+      <div onclick={(e) => this.$emit('openPreview', { pdf: this.pdf })} style={this.previewStyle} class={[...this.previewClass, 'pdf', this.inline ? 'inline' : '', this.$listeners.click ? 'clickable' : '']}>
         {canvases()}
       </div>
     )
