@@ -4,4 +4,6 @@ const writeableWindowLocation = ({ path: value = '/' } = {}) => Object.definePro
 
 const mount = (component, params = {}) => shallowMount(component, { ...params })
 
-export { writeableWindowLocation, mount }
+const stdStubs = ['router-view', 'router-link', 'b-form-group', 'b-form-text', 'b-button', 'b-form-input', 'b-button-close', 'b-form']
+
+export { writeableWindowLocation, mount, stdStubs }

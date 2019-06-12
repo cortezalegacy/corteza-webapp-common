@@ -2,7 +2,7 @@
   "name": "crust-common.vue",
   "description": "Crust common plugins, libs, components",
   "author": "Denis Arh <denis.arh@crust.tech>",
-  "version": "2019.3.7",
+  "version": "2019.3.8",
   "license": "Apache-2.0",
   "private": true,
   "devDependencies": {
