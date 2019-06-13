@@ -63,7 +63,6 @@ export default {
           np.loading = false
           np.loaded = true
           np.page = page
-          this.pages.splice(i, 1, np)
           console.debug('page.loaded', { page: np })
 
           // Render page
@@ -77,11 +76,21 @@ export default {
 
           console.debug('page.render', { page, canvas, scale, viewport, canvasContext, renderContext })
           page.render(renderContext).then(() => {
-            console.debug('page.rendered')
-            if (this.inline) {
-              // Inital canvas must be max width, to get the entire page painted
-              canvas.classList.add('inline')
-            }}, (err) => this.$emit('error', err))
+              console.debug('page.rendered')
+              if (this.inline) {
+                // Inital canvas must be max width, to get the entire page painted
+                canvas.classList.add('inline')
+              }
+              np.rendered = true
+            })
+            .catch((err) => {
+              this.$emit('error', err)
+              np.rendered = false
+              np.failed = true
+            })
+            .finally(() => {
+              this.pages.splice(i, 1, np)
+            })
         })
       }
     },
