@@ -85,7 +85,8 @@ export default {
     },
 
     api () {
-      return this['$' + this.backendServiceName]
+      const s = this.backendServiceName
+      return this['$' + s.charAt(0).toUpperCase() + s.slice(1) + 'API']
     },
   },
 
@@ -133,8 +134,8 @@ export default {
 
     async fetchRoles () {
       this.processing = true
-      // Roles are always fetched from $system.
-      return this.$system.roleList().then(rr => {
+      // Roles are always fetched from $SystemAPI.
+      return this.$SystemAPI.roleList().then(rr => {
         this.roles = rr.sort((a, b) => a.roleID.localeCompare(b.roleID))
 
         if (rr.length > 0) {
