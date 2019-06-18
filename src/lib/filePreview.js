@@ -7,7 +7,6 @@ const types = [
 
 /**
  * Tells what component (if any) can preview the given file
- * 
  * @param {String|undefined} type pre defined mime type of object
  * @param {String|undefined} src object's src
  * @param {String|undefined} name object's name
@@ -28,11 +27,10 @@ const getComponent = ({ type, src, name }) => {
 
 /**
  * Tells if we support the given file type preview
- * 
  * @param {String|undefined} type pre defined mime type of object
  * @param {String|undefined} src object's src
  * @param {String|undefined} name object's name
- * @returns {Boolean} if file is previewable
+ * @returns {Boolean} if file can be previewed
  */
 const canPreview = ({ type, src, name }) => {
   return !!getComponent({ type, src, name })

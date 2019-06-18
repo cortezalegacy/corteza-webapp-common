@@ -18,14 +18,6 @@ export default {
     }
   },
 
-  methods: {
-    reloadBrokenImage (ev) {
-      window.setTimeout(() => {
-        ev.target.src = ev.target.src
-      }, 500)
-    },
-  },
-
   computed: {
     getClass () {
       const rtr = [...this.previewClass]
@@ -44,6 +36,14 @@ export default {
       this.$refs.image.width = this.meta.width
       this.$refs.image.height = this.meta.height
     })
+  },
+
+  methods: {
+    reloadBrokenImage (ev) {
+      window.setTimeout(() => {
+        ev.target.src = ev.target.src
+      }, 500)
+    },
   },
 }
 </script>

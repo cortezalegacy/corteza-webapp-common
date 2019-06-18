@@ -76,13 +76,13 @@ export default {
 
           console.debug('page.render', { page, canvas, scale, viewport, canvasContext, renderContext })
           page.render(renderContext).then(() => {
-              console.debug('page.rendered')
-              if (this.inline) {
-                // Inital canvas must be max width, to get the entire page painted
-                canvas.classList.add('inline')
-              }
-              np.rendered = true
-            })
+            console.debug('page.rendered')
+            if (this.inline) {
+              // Inital canvas must be max width, to get the entire page painted
+              canvas.classList.add('inline')
+            }
+            np.rendered = true
+          })
             .catch((err) => {
               this.$emit('error', err)
               np.rendered = false
@@ -114,7 +114,7 @@ export default {
         {canvases()}
       </div>
     )
-  }
+  },
 }
 </script>
 

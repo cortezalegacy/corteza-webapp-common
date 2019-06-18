@@ -36,7 +36,7 @@ export default {
     previewType () {
       const component = getComponent({ type: this.mime, src: this.src, name: this.name })
       if (!component) {
-        this.$emit('preview.unavailable', { type })
+        this.$emit('preview.unavailable', { type: this.mime })
       } else {
         return component
       }
@@ -46,7 +46,7 @@ export default {
         return [ 'no-scroll' ]
       }
     },
-  }
+  },
 }
 </script>
 

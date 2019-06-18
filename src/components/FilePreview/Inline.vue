@@ -35,7 +35,7 @@ export default {
         return component
       }
     },
-  }
+  },
 }
 </script>
 
