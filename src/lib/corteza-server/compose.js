@@ -1,3 +1,6 @@
 import Compose from './rest-api-client/compose.js'
 
-export default new Compose({ baseURL: window.CrustComposeAPI })
+const { ComposeAPI, CortezaComposeAPI, CrustComposeAPI } = window
+const baseURL = ComposeAPI || CortezaComposeAPI || CrustComposeAPI
+
+export default new Compose({ baseURL })

@@ -1,3 +1,6 @@
 import Messaging from './rest-api-client/messaging.js'
 
-export default new Messaging({ baseURL: window.CrustMessagignAPI })
+const { MessagingAPI, CortezaMessagingAPI, CrustMessagingAPI } = window
+const baseURL = MessagingAPI || CortezaMessagingAPI || CrustMessagingAPI
+
+export default new Messaging({ baseURL })

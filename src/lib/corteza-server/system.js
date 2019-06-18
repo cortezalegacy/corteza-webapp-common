@@ -1,3 +1,6 @@
 import System from './rest-api-client/system.js'
 
-export default new System({ baseURL: window.CrustSystemAPI })
+const { SystemAPI, CortezaSystemAPI, CrustSystemAPI } = window
+const baseURL = SystemAPI || CortezaSystemAPI || CrustSystemAPI
+
+export default new System({ baseURL })
