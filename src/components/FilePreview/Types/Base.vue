@@ -1,8 +1,14 @@
+<script>
 export default {
   props: {
     src: {
       required: true,
       default: null,
+    },
+
+    mime: {
+      required: false,
+      default: undefined,
     },
 
     meta: {
@@ -11,16 +17,6 @@ export default {
     },
 
     name: {
-      required: false,
-      default: null,
-    },
-
-    alt: {
-      required: false,
-      default: null,
-    },
-
-    title: {
       required: false,
       default: null,
     },
@@ -35,24 +31,11 @@ export default {
       default: () => [],
     },
 
-    mime: {
-      required: false,
-      default: undefined,
-    },
-
-    maxPages: {
-      required: false,
-      default: 5,
-    },
-
-    initialScale: {
-      required: false,
-      default: 1,
-    },
-
     inline: {
       type: Boolean,
       default: false,
     },
   },
 }
+
+</script>

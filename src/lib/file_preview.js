@@ -14,12 +14,12 @@ const types = [
  */
 const getComponent = ({ type, src, name }) => {
   const srcType = type || mime.lookup(src) || mime.lookup(name)
-  console.debug('previewType', { srcType, type, src, name })
-  if (!srcType) return
+  if (!srcType) {
+    return
+  }
 
   for (const { type, component } of types) {
     if (srcType.indexOf(type) >= 0) {
-      console.debug('previewType.match', { type, component })
       return component
     }
   }
@@ -36,4 +36,7 @@ const canPreview = ({ type, src, name }) => {
   return !!getComponent({ type, src, name })
 }
 
-export { getComponent, canPreview }
+export {
+  getComponent,
+  canPreview,
+}

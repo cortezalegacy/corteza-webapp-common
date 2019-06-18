@@ -1,6 +1,6 @@
 <script>
 import pdfjs from 'pdfjs-dist'
-import props from '../props'
+import Base from './Base'
 
 // Helper structure for page params
 class Page {
@@ -15,7 +15,19 @@ class Page {
 }
 
 export default {
-  mixins: [ props ],
+  extends: Base,
+
+  props: {
+    maxPages: {
+      required: false,
+      default: 5,
+    },
+
+    initialScale: {
+      required: false,
+      default: 1,
+    },
+  },
 
   data () {
     return {
@@ -52,7 +64,6 @@ export default {
       this.pdf = pdf
       const pgCount = Math.min(this.pageCount, this.maxPages)
       this.pages = [...new Array(pgCount)].map((_, i) => new Page(i))
-      console.debug('documentLoaded', { pdf, pgCount })
 
       // Loadup pages
       // pdfjs starts with 1!
@@ -63,7 +74,6 @@ export default {
           np.loading = false
           np.loaded = true
           np.page = page
-          console.debug('page.loaded', { page: np })
 
           // Render page
           const canvas = this.$refs[`pg_${i}`]
@@ -74,9 +84,7 @@ export default {
           canvas.height = viewport.height
           canvas.width = viewport.width
 
-          console.debug('page.render', { page, canvas, scale, viewport, canvasContext, renderContext })
           page.render(renderContext).then(() => {
-            console.debug('page.rendered')
             if (this.inline) {
               // Inital canvas must be max width, to get the entire page painted
               canvas.classList.add('inline')
@@ -99,7 +107,9 @@ export default {
   render (h) {
     const canvases = () => {
       const nodes = []
-      if (!this.pages.length) return nodes
+      if (!this.pages.length) {
+        return nodes
+      }
 
       const makeCanvas = (i) => <canvas ref={ `pg_${i}` } key={ `pgk_${i}` } />
       for (let i = 0; i < this.pages.length - 1; i++) {

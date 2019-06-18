@@ -7,10 +7,21 @@
 </template>
 
 <script>
-import props from '../props'
+import Base from './Base'
 
 export default {
-  mixins: [ props ],
+  extends: Base,
+
+  props: {
+    alt: {
+      required: false,
+      default: null,
+    },
+    title: {
+      required: false,
+      default: null,
+    },
+  },
 
   data () {
     return {
@@ -51,7 +62,6 @@ export default {
 <style scoped>
 div {
   margin: 0 auto;
-  text-align: center;
   object-fit: contain;
 }
 div:not(.inline) {
