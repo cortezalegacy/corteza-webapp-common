@@ -75,7 +75,6 @@
   font-weight: bold;
   margin: 10px;
   cursor: pointer;
-  height: 30px;
   box-sizing: border-box;
 }
 
