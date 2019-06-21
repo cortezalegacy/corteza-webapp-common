@@ -128,32 +128,27 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .pdf {
   text-align: center;
-}
-.pdf:not(.inline) {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-.pdf.inline {
-  height: 200px;
-  overflow-y: scroll;
-  box-shadow: 0 0 3px #1E1E1E41;
-  display: inline-block;
-}
-.pdf:not(.inline) canvas {
-  box-shadow: 0 0 3px #1E1E1E41;
-}
-.pdf div {
-  height: 10px;
-}
-.pdf.inline {
-  cursor: zoom-in;
-}
-
-.pdf canvas.inline {
-  width: 100%;
-  max-width: 500px;
+  &:not(.inline) {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    canvas {
+      box-shadow: 0 0 3px #1E1E1E41;
+    }
+  }
+  &.inline {
+    height: 200px;
+    overflow-y: scroll;
+    display: inline-block;
+    cursor: zoom-in;
+    canvas {
+      &.inline {
+        width: 100%;
+        max-width: 500px;
+      }
+    }
+  }
 }
 </style>
