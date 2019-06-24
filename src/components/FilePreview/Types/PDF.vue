@@ -1,3 +1,28 @@
+<template>
+  <div
+    @click="$emit('openPreview', { pdf })"
+    :style="previewStyle"
+    :class="[...previewClass, 'pdf-preview', inline ? 'inline' : '', $listeners.click ? 'clickable' : '']">
+
+    <!-- Container for pdf's pages -->
+    <div
+      v-show="show"
+      class="pages"
+      ref="pages"></div>
+
+    <div v-if="!show && labels.loading">
+      <p>{{ labels.loading }}</p>
+    </div>
+
+    <div v-if="!inline && labels.downloadForAll && show && hasMore">
+      <p>{{ labels.downloadForAll }}</p>
+    </div>
+    <div v-else-if="inline && labels.firstPagePreview && show">
+      <p>{{ labels.firstPagePreview }}</p>
+    </div>
+  </div>
+</template>
+
 <script>
 import pdfjs from 'pdfjs-dist'
 import Base from './Base'
@@ -11,6 +36,7 @@ class Page {
     this.loaded = false
     this.rendered = false
     this.failed = false
+    this.node = undefined
   }
 }
 
@@ -34,6 +60,7 @@ export default {
       scale: this.initialScale,
       pdf: null,
       pages: [],
+      show: false,
     }
   },
 
@@ -41,6 +68,10 @@ export default {
     pageCount () {
       if (!this.pdf) return
       return this.pdf.numPages
+    },
+
+    hasMore () {
+      return this.maxPages < this.pageCount
     },
   },
 
@@ -62,13 +93,41 @@ export default {
   methods: {
     documentLoaded (pdf) {
       this.pdf = pdf
+      const rf = this.$refs.pages
       const pgCount = Math.min(this.pageCount, this.maxPages)
       this.pages = [...new Array(pgCount)].map((_, i) => new Page(i))
+
+      // Placeholder untill the page loads
+      const placeholder = () => {
+        const node = document.createElement('div')
+        node.classList.add('loader')
+        if (this.labels.pageLoading) {
+          node.innerHTML = this.labels.pageLoading
+        }
+        return node
+      }
+
+      const pageCanvas = () => {
+        return document.createElement('canvas')
+      }
+
+      const failedPage = () => {
+        const node = document.createElement('div')
+        node.classList.add('failed')
+        if (this.labels.pageLoadFailed) {
+          node.innerHTML = this.labels.pageLoadFailed
+        }
+        return node
+      }
 
       // Loadup pages
       // pdfjs starts with 1!
       for (let i = 0; i < pgCount; i++) {
+        const node = placeholder()
+        rf.appendChild(node)
         this.pages[i].loading = true
+        this.pages[i].node = node
+
         this.pdf.getPage(i + 1).then((page) => {
           const np = new Page(i)
           np.loading = false
@@ -76,7 +135,7 @@ export default {
           np.page = page
 
           // Render page
-          const canvas = this.$refs[`pg_${i}`]
+          const canvas = pageCanvas()
           const scale = this.scale
           const viewport = page.getViewport(scale)
           const canvasContext = canvas.getContext('2d')
@@ -84,52 +143,42 @@ export default {
           canvas.height = viewport.height
           canvas.width = viewport.width
 
+          // .replaceChild removes the need from worrying about page order
           page.render(renderContext).then(() => {
+            np.node = canvas
+            np.rendered = true
+
             if (this.inline) {
-              // Inital canvas must be max width, to get the entire page painted
               canvas.classList.add('inline')
             }
-            np.rendered = true
+            rf.replaceChild(canvas, this.pages[i].node)
           })
             .catch((err) => {
               this.$emit('error', err)
+              const node = failedPage()
+              np.node = node
               np.rendered = false
               np.failed = true
+              rf.replaceChild(node, this.pages[i].node)
             })
             .finally(() => {
+              if (i === 0) {
+                this.show = true
+              }
+
               this.pages.splice(i, 1, np)
             })
         })
       }
     },
   },
-
-  render (h) {
-    const canvases = () => {
-      const nodes = []
-      if (!this.pages.length) {
-        return nodes
-      }
-
-      const makeCanvas = (i) => <canvas ref={ `pg_${i}` } key={ `pgk_${i}` } />
-      for (let i = 0; i < this.pages.length - 1; i++) {
-        nodes.push(makeCanvas(i))
-        nodes.push(<div />)
-      }
-      return nodes.concat(makeCanvas(this.pages.length - 1))
-    }
-
-    return (
-      <div onclick={(e) => this.$emit('openPreview', { pdf: this.pdf })} style={this.previewStyle} class={[...this.previewClass, 'pdf', this.inline ? 'inline' : '', this.$listeners.click ? 'clickable' : '']}>
-        {canvases()}
-      </div>
-    )
-  },
 }
 </script>
 
-<style scoped lang="scss">
-.pdf {
+<style lang="scss">
+// Style not scoped, since pages are manually rendered
+
+.pdf-preview {
   text-align: center;
   &:not(.inline) {
     padding-top: 20px;
@@ -143,12 +192,28 @@ export default {
     overflow-y: scroll;
     display: inline-block;
     cursor: zoom-in;
-    canvas {
-      &.inline {
-        width: 100%;
-        max-width: 500px;
-      }
+    width: 100%;
+    max-width: 500px;
+  }
+
+  canvas {
+    margin-bottom: 10px;
+    &.inline {
+      width: 100%;
     }
+
+    &:not(.inline) {
+      margin: 0 auto 10px auto;
+      display: block;
+    }
+
+    &:last-of-type {
+      margin-bottom: unset;
+    }
+  }
+
+  .loader {
+    margin-bottom: 10px;
   }
 }
 </style>

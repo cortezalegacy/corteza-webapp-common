@@ -1,6 +1,11 @@
 <script>
 export default {
   props: {
+    labels: {
+      required: false,
+      default: () => ({}),
+    },
+
     src: {
       required: true,
       default: null,
