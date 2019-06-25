@@ -547,11 +547,11 @@ export default class Messaging {
         channelID,
       }),
     }
-
-    cfg.data = {
+    cfg.params = {
       threadID,
       lastReadMessageID,
     }
+
     return new Promise((resolve, reject) => {
       this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
     })
