@@ -73,7 +73,8 @@ export default class System {
   }
 
   // Returns auth settings
-  async authSettings () {
+  async authSettings (args = {}) {
+
 
 
     let cfg = {
@@ -92,7 +93,8 @@ export default class System {
   }
 
   // Check JWT token
-  async authCheck () {
+  async authCheck (args = {}) {
+
 
 
     let cfg = {
@@ -111,9 +113,13 @@ export default class System {
   }
 
   // Exchange auth token for JWT
-  async authExchangeAuthToken ({token, } = {}) {
+  async authExchangeAuthToken (args = {}) {
+    const {token, } = args
     if (!token) {
-      throw Error('Field token is empty')
+      console.error('authExchangeAuthToken failed, field token is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field token is empty')
     }
 
     let cfg = {
@@ -134,7 +140,8 @@ export default class System {
   }
 
   // Logout
-  async authLogout () {
+  async authLogout (args = {}) {
+
 
 
     let cfg = {
@@ -153,12 +160,19 @@ export default class System {
   }
 
   // Login user
-  async authInternalLogin ({email, password, } = {}) {
+  async authInternalLogin (args = {}) {
+    const {email, password, } = args
     if (!email) {
-      throw Error('Field email is empty')
+      console.error('authInternalLogin failed, field email is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field email is empty')
     }
     if (!password) {
-      throw Error('Field password is empty')
+      console.error('authInternalLogin failed, field password is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field password is empty')
     }
 
     let cfg = {
@@ -180,12 +194,19 @@ export default class System {
   }
 
   // User signup/registration
-  async authInternalSignup ({email, username, password, handle, name, } = {}) {
+  async authInternalSignup (args = {}) {
+    const {email, username, password, handle, name, } = args
     if (!email) {
-      throw Error('Field email is empty')
+      console.error('authInternalSignup failed, field email is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field email is empty')
     }
     if (!password) {
-      throw Error('Field password is empty')
+      console.error('authInternalSignup failed, field password is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field password is empty')
     }
 
     let cfg = {
@@ -210,9 +231,13 @@ export default class System {
   }
 
   // Request password reset token (via email)
-  async authInternalRequestPasswordReset ({email, } = {}) {
+  async authInternalRequestPasswordReset (args = {}) {
+    const {email, } = args
     if (!email) {
-      throw Error('Field email is empty')
+      console.error('authInternalRequestPasswordReset failed, field email is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field email is empty')
     }
 
     let cfg = {
@@ -233,9 +258,13 @@ export default class System {
   }
 
   // Exchange password reset token for new token and user info
-  async authInternalExchangePasswordResetToken ({token, } = {}) {
+  async authInternalExchangePasswordResetToken (args = {}) {
+    const {token, } = args
     if (!token) {
-      throw Error('Field token is empty')
+      console.error('authInternalExchangePasswordResetToken failed, field token is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field token is empty')
     }
 
     let cfg = {
@@ -256,12 +285,19 @@ export default class System {
   }
 
   // Reset password with exchanged password reset token
-  async authInternalResetPassword ({token, password, } = {}) {
+  async authInternalResetPassword (args = {}) {
+    const {token, password, } = args
     if (!token) {
-      throw Error('Field token is empty')
+      console.error('authInternalResetPassword failed, field token is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field token is empty')
     }
     if (!password) {
-      throw Error('Field password is empty')
+      console.error('authInternalResetPassword failed, field password is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field password is empty')
     }
 
     let cfg = {
@@ -283,9 +319,13 @@ export default class System {
   }
 
   // Confirm email with token
-  async authInternalConfirmEmail ({token, } = {}) {
+  async authInternalConfirmEmail (args = {}) {
+    const {token, } = args
     if (!token) {
-      throw Error('Field token is empty')
+      console.error('authInternalConfirmEmail failed, field token is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field token is empty')
     }
 
     let cfg = {
@@ -306,12 +346,19 @@ export default class System {
   }
 
   // Changes password for current user, requires current password
-  async authInternalChangePassword ({oldPassword, newPassword, } = {}) {
+  async authInternalChangePassword (args = {}) {
+    const {oldPassword, newPassword, } = args
     if (!oldPassword) {
-      throw Error('Field oldPassword is empty')
+      console.error('authInternalChangePassword failed, field oldPassword is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field oldPassword is empty')
     }
     if (!newPassword) {
-      throw Error('Field newPassword is empty')
+      console.error('authInternalChangePassword failed, field newPassword is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field newPassword is empty')
     }
 
     let cfg = {
@@ -333,7 +380,8 @@ export default class System {
   }
 
   // List settings
-  async settingsList ({prefix, } = {}) {
+  async settingsList (args = {}) {
+    const {prefix, } = args
 
 
     let cfg = {
@@ -354,9 +402,13 @@ export default class System {
   }
 
   // Update settings
-  async settingsUpdate ({values, } = {}) {
+  async settingsUpdate (args = {}) {
+    const {values, } = args
     if (!values) {
-      throw Error('Field values is empty')
+      console.error('settingsUpdate failed, field values is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field values is empty')
     }
 
     let cfg = {
@@ -377,9 +429,13 @@ export default class System {
   }
 
   // Check JWT token
-  async settingsGet ({key, ownerID, } = {}) {
+  async settingsGet (args = {}) {
+    const {key, ownerID, } = args
     if (!key) {
-      throw Error('Field key is empty')
+      console.error('settingsGet failed, field key is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field key is empty')
     }
 
     let cfg = {
@@ -402,12 +458,19 @@ export default class System {
   }
 
   // Set a value for a key
-  async settingsSet ({key, ownerID, value, } = {}) {
+  async settingsSet (args = {}) {
+    const {key, ownerID, value, } = args
     if (!key) {
-      throw Error('Field key is empty')
+      console.error('settingsSet failed, field key is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field key is empty')
     }
     if (!value) {
-      throw Error('Field value is empty')
+      console.error('settingsSet failed, field value is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field value is empty')
     }
 
     let cfg = {
@@ -431,7 +494,8 @@ export default class System {
   }
 
   // List organisations
-  async organisationList ({query, } = {}) {
+  async organisationList (args = {}) {
+    const {query, } = args
 
 
     let cfg = {
@@ -452,9 +516,13 @@ export default class System {
   }
 
   // Create organisation
-  async organisationCreate ({name, } = {}) {
+  async organisationCreate (args = {}) {
+    const {name, } = args
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('organisationCreate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -475,9 +543,13 @@ export default class System {
   }
 
   // Update organisation details
-  async organisationUpdate ({id, name, } = {}) {
+  async organisationUpdate (args = {}) {
+    const {id, name, } = args
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('organisationUpdate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -500,9 +572,13 @@ export default class System {
   }
 
   // Remove organisation
-  async organisationDelete ({id, } = {}) {
+  async organisationDelete (args = {}) {
+    const {id, } = args
     if (!id) {
-      throw Error('Field id is empty')
+      console.error('organisationDelete failed, field id is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field id is empty')
     }
 
     let cfg = {
@@ -523,9 +599,13 @@ export default class System {
   }
 
   // Read organisation details
-  async organisationRead ({id, } = {}) {
+  async organisationRead (args = {}) {
+    const {id, } = args
     if (!id) {
-      throw Error('Field id is empty')
+      console.error('organisationRead failed, field id is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field id is empty')
     }
 
     let cfg = {
@@ -546,9 +626,13 @@ export default class System {
   }
 
   // Archive organisation
-  async organisationArchive ({id, } = {}) {
+  async organisationArchive (args = {}) {
+    const {id, } = args
     if (!id) {
-      throw Error('Field id is empty')
+      console.error('organisationArchive failed, field id is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field id is empty')
     }
 
     let cfg = {
@@ -569,7 +653,8 @@ export default class System {
   }
 
   // List roles
-  async roleList ({query, } = {}) {
+  async roleList (args = {}) {
+    const {query, } = args
 
 
     let cfg = {
@@ -590,9 +675,13 @@ export default class System {
   }
 
   // Update role details
-  async roleCreate ({name, members, } = {}) {
+  async roleCreate (args = {}) {
+    const {name, members, } = args
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('roleCreate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -614,9 +703,13 @@ export default class System {
   }
 
   // Update role details
-  async roleUpdate ({roleID, name, members, } = {}) {
+  async roleUpdate (args = {}) {
+    const {roleID, name, members, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('roleUpdate failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
 
     let cfg = {
@@ -640,9 +733,13 @@ export default class System {
   }
 
   // Read role details and memberships
-  async roleRead ({roleID, } = {}) {
+  async roleRead (args = {}) {
+    const {roleID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('roleRead failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
 
     let cfg = {
@@ -663,9 +760,13 @@ export default class System {
   }
 
   // Remove role
-  async roleDelete ({roleID, } = {}) {
+  async roleDelete (args = {}) {
+    const {roleID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('roleDelete failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
 
     let cfg = {
@@ -686,9 +787,13 @@ export default class System {
   }
 
   // Archive role
-  async roleArchive ({roleID, } = {}) {
+  async roleArchive (args = {}) {
+    const {roleID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('roleArchive failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
 
     let cfg = {
@@ -709,12 +814,19 @@ export default class System {
   }
 
   // Move role to different organisation
-  async roleMove ({roleID, organisationID, } = {}) {
+  async roleMove (args = {}) {
+    const {roleID, organisationID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('roleMove failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
     if (!organisationID) {
-      throw Error('Field organisationID is empty')
+      console.error('roleMove failed, field organisationID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field organisationID is empty')
     }
 
     let cfg = {
@@ -737,12 +849,19 @@ export default class System {
   }
 
   // Merge one role into another
-  async roleMerge ({roleID, destination, } = {}) {
+  async roleMerge (args = {}) {
+    const {roleID, destination, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('roleMerge failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
     if (!destination) {
-      throw Error('Field destination is empty')
+      console.error('roleMerge failed, field destination is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field destination is empty')
     }
 
     let cfg = {
@@ -765,9 +884,13 @@ export default class System {
   }
 
   // Returns all role members
-  async roleMemberList ({roleID, } = {}) {
+  async roleMemberList (args = {}) {
+    const {roleID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('roleMemberList failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
 
     let cfg = {
@@ -788,12 +911,19 @@ export default class System {
   }
 
   // Add member to a role
-  async roleMemberAdd ({roleID, userID, } = {}) {
+  async roleMemberAdd (args = {}) {
+    const {roleID, userID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('roleMemberAdd failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
     if (!userID) {
-      throw Error('Field userID is empty')
+      console.error('roleMemberAdd failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
     }
 
     let cfg = {
@@ -815,12 +945,19 @@ export default class System {
   }
 
   // Remove member from a role
-  async roleMemberRemove ({roleID, userID, } = {}) {
+  async roleMemberRemove (args = {}) {
+    const {roleID, userID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('roleMemberRemove failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
     if (!userID) {
-      throw Error('Field userID is empty')
+      console.error('roleMemberRemove failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
     }
 
     let cfg = {
@@ -842,7 +979,8 @@ export default class System {
   }
 
   // Search users (Directory)
-  async userList ({query, username, email, } = {}) {
+  async userList (args = {}) {
+    const {query, username, email, } = args
 
 
     let cfg = {
@@ -865,9 +1003,13 @@ export default class System {
   }
 
   // Create user
-  async userCreate ({email, name, handle, kind, } = {}) {
+  async userCreate (args = {}) {
+    const {email, name, handle, kind, } = args
     if (!email) {
-      throw Error('Field email is empty')
+      console.error('userCreate failed, field email is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field email is empty')
     }
 
     let cfg = {
@@ -891,15 +1033,25 @@ export default class System {
   }
 
   // Update user details
-  async userUpdate ({userID, email, name, handle, kind, } = {}) {
+  async userUpdate (args = {}) {
+    const {userID, email, name, handle, kind, } = args
     if (!userID) {
-      throw Error('Field userID is empty')
+      console.error('userUpdate failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
     }
     if (!email) {
-      throw Error('Field email is empty')
+      console.error('userUpdate failed, field email is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field email is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('userUpdate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -925,9 +1077,13 @@ export default class System {
   }
 
   // Read user details and memberships
-  async userRead ({userID, } = {}) {
+  async userRead (args = {}) {
+    const {userID, } = args
     if (!userID) {
-      throw Error('Field userID is empty')
+      console.error('userRead failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
     }
 
     let cfg = {
@@ -948,9 +1104,13 @@ export default class System {
   }
 
   // Remove user
-  async userDelete ({userID, } = {}) {
+  async userDelete (args = {}) {
+    const {userID, } = args
     if (!userID) {
-      throw Error('Field userID is empty')
+      console.error('userDelete failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
     }
 
     let cfg = {
@@ -971,9 +1131,13 @@ export default class System {
   }
 
   // Suspend user
-  async userSuspend ({userID, } = {}) {
+  async userSuspend (args = {}) {
+    const {userID, } = args
     if (!userID) {
-      throw Error('Field userID is empty')
+      console.error('userSuspend failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
     }
 
     let cfg = {
@@ -994,9 +1158,13 @@ export default class System {
   }
 
   // Unsuspend user
-  async userUnsuspend ({userID, } = {}) {
+  async userUnsuspend (args = {}) {
+    const {userID, } = args
     if (!userID) {
-      throw Error('Field userID is empty')
+      console.error('userUnsuspend failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
     }
 
     let cfg = {
@@ -1017,7 +1185,8 @@ export default class System {
   }
 
   // List applications
-  async applicationList () {
+  async applicationList (args = {}) {
+
 
 
     let cfg = {
@@ -1036,9 +1205,13 @@ export default class System {
   }
 
   // Create application
-  async applicationCreate ({name, enabled, unify, config, } = {}) {
+  async applicationCreate (args = {}) {
+    const {name, enabled, unify, config, } = args
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('applicationCreate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -1062,12 +1235,19 @@ export default class System {
   }
 
   // Update user details
-  async applicationUpdate ({applicationID, name, enabled, unify, config, } = {}) {
+  async applicationUpdate (args = {}) {
+    const {applicationID, name, enabled, unify, config, } = args
     if (!applicationID) {
-      throw Error('Field applicationID is empty')
+      console.error('applicationUpdate failed, field applicationID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field applicationID is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('applicationUpdate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -1093,9 +1273,13 @@ export default class System {
   }
 
   // Read application details
-  async applicationRead ({applicationID, } = {}) {
+  async applicationRead (args = {}) {
+    const {applicationID, } = args
     if (!applicationID) {
-      throw Error('Field applicationID is empty')
+      console.error('applicationRead failed, field applicationID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field applicationID is empty')
     }
 
     let cfg = {
@@ -1116,9 +1300,13 @@ export default class System {
   }
 
   // Remove application
-  async applicationDelete ({applicationID, } = {}) {
+  async applicationDelete (args = {}) {
+    const {applicationID, } = args
     if (!applicationID) {
-      throw Error('Field applicationID is empty')
+      console.error('applicationDelete failed, field applicationID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field applicationID is empty')
     }
 
     let cfg = {
@@ -1139,7 +1327,8 @@ export default class System {
   }
 
   // Retrieve defined permissions
-  async permissionsList () {
+  async permissionsList (args = {}) {
+
 
 
     let cfg = {
@@ -1158,7 +1347,8 @@ export default class System {
   }
 
   // Effective rules for current user
-  async permissionsEffective ({resource, } = {}) {
+  async permissionsEffective (args = {}) {
+    const {resource, } = args
 
 
     let cfg = {
@@ -1179,9 +1369,13 @@ export default class System {
   }
 
   // Retrieve role permissions
-  async permissionsRead ({roleID, } = {}) {
+  async permissionsRead (args = {}) {
+    const {roleID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('permissionsRead failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
 
     let cfg = {
@@ -1202,9 +1396,13 @@ export default class System {
   }
 
   // Remove all defined role permissions
-  async permissionsDelete ({roleID, } = {}) {
+  async permissionsDelete (args = {}) {
+    const {roleID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('permissionsDelete failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
 
     let cfg = {
@@ -1225,12 +1423,19 @@ export default class System {
   }
 
   // Update permission settings
-  async permissionsUpdate ({roleID, rules, } = {}) {
+  async permissionsUpdate (args = {}) {
+    const {roleID, rules, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('permissionsUpdate failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
     if (!rules) {
-      throw Error('Field rules is empty')
+      console.error('permissionsUpdate failed, field rules is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field rules is empty')
     }
 
     let cfg = {

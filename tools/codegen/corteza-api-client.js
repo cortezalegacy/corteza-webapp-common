@@ -105,10 +105,12 @@ export default class {{className}} {
 {{#endpoints}}
   // {{title}}{{#description}}
   // {{description}}{{/description}}
-  async {{fname}} ({{#if fargs}}{ {{#fargs}}{{.}},{{/fargs}} } = {}{{/if}}) {
+  async {{fname}} (args = {}) {
+    {{#if fargs}}const { {{#fargs}}{{.}},{{/fargs}} } = args{{/if}}
     {{#required}}
     if (!{{.}}) {
-      throw Error('Field {{.}} is empty')
+      console.error('{{../fname}} failed, field {{.}} is empty', { args }) // log error so we can debug/trace it
+      throw Error('field {{.}} is empty')
     }{{/required}}
     
     let cfg = {

@@ -73,7 +73,8 @@ export default class Compose {
   }
 
   // List namespaces
-  async namespaceList ({query, page, perPage, } = {}) {
+  async namespaceList (args = {}) {
+    const {query, page, perPage, } = args
 
 
     let cfg = {
@@ -96,12 +97,19 @@ export default class Compose {
   }
 
   // Create namespace
-  async namespaceCreate ({name, slug, enabled, meta, } = {}) {
+  async namespaceCreate (args = {}) {
+    const {name, slug, enabled, meta, } = args
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('namespaceCreate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
     if (!meta) {
-      throw Error('Field meta is empty')
+      console.error('namespaceCreate failed, field meta is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field meta is empty')
     }
 
     let cfg = {
@@ -125,9 +133,13 @@ export default class Compose {
   }
 
   // Read namespace
-  async namespaceRead ({namespaceID, } = {}) {
+  async namespaceRead (args = {}) {
+    const {namespaceID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('namespaceRead failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
 
     let cfg = {
@@ -148,15 +160,25 @@ export default class Compose {
   }
 
   // Update namespace
-  async namespaceUpdate ({namespaceID, name, slug, enabled, meta, updatedAt, } = {}) {
+  async namespaceUpdate (args = {}) {
+    const {namespaceID, name, slug, enabled, meta, updatedAt, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('namespaceUpdate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('namespaceUpdate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
     if (!meta) {
-      throw Error('Field meta is empty')
+      console.error('namespaceUpdate failed, field meta is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field meta is empty')
     }
 
     let cfg = {
@@ -183,9 +205,13 @@ export default class Compose {
   }
 
   // Delete namespace
-  async namespaceDelete ({namespaceID, } = {}) {
+  async namespaceDelete (args = {}) {
+    const {namespaceID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('namespaceDelete failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
 
     let cfg = {
@@ -206,9 +232,13 @@ export default class Compose {
   }
 
   // List available pages
-  async pageList ({namespaceID, selfID, query, page, perPage, } = {}) {
+  async pageList (args = {}) {
+    const {namespaceID, selfID, query, page, perPage, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('pageList failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
 
     let cfg = {
@@ -234,15 +264,25 @@ export default class Compose {
   }
 
   // Create page
-  async pageCreate ({namespaceID, selfID, moduleID, title, description, visible, blocks, } = {}) {
+  async pageCreate (args = {}) {
+    const {namespaceID, selfID, moduleID, title, description, visible, blocks, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('pageCreate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!title) {
-      throw Error('Field title is empty')
+      console.error('pageCreate failed, field title is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field title is empty')
     }
     if (!blocks) {
-      throw Error('Field blocks is empty')
+      console.error('pageCreate failed, field blocks is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field blocks is empty')
     }
 
     let cfg = {
@@ -270,12 +310,19 @@ export default class Compose {
   }
 
   // Get page details
-  async pageRead ({namespaceID, pageID, } = {}) {
+  async pageRead (args = {}) {
+    const {namespaceID, pageID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('pageRead failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!pageID) {
-      throw Error('Field pageID is empty')
+      console.error('pageRead failed, field pageID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field pageID is empty')
     }
 
     let cfg = {
@@ -297,9 +344,13 @@ export default class Compose {
   }
 
   // Get page all (non-record) pages, hierarchically
-  async pageTree ({namespaceID, } = {}) {
+  async pageTree (args = {}) {
+    const {namespaceID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('pageTree failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
 
     let cfg = {
@@ -320,18 +371,31 @@ export default class Compose {
   }
 
   // Update page
-  async pageUpdate ({namespaceID, pageID, selfID, moduleID, title, description, visible, blocks, } = {}) {
+  async pageUpdate (args = {}) {
+    const {namespaceID, pageID, selfID, moduleID, title, description, visible, blocks, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('pageUpdate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!pageID) {
-      throw Error('Field pageID is empty')
+      console.error('pageUpdate failed, field pageID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field pageID is empty')
     }
     if (!title) {
-      throw Error('Field title is empty')
+      console.error('pageUpdate failed, field title is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field title is empty')
     }
     if (!blocks) {
-      throw Error('Field blocks is empty')
+      console.error('pageUpdate failed, field blocks is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field blocks is empty')
     }
 
     let cfg = {
@@ -360,15 +424,25 @@ export default class Compose {
   }
 
   // Reorder pages
-  async pageReorder ({namespaceID, selfID, pageIDs, } = {}) {
+  async pageReorder (args = {}) {
+    const {namespaceID, selfID, pageIDs, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('pageReorder failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!selfID) {
-      throw Error('Field selfID is empty')
+      console.error('pageReorder failed, field selfID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field selfID is empty')
     }
     if (!pageIDs) {
-      throw Error('Field pageIDs is empty')
+      console.error('pageReorder failed, field pageIDs is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field pageIDs is empty')
     }
 
     let cfg = {
@@ -392,12 +466,19 @@ export default class Compose {
   }
 
   // Delete page
-  async pageDelete ({namespaceID, pageID, } = {}) {
+  async pageDelete (args = {}) {
+    const {namespaceID, pageID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('pageDelete failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!pageID) {
-      throw Error('Field pageID is empty')
+      console.error('pageDelete failed, field pageID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field pageID is empty')
     }
 
     let cfg = {
@@ -419,15 +500,25 @@ export default class Compose {
   }
 
   // Uploads attachment to page
-  async pageUpload ({namespaceID, pageID, upload, } = {}) {
+  async pageUpload (args = {}) {
+    const {namespaceID, pageID, upload, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('pageUpload failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!pageID) {
-      throw Error('Field pageID is empty')
+      console.error('pageUpload failed, field pageID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field pageID is empty')
     }
     if (!upload) {
-      throw Error('Field upload is empty')
+      console.error('pageUpload failed, field upload is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field upload is empty')
     }
 
     let cfg = {
@@ -451,9 +542,13 @@ export default class Compose {
   }
 
   // List modules
-  async moduleList ({namespaceID, query, page, perPage, } = {}) {
+  async moduleList (args = {}) {
+    const {namespaceID, query, page, perPage, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('moduleList failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
 
     let cfg = {
@@ -478,18 +573,31 @@ export default class Compose {
   }
 
   // Create module
-  async moduleCreate ({namespaceID, name, fields, meta, } = {}) {
+  async moduleCreate (args = {}) {
+    const {namespaceID, name, fields, meta, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('moduleCreate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('moduleCreate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
     if (!fields) {
-      throw Error('Field fields is empty')
+      console.error('moduleCreate failed, field fields is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field fields is empty')
     }
     if (!meta) {
-      throw Error('Field meta is empty')
+      console.error('moduleCreate failed, field meta is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field meta is empty')
     }
 
     let cfg = {
@@ -514,12 +622,19 @@ export default class Compose {
   }
 
   // Read module
-  async moduleRead ({namespaceID, moduleID, } = {}) {
+  async moduleRead (args = {}) {
+    const {namespaceID, moduleID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('moduleRead failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('moduleRead failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
 
     let cfg = {
@@ -541,21 +656,37 @@ export default class Compose {
   }
 
   // Update module
-  async moduleUpdate ({namespaceID, moduleID, name, fields, meta, updatedAt, } = {}) {
+  async moduleUpdate (args = {}) {
+    const {namespaceID, moduleID, name, fields, meta, updatedAt, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('moduleUpdate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('moduleUpdate failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('moduleUpdate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
     if (!fields) {
-      throw Error('Field fields is empty')
+      console.error('moduleUpdate failed, field fields is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field fields is empty')
     }
     if (!meta) {
-      throw Error('Field meta is empty')
+      console.error('moduleUpdate failed, field meta is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field meta is empty')
     }
 
     let cfg = {
@@ -582,12 +713,19 @@ export default class Compose {
   }
 
   // Delete module
-  async moduleDelete ({namespaceID, moduleID, } = {}) {
+  async moduleDelete (args = {}) {
+    const {namespaceID, moduleID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('moduleDelete failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('moduleDelete failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
 
     let cfg = {
@@ -609,15 +747,25 @@ export default class Compose {
   }
 
   // Generates report from module records
-  async recordReport ({namespaceID, moduleID, metrics, dimensions, filter, } = {}) {
+  async recordReport (args = {}) {
+    const {namespaceID, moduleID, metrics, dimensions, filter, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('recordReport failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('recordReport failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
     if (!dimensions) {
-      throw Error('Field dimensions is empty')
+      console.error('recordReport failed, field dimensions is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field dimensions is empty')
     }
 
     let cfg = {
@@ -643,12 +791,19 @@ export default class Compose {
   }
 
   // List/read records from module section
-  async recordList ({namespaceID, moduleID, filter, page, perPage, sort, } = {}) {
+  async recordList (args = {}) {
+    const {namespaceID, moduleID, filter, page, perPage, sort, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('recordList failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('recordList failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
 
     let cfg = {
@@ -675,15 +830,25 @@ export default class Compose {
   }
 
   // Create record in module section
-  async recordCreate ({namespaceID, moduleID, values, } = {}) {
+  async recordCreate (args = {}) {
+    const {namespaceID, moduleID, values, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('recordCreate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('recordCreate failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
     if (!values) {
-      throw Error('Field values is empty')
+      console.error('recordCreate failed, field values is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field values is empty')
     }
 
     let cfg = {
@@ -707,15 +872,25 @@ export default class Compose {
   }
 
   // Read records by ID from module section
-  async recordRead ({namespaceID, moduleID, recordID, } = {}) {
+  async recordRead (args = {}) {
+    const {namespaceID, moduleID, recordID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('recordRead failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('recordRead failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
     if (!recordID) {
-      throw Error('Field recordID is empty')
+      console.error('recordRead failed, field recordID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field recordID is empty')
     }
 
     let cfg = {
@@ -738,18 +913,31 @@ export default class Compose {
   }
 
   // Update records in module section
-  async recordUpdate ({namespaceID, moduleID, recordID, values, } = {}) {
+  async recordUpdate (args = {}) {
+    const {namespaceID, moduleID, recordID, values, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('recordUpdate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('recordUpdate failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
     if (!recordID) {
-      throw Error('Field recordID is empty')
+      console.error('recordUpdate failed, field recordID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field recordID is empty')
     }
     if (!values) {
-      throw Error('Field values is empty')
+      console.error('recordUpdate failed, field values is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field values is empty')
     }
 
     let cfg = {
@@ -774,15 +962,25 @@ export default class Compose {
   }
 
   // Delete record row from module section
-  async recordDelete ({namespaceID, moduleID, recordID, } = {}) {
+  async recordDelete (args = {}) {
+    const {namespaceID, moduleID, recordID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('recordDelete failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('recordDelete failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
     if (!recordID) {
-      throw Error('Field recordID is empty')
+      console.error('recordDelete failed, field recordID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field recordID is empty')
     }
 
     let cfg = {
@@ -805,21 +1003,37 @@ export default class Compose {
   }
 
   // Uploads attachment and validates it against record field requirements
-  async recordUpload ({namespaceID, moduleID, recordID, fieldName, upload, } = {}) {
+  async recordUpload (args = {}) {
+    const {namespaceID, moduleID, recordID, fieldName, upload, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('recordUpload failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      throw Error('Field moduleID is empty')
+      console.error('recordUpload failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
     }
     if (!recordID) {
-      throw Error('Field recordID is empty')
+      console.error('recordUpload failed, field recordID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field recordID is empty')
     }
     if (!fieldName) {
-      throw Error('Field fieldName is empty')
+      console.error('recordUpload failed, field fieldName is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field fieldName is empty')
     }
     if (!upload) {
-      throw Error('Field upload is empty')
+      console.error('recordUpload failed, field upload is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field upload is empty')
     }
 
     let cfg = {
@@ -845,9 +1059,13 @@ export default class Compose {
   }
 
   // List/read charts
-  async chartList ({namespaceID, query, page, perPage, } = {}) {
+  async chartList (args = {}) {
+    const {namespaceID, query, page, perPage, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('chartList failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
 
     let cfg = {
@@ -872,15 +1090,25 @@ export default class Compose {
   }
 
   // List/read charts
-  async chartCreate ({namespaceID, config, name, } = {}) {
+  async chartCreate (args = {}) {
+    const {namespaceID, config, name, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('chartCreate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!config) {
-      throw Error('Field config is empty')
+      console.error('chartCreate failed, field config is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field config is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('chartCreate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -904,12 +1132,19 @@ export default class Compose {
   }
 
   // Read charts by ID
-  async chartRead ({namespaceID, chartID, } = {}) {
+  async chartRead (args = {}) {
+    const {namespaceID, chartID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('chartRead failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!chartID) {
-      throw Error('Field chartID is empty')
+      console.error('chartRead failed, field chartID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field chartID is empty')
     }
 
     let cfg = {
@@ -931,18 +1166,31 @@ export default class Compose {
   }
 
   // Add/update charts
-  async chartUpdate ({namespaceID, chartID, config, name, updatedAt, } = {}) {
+  async chartUpdate (args = {}) {
+    const {namespaceID, chartID, config, name, updatedAt, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('chartUpdate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!chartID) {
-      throw Error('Field chartID is empty')
+      console.error('chartUpdate failed, field chartID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field chartID is empty')
     }
     if (!config) {
-      throw Error('Field config is empty')
+      console.error('chartUpdate failed, field config is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field config is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('chartUpdate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -968,12 +1216,19 @@ export default class Compose {
   }
 
   // Delete chart
-  async chartDelete ({namespaceID, chartID, } = {}) {
+  async chartDelete (args = {}) {
+    const {namespaceID, chartID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('chartDelete failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!chartID) {
-      throw Error('Field chartID is empty')
+      console.error('chartDelete failed, field chartID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field chartID is empty')
     }
 
     let cfg = {
@@ -995,9 +1250,13 @@ export default class Compose {
   }
 
   // List available triggers
-  async triggerList ({namespaceID, moduleID, query, page, perPage, } = {}) {
+  async triggerList (args = {}) {
+    const {namespaceID, moduleID, query, page, perPage, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('triggerList failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
 
     let cfg = {
@@ -1023,12 +1282,19 @@ export default class Compose {
   }
 
   // Create trigger
-  async triggerCreate ({namespaceID, moduleID, name, actions, enabled, source, updatedAt, } = {}) {
+  async triggerCreate (args = {}) {
+    const {namespaceID, moduleID, name, actions, enabled, source, updatedAt, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('triggerCreate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('triggerCreate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -1056,12 +1322,19 @@ export default class Compose {
   }
 
   // Get trigger details
-  async triggerRead ({namespaceID, triggerID, } = {}) {
+  async triggerRead (args = {}) {
+    const {namespaceID, triggerID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('triggerRead failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!triggerID) {
-      throw Error('Field triggerID is empty')
+      console.error('triggerRead failed, field triggerID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field triggerID is empty')
     }
 
     let cfg = {
@@ -1083,15 +1356,25 @@ export default class Compose {
   }
 
   // Update trigger
-  async triggerUpdate ({namespaceID, triggerID, moduleID, name, actions, enabled, source, } = {}) {
+  async triggerUpdate (args = {}) {
+    const {namespaceID, triggerID, moduleID, name, actions, enabled, source, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('triggerUpdate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!triggerID) {
-      throw Error('Field triggerID is empty')
+      console.error('triggerUpdate failed, field triggerID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field triggerID is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('triggerUpdate failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -1119,12 +1402,19 @@ export default class Compose {
   }
 
   // Delete trigger
-  async triggerDelete ({namespaceID, triggerID, } = {}) {
+  async triggerDelete (args = {}) {
+    const {namespaceID, triggerID, } = args
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('triggerDelete failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!triggerID) {
-      throw Error('Field triggerID is empty')
+      console.error('triggerDelete failed, field triggerID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field triggerID is empty')
     }
 
     let cfg = {
@@ -1146,12 +1436,19 @@ export default class Compose {
   }
 
   // Send email from the Compose
-  async notificationEmailSend ({to, cc, replyTo, subject, content, } = {}) {
+  async notificationEmailSend (args = {}) {
+    const {to, cc, replyTo, subject, content, } = args
     if (!to) {
-      throw Error('Field to is empty')
+      console.error('notificationEmailSend failed, field to is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field to is empty')
     }
     if (!content) {
-      throw Error('Field content is empty')
+      console.error('notificationEmailSend failed, field content is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field content is empty')
     }
 
     let cfg = {
@@ -1176,12 +1473,19 @@ export default class Compose {
   }
 
   // List, filter all page attachments
-  async attachmentList ({kind, namespaceID, sign, userID, pageID, moduleID, recordID, fieldName, page, perPage, } = {}) {
+  async attachmentList (args = {}) {
+    const {kind, namespaceID, sign, userID, pageID, moduleID, recordID, fieldName, page, perPage, } = args
     if (!kind) {
-      throw Error('Field kind is empty')
+      console.error('attachmentList failed, field kind is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('attachmentList failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
 
     let cfg = {
@@ -1212,15 +1516,25 @@ export default class Compose {
   }
 
   // Attachment details
-  async attachmentRead ({kind, namespaceID, attachmentID, sign, userID, } = {}) {
+  async attachmentRead (args = {}) {
+    const {kind, namespaceID, attachmentID, sign, userID, } = args
     if (!kind) {
-      throw Error('Field kind is empty')
+      console.error('attachmentRead failed, field kind is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('attachmentRead failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!attachmentID) {
-      throw Error('Field attachmentID is empty')
+      console.error('attachmentRead failed, field attachmentID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field attachmentID is empty')
     }
 
     let cfg = {
@@ -1246,15 +1560,25 @@ export default class Compose {
   }
 
   // Delete attachment
-  async attachmentDelete ({kind, namespaceID, attachmentID, sign, userID, } = {}) {
+  async attachmentDelete (args = {}) {
+    const {kind, namespaceID, attachmentID, sign, userID, } = args
     if (!kind) {
-      throw Error('Field kind is empty')
+      console.error('attachmentDelete failed, field kind is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('attachmentDelete failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!attachmentID) {
-      throw Error('Field attachmentID is empty')
+      console.error('attachmentDelete failed, field attachmentID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field attachmentID is empty')
     }
 
     let cfg = {
@@ -1280,18 +1604,31 @@ export default class Compose {
   }
 
   // Serves attached file
-  async attachmentOriginal ({kind, namespaceID, attachmentID, name, sign, userID, download, } = {}) {
+  async attachmentOriginal (args = {}) {
+    const {kind, namespaceID, attachmentID, name, sign, userID, download, } = args
     if (!kind) {
-      throw Error('Field kind is empty')
+      console.error('attachmentOriginal failed, field kind is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('attachmentOriginal failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!attachmentID) {
-      throw Error('Field attachmentID is empty')
+      console.error('attachmentOriginal failed, field attachmentID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field attachmentID is empty')
     }
     if (!name) {
-      throw Error('Field name is empty')
+      console.error('attachmentOriginal failed, field name is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field name is empty')
     }
 
     let cfg = {
@@ -1319,18 +1656,31 @@ export default class Compose {
   }
 
   // Serves preview of an attached file
-  async attachmentPreview ({kind, namespaceID, attachmentID, ext, sign, userID, } = {}) {
+  async attachmentPreview (args = {}) {
+    const {kind, namespaceID, attachmentID, ext, sign, userID, } = args
     if (!kind) {
-      throw Error('Field kind is empty')
+      console.error('attachmentPreview failed, field kind is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      throw Error('Field namespaceID is empty')
+      console.error('attachmentPreview failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
     }
     if (!attachmentID) {
-      throw Error('Field attachmentID is empty')
+      console.error('attachmentPreview failed, field attachmentID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field attachmentID is empty')
     }
     if (!ext) {
-      throw Error('Field ext is empty')
+      console.error('attachmentPreview failed, field ext is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field ext is empty')
     }
 
     let cfg = {
@@ -1357,7 +1707,8 @@ export default class Compose {
   }
 
   // Retrieve defined permissions
-  async permissionsList () {
+  async permissionsList (args = {}) {
+
 
 
     let cfg = {
@@ -1376,7 +1727,8 @@ export default class Compose {
   }
 
   // Effective rules for current user
-  async permissionsEffective ({resource, } = {}) {
+  async permissionsEffective (args = {}) {
+    const {resource, } = args
 
 
     let cfg = {
@@ -1397,9 +1749,13 @@ export default class Compose {
   }
 
   // Retrieve role permissions
-  async permissionsRead ({roleID, } = {}) {
+  async permissionsRead (args = {}) {
+    const {roleID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('permissionsRead failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
 
     let cfg = {
@@ -1420,9 +1776,13 @@ export default class Compose {
   }
 
   // Remove all defined role permissions
-  async permissionsDelete ({roleID, } = {}) {
+  async permissionsDelete (args = {}) {
+    const {roleID, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('permissionsDelete failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
 
     let cfg = {
@@ -1443,12 +1803,19 @@ export default class Compose {
   }
 
   // Update permission settings
-  async permissionsUpdate ({roleID, rules, } = {}) {
+  async permissionsUpdate (args = {}) {
+    const {roleID, rules, } = args
     if (!roleID) {
-      throw Error('Field roleID is empty')
+      console.error('permissionsUpdate failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
     }
     if (!rules) {
-      throw Error('Field rules is empty')
+      console.error('permissionsUpdate failed, field rules is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field rules is empty')
     }
 
     let cfg = {
