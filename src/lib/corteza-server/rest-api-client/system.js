@@ -1190,6 +1190,41 @@ export default class System {
     return `/users/${userID}/unsuspend`
   }
 
+  // Set&#x27;s or changes user&#x27;s password
+  async userSetPassword (args = {}) {
+    const {userID, password, } = args
+    if (!userID) {
+      console.error('userSetPassword failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
+    }
+    if (!password) {
+      console.error('userSetPassword failed, field password is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field password is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.userSetPasswordEndpoint({
+        userID,
+      }),
+    }
+
+    cfg.data = {
+      password,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  userSetPasswordEndpoint ({userID, } = {}) {
+    return `/users/${userID}/password`
+  }
+
   // List applications
   async applicationList (args = {}) {
 
