@@ -49,9 +49,11 @@ export default {
 
   methods: {
     reloadBrokenImage (ev) {
-      window.setTimeout(() => {
-        ev.target.src = ev.target.src
-      }, 500)
+      if (ev.target && ev.target.src) {
+        window.setTimeout(() => {
+          ev.target.src = ev.target.src
+        }, 500)
+      }
     },
   },
 }
