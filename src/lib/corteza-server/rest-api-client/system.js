@@ -980,7 +980,7 @@ export default class System {
 
   // Search users (Directory)
   async userList (args = {}) {
-    const {query, username, email, } = args
+    const {query, username, email, kind, incDeleted, incSuspended, sort, page, perPage, } = args
 
 
     let cfg = {
@@ -991,6 +991,12 @@ export default class System {
       query,
       username,
       email,
+      kind,
+      incDeleted,
+      incSuspended,
+      sort,
+      page,
+      perPage,
     }
 
     return new Promise((resolve, reject) => {
