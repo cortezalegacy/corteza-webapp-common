@@ -1082,7 +1082,7 @@ export default class System {
     return `/users/${userID}`
   }
 
-  // Read user details and memberships
+  // Read user details
   async userRead (args = {}) {
     const {userID, } = args
     if (!userID) {
@@ -1223,6 +1223,101 @@ export default class System {
 
   userSetPasswordEndpoint ({userID, } = {}) {
     return `/users/${userID}/password`
+  }
+
+  // Add member to a role
+  async userMembershipList (args = {}) {
+    const {userID, } = args
+    if (!userID) {
+      console.error('userMembershipList failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.userMembershipListEndpoint({
+        userID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  userMembershipListEndpoint ({userID, } = {}) {
+    return `/users/${userID}/membership`
+  }
+
+  // Add role to a user
+  async userMembershipAdd (args = {}) {
+    const {roleID, userID, } = args
+    if (!roleID) {
+      console.error('userMembershipAdd failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
+    }
+    if (!userID) {
+      console.error('userMembershipAdd failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.userMembershipAddEndpoint({
+        roleID,
+        userID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  userMembershipAddEndpoint ({roleID, userID, } = {}) {
+    return `/users/${userID}/membership/${roleID}`
+  }
+
+  // Remove role from a user
+  async userMembershipRemove (args = {}) {
+    const {roleID, userID, } = args
+    if (!roleID) {
+      console.error('userMembershipRemove failed, field roleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
+    }
+    if (!userID) {
+      console.error('userMembershipRemove failed, field userID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field userID is empty')
+    }
+
+    let cfg = {
+      method: 'delete',
+      url: this.userMembershipRemoveEndpoint({
+        roleID,
+        userID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  userMembershipRemoveEndpoint ({roleID, userID, } = {}) {
+    return `/users/${userID}/membership/${roleID}`
   }
 
   // List applications
