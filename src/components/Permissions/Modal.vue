@@ -44,13 +44,17 @@ export default {
 
     getTitle () {
       if (this.resource) {
-        let [, targetName, target] = this.resource.split(':')
-        if (target === '*') {
-          target = this.$t(`permission.${targetName}.all`)
+        if (this.resource.indexOf(':') > -1){
+          let [, targetName, target] = this.resource.split(':')
+          if (target === '*') {
+            target = this.$t(`permission.${targetName}.all`)
+          } else {
+            target = this.$t(`permission.${targetName}.specific`, { target: this.title })
+          }
+          return this.$t('permission.setFor', { target: target }).replace(/&amp;quot;|&quot;/g, '"')
         } else {
-          target = this.$t(`permission.${targetName}.specific`, { target: this.title })
+          return this.$t('permission.setFor', { target: this.$t(`permission.base.${this.resource}`) })
         }
-        return this.$t('permission.setFor', { target: target }).replace(/&amp;quot;|&quot;/g, '"')
       }
     },
   },
