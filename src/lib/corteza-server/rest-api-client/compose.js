@@ -1017,12 +1017,6 @@ export default class Compose {
       }) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
-    if (!recordID) {
-      console.error('recordUpload failed, field recordID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field recordID is empty')
-    }
     if (!fieldName) {
       console.error('recordUpload failed, field fieldName is empty', {
         args,
@@ -1041,12 +1035,12 @@ export default class Compose {
       url: this.recordUploadEndpoint({
         namespaceID,
         moduleID,
-        recordID,
-        fieldName,
       }),
     }
 
     cfg.data = {
+      recordID,
+      fieldName,
       upload,
     }
     return new Promise((resolve, reject) => {
@@ -1054,8 +1048,8 @@ export default class Compose {
     })
   }
 
-  recordUploadEndpoint ({namespaceID, moduleID, recordID, fieldName, } = {}) {
-    return `/namespace/${namespaceID}/module/${moduleID}/record/${recordID}/${fieldName}/attachment`
+  recordUploadEndpoint ({namespaceID, moduleID, } = {}) {
+    return `/namespace/${namespaceID}/module/${moduleID}/record/attachment`
   }
 
   // List/read charts
