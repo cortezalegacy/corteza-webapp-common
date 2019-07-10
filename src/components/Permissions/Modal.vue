@@ -44,7 +44,7 @@ export default {
 
     getTitle () {
       if (this.resource) {
-        if (this.resource.indexOf(':') > -1){
+        if (this.resource.indexOf(':') > -1) {
           let [, targetName, target] = this.resource.split(':')
           if (target === '*') {
             target = this.$t(`permission.${targetName}.all`)
