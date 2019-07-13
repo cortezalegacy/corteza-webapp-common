@@ -18,17 +18,29 @@ export default class Auth {
   // We're explicitly passing systemAPI to minimize plugin initialization complexity
   async check (systemAPI, _jwt = this.JWT) {
     if (!_jwt) {
-      return Promise.reject(new Error('invalid or empty JWT value'))
+      // purge stored jwt and user if any
+      this.user = undefined
+      this.jwt = undefined
+      return undefined
     }
 
     return systemAPI.setJWT(_jwt).authCheck().then(({ user, jwt = _jwt }) => {
       if (!user) {
-        return Promise.reject(new Error('unexpected resposne'))
+        throw new Error('unexpected response')
       }
 
       this.JWT = jwt
+
+      // @todo cast to User class
       this.user = user
-      return Promise.resolve(user)
+      return user
+    })
+  }
+
+  async logout (systemAPI) {
+    return systemAPI.setJWT(this.JWT).authLogout().finally(() => {
+      this.JWT = undefined
+      this.user = undefined
     })
   }
 
