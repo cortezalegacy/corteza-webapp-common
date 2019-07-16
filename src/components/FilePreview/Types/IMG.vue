@@ -65,8 +65,8 @@ div {
   object-fit: contain;
   img {
     &.loaded {
-      width: 75%;
-      height: 100%;
+      width: auto;
+      height: auto;
       margin: 0 auto;
       display: block;
     }
@@ -74,12 +74,10 @@ div {
   &:not(.inline) {
     margin: 20px auto;
     img {
-      max-width: 100%;
     }
   }
   &.inline {
     img {
-      width: 100%;
       cursor: zoom-in;
     }
   }
