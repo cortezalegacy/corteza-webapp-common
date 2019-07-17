@@ -21,7 +21,7 @@ export default class Auth {
       // purge stored jwt and user if any
       this.user = undefined
       this.jwt = undefined
-      return undefined
+      throw new Error('jwt undefined')
     }
 
     return systemAPI.setJWT(_jwt).authCheck().then(({ user, jwt = _jwt }) => {
