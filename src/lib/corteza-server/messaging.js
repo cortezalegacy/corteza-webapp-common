@@ -1,6 +1,10 @@
-import Messaging from './rest-api-client/messaging.js'
+import Messaging from './rest-api-client/messaging'
 
 const { MessagingAPI, CortezaMessagingAPI, CrustMessagingAPI } = window
-const baseURL = MessagingAPI || CortezaMessagingAPI || CrustMessagingAPI
 
-export default new Messaging({ baseURL })
+const opt = {
+  baseURL: MessagingAPI || CortezaMessagingAPI || CrustMessagingAPI,
+  jwt: localStorage.getItem('auth.jwt'),
+}
+
+export default new Messaging(opt)

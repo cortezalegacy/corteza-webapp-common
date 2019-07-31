@@ -1,6 +1,10 @@
-import System from './rest-api-client/system.js'
+import System from './rest-api-client/system'
 
 const { SystemAPI, CortezaSystemAPI, CrustSystemAPI } = window
-const baseURL = SystemAPI || CortezaSystemAPI || CrustSystemAPI
 
-export default new System({ baseURL })
+const opt = {
+  baseURL: SystemAPI || CortezaSystemAPI || CrustSystemAPI,
+  jwt: localStorage.getItem('auth.jwt'),
+}
+
+export default new System(opt)

@@ -48,8 +48,6 @@ export default class {{className}} {
 
     this.setHeaders(headers)
 
-    jwt = jwt || localStorage.getItem('auth.jwt')
-
     if (this.isValidJWT(jwt)) {
       this.setJWT(jwt)
     }

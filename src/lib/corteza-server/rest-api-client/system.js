@@ -16,8 +16,6 @@ export default class System {
 
     this.setHeaders(headers)
 
-    jwt = jwt || localStorage.getItem('auth.jwt')
-
     if (this.isValidJWT(jwt)) {
       this.setJWT(jwt)
     }

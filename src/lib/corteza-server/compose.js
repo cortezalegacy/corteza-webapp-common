@@ -1,6 +1,10 @@
-import Compose from './rest-api-client/compose.js'
+import Compose from './rest-api-client/compose'
 
 const { ComposeAPI, CortezaComposeAPI, CrustComposeAPI } = window
-const baseURL = ComposeAPI || CortezaComposeAPI || CrustComposeAPI
 
-export default new Compose({ baseURL })
+const opt = {
+  baseURL: ComposeAPI || CortezaComposeAPI || CrustComposeAPI,
+  jwt: localStorage.getItem('auth.jwt'),
+}
+
+export default new Compose(opt)

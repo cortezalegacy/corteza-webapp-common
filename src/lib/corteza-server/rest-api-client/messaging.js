@@ -16,8 +16,6 @@ export default class Messaging {
 
     this.setHeaders(headers)
 
-    jwt = jwt || localStorage.getItem('auth.jwt')
-
     if (this.isValidJWT(jwt)) {
       this.setJWT(jwt)
     }
