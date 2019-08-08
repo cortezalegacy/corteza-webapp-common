@@ -207,7 +207,7 @@ export default class Messaging {
 
   // Create new channel
   async channelCreate (args = {}) {
-    const {name, topic, type, members, } = args
+    const {name, topic, type, membershipPolicy, members, } = args
 
 
     let cfg = {
@@ -219,6 +219,7 @@ export default class Messaging {
       name,
       topic,
       type,
+      membershipPolicy,
       members,
     }
     return new Promise((resolve, reject) => {
@@ -232,7 +233,7 @@ export default class Messaging {
 
   // Update channel details
   async channelUpdate (args = {}) {
-    const {channelID, name, topic, type, organisationID, } = args
+    const {channelID, name, topic, membershipPolicy, type, organisationID, } = args
     if (!channelID) {
       console.error('channelUpdate failed, field channelID is empty', {
         args,
@@ -250,6 +251,7 @@ export default class Messaging {
     cfg.data = {
       name,
       topic,
+      membershipPolicy,
       type,
       organisationID,
     }
