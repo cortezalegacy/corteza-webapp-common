@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.18.1",
+    "diff": "^3.5.0",
     "mime-types": "^2.1.24",
     "pdfjs-dist": "^2.0.943"
   },
@@ -18,6 +19,6 @@
     "esformatter": "^0.10.0",
     "esformatter-add-trailing-commas": "^1.1.0",
     "handlebars": "^4.0.14",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.13"
   }
 }
