@@ -48,6 +48,30 @@ export default class Auth {
     return !!this.JWT
   }
 
+  // A friendly little wrapper that helps us navigate
+  //
+  // This should be used in all cases where we want to do a (relative)
+  // redirection.
+  //
+  // Browsers do not want to play this properly and loose the port if
+  // we do a window.location = '/foo'
+  goto (url = '/auth', ref = undefined) {
+    let u
+
+    if (/^http(s)?:\/\//.test(url)) {
+      u = new URL(url)
+    } else {
+      u = new URL(ref || window.location)
+      u.pathname = url
+    }
+    console.dir({ url: u.toString() })
+    window.location = u.toString()
+  }
+
+  open () {
+    this.goto('/auth')
+  }
+
   get JWT () {
     if (!this[jwt]) {
       this[jwt] = localStorage.getItem(lsAuthJWTKey)
