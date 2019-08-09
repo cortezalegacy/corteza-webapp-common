@@ -1,13 +1,17 @@
 <template>
     <a v-if="link" class="action" @click="onClick">
-      <i class="icon-fatlock" />
+      <font-awesome-icon :icon="['fas', 'lock']"></font-awesome-icon>
     </a>
     <b-button v-else @click="onClick" :variant="buttonVariant">
-      <slot><i class="action icon-fatlock" /></slot>
+      <slot><font-awesome-icon :icon="['fas', 'lock']"></font-awesome-icon></slot>
     </b-button>
 </template>
 <script>
 import { modalOpenEventName } from './def'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faLock } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faLock)
 
 export default {
   props: {
