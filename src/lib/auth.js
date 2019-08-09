@@ -64,7 +64,7 @@ export default class Auth {
       u = new URL(ref || window.location)
       u.pathname = url
     }
-    console.dir({ url: u.toString() })
+
     window.location = u.toString()
   }
 
