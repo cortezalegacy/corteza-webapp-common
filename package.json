@@ -6,7 +6,8 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "codegen:corteza-api-client": "node tools/codegen/corteza-api-client.js"
+    "codegen:corteza-api-client": "node tools/codegen/corteza-api-client.js",
+    "test:unit": "mocha -r esm --recursive"
   },
   "dependencies": {
     "axios": "^0.18.1",
@@ -20,6 +21,11 @@
     "esformatter": "^0.10.0",
     "esformatter-add-trailing-commas": "^1.1.0",
     "handlebars": "^4.0.14",
-    "lodash": "^4.17.13"
+    "lodash": "^4.17.13",
+    "esm": "^3.2.25",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^6.2.0",
+    "sinon": "^7.3.2"
   }
 }
