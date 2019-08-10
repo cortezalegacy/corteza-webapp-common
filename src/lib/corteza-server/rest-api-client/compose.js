@@ -744,6 +744,35 @@ export default class Compose {
     return `/namespace/${namespaceID}/module/${moduleID}`
   }
 
+  // List of UA scripts
+  async moduleUaScripts (args = {}) {
+    const {namespaceID, moduleID, } = args
+    if (!namespaceID) {
+      console.error('moduleUaScripts failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.moduleUaScriptsEndpoint({
+        namespaceID,
+      }),
+    }
+    cfg.params = {
+      moduleID,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  moduleUaScriptsEndpoint ({namespaceID, } = {}) {
+    return `/namespace/${namespaceID}/module/ua-scripts`
+  }
+
   // Generates report from module records
   async recordReport (args = {}) {
     const {namespaceID, moduleID, metrics, dimensions, filter, } = args
@@ -1000,6 +1029,49 @@ export default class Compose {
     return `/namespace/${namespaceID}/module/${moduleID}/record/${recordID}`
   }
 
+  // Trigger a specific script on record
+  async recordRunScript (args = {}) {
+    const {namespaceID, moduleID, recordID, scriptID, } = args
+    if (!namespaceID) {
+      console.error('recordRunScript failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!moduleID) {
+      console.error('recordRunScript failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
+    }
+    if (!scriptID) {
+      console.error('recordRunScript failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.recordRunScriptEndpoint({
+        namespaceID,
+        moduleID,
+      }),
+    }
+
+    cfg.data = {
+      recordID,
+      scriptID,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  recordRunScriptEndpoint ({namespaceID, moduleID, } = {}) {
+    return `/namespace/${namespaceID}/module/${moduleID}/record/run-script`
+  }
+
   // Uploads attachment and validates it against record field requirements
   async recordUpload (args = {}) {
     const {namespaceID, moduleID, recordID, fieldName, upload, } = args
@@ -1239,192 +1311,6 @@ export default class Compose {
 
   chartDeleteEndpoint ({namespaceID, chartID, } = {}) {
     return `/namespace/${namespaceID}/chart/${chartID}`
-  }
-
-  // List available triggers
-  async triggerList (args = {}) {
-    const {namespaceID, moduleID, query, page, perPage, } = args
-    if (!namespaceID) {
-      console.error('triggerList failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field namespaceID is empty')
-    }
-
-    let cfg = {
-      method: 'get',
-      url: this.triggerListEndpoint({
-        namespaceID,
-      }),
-    }
-    cfg.params = {
-      moduleID,
-      query,
-      page,
-      perPage,
-    }
-
-    return new Promise((resolve, reject) => {
-      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
-    })
-  }
-
-  triggerListEndpoint ({namespaceID, } = {}) {
-    return `/namespace/${namespaceID}/trigger/`
-  }
-
-  // Create trigger
-  async triggerCreate (args = {}) {
-    const {namespaceID, moduleID, name, actions, enabled, source, updatedAt, } = args
-    if (!namespaceID) {
-      console.error('triggerCreate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field namespaceID is empty')
-    }
-    if (!name) {
-      console.error('triggerCreate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field name is empty')
-    }
-
-    let cfg = {
-      method: 'post',
-      url: this.triggerCreateEndpoint({
-        namespaceID,
-      }),
-    }
-
-    cfg.data = {
-      moduleID,
-      name,
-      actions,
-      enabled,
-      source,
-      updatedAt,
-    }
-    return new Promise((resolve, reject) => {
-      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
-    })
-  }
-
-  triggerCreateEndpoint ({namespaceID, } = {}) {
-    return `/namespace/${namespaceID}/trigger/`
-  }
-
-  // Get trigger details
-  async triggerRead (args = {}) {
-    const {namespaceID, triggerID, } = args
-    if (!namespaceID) {
-      console.error('triggerRead failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field namespaceID is empty')
-    }
-    if (!triggerID) {
-      console.error('triggerRead failed, field triggerID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field triggerID is empty')
-    }
-
-    let cfg = {
-      method: 'get',
-      url: this.triggerReadEndpoint({
-        namespaceID,
-        triggerID,
-      }),
-    }
-
-
-    return new Promise((resolve, reject) => {
-      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
-    })
-  }
-
-  triggerReadEndpoint ({namespaceID, triggerID, } = {}) {
-    return `/namespace/${namespaceID}/trigger/${triggerID}`
-  }
-
-  // Update trigger
-  async triggerUpdate (args = {}) {
-    const {namespaceID, triggerID, moduleID, name, actions, enabled, source, } = args
-    if (!namespaceID) {
-      console.error('triggerUpdate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field namespaceID is empty')
-    }
-    if (!triggerID) {
-      console.error('triggerUpdate failed, field triggerID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field triggerID is empty')
-    }
-    if (!name) {
-      console.error('triggerUpdate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field name is empty')
-    }
-
-    let cfg = {
-      method: 'post',
-      url: this.triggerUpdateEndpoint({
-        namespaceID,
-        triggerID,
-      }),
-    }
-
-    cfg.data = {
-      moduleID,
-      name,
-      actions,
-      enabled,
-      source,
-    }
-    return new Promise((resolve, reject) => {
-      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
-    })
-  }
-
-  triggerUpdateEndpoint ({namespaceID, triggerID, } = {}) {
-    return `/namespace/${namespaceID}/trigger/${triggerID}`
-  }
-
-  // Delete trigger
-  async triggerDelete (args = {}) {
-    const {namespaceID, triggerID, } = args
-    if (!namespaceID) {
-      console.error('triggerDelete failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field namespaceID is empty')
-    }
-    if (!triggerID) {
-      console.error('triggerDelete failed, field triggerID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field triggerID is empty')
-    }
-
-    let cfg = {
-      method: 'delete',
-      url: this.triggerDeleteEndpoint({
-        namespaceID,
-        triggerID,
-      }),
-    }
-
-
-    return new Promise((resolve, reject) => {
-      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
-    })
-  }
-
-  triggerDeleteEndpoint ({namespaceID, triggerID, } = {}) {
-    return `/namespace/${namespaceID}/trigger/${triggerID}`
   }
 
   // Send email from the Compose
@@ -1827,6 +1713,421 @@ export default class Compose {
 
   permissionsUpdateEndpoint ({roleID, } = {}) {
     return `/permissions/${roleID}/rules`
+  }
+
+  // List/read automation script
+  async automationScriptList (args = {}) {
+    const {namespaceID, query, resource, incDeleted, page, perPage, } = args
+    if (!namespaceID) {
+      console.error('automationScriptList failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.automationScriptListEndpoint({
+        namespaceID,
+      }),
+    }
+    cfg.params = {
+      query,
+      resource,
+      incDeleted,
+      page,
+      perPage,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptListEndpoint ({namespaceID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/`
+  }
+
+  // Add new automation script
+  async automationScriptCreate (args = {}) {
+    const {namespaceID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = args
+    if (!namespaceID) {
+      console.error('automationScriptCreate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationScriptCreateEndpoint({
+        namespaceID,
+      }),
+    }
+
+    cfg.data = {
+      name,
+      sourceRef,
+      source,
+      runAs,
+      runInUA,
+      timeout,
+      critical,
+      async,
+      enabled,
+      triggers,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptCreateEndpoint ({namespaceID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/`
+  }
+
+  // Read automation script by ID
+  async automationScriptRead (args = {}) {
+    const {namespaceID, scriptID, } = args
+    if (!namespaceID) {
+      console.error('automationScriptRead failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!scriptID) {
+      console.error('automationScriptRead failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.automationScriptReadEndpoint({
+        namespaceID,
+        scriptID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptReadEndpoint ({namespaceID, scriptID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/${scriptID}`
+  }
+
+  // Update automation script
+  async automationScriptUpdate (args = {}) {
+    const {namespaceID, scriptID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = args
+    if (!namespaceID) {
+      console.error('automationScriptUpdate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!scriptID) {
+      console.error('automationScriptUpdate failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationScriptUpdateEndpoint({
+        namespaceID,
+        scriptID,
+      }),
+    }
+
+    cfg.data = {
+      name,
+      sourceRef,
+      source,
+      runAs,
+      runInUA,
+      timeout,
+      critical,
+      async,
+      enabled,
+      triggers,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptUpdateEndpoint ({namespaceID, scriptID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/${scriptID}`
+  }
+
+  // Delete script
+  async automationScriptDelete (args = {}) {
+    const {namespaceID, scriptID, } = args
+    if (!namespaceID) {
+      console.error('automationScriptDelete failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!scriptID) {
+      console.error('automationScriptDelete failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'delete',
+      url: this.automationScriptDeleteEndpoint({
+        namespaceID,
+        scriptID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptDeleteEndpoint ({namespaceID, scriptID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/${scriptID}`
+  }
+
+  // List/read automation script triggers
+  async automationTriggerList (args = {}) {
+    const {namespaceID, scriptID, resource, event, incDeleted, page, perPage, } = args
+    if (!namespaceID) {
+      console.error('automationTriggerList failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!scriptID) {
+      console.error('automationTriggerList failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.automationTriggerListEndpoint({
+        namespaceID,
+        scriptID,
+      }),
+    }
+    cfg.params = {
+      resource,
+      event,
+      incDeleted,
+      page,
+      perPage,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerListEndpoint ({namespaceID, scriptID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/${scriptID}/trigger/`
+  }
+
+  // Add new automation script trigger
+  async automationTriggerCreate (args = {}) {
+    const {namespaceID, scriptID, resource, event, condition, enabled, } = args
+    if (!namespaceID) {
+      console.error('automationTriggerCreate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!scriptID) {
+      console.error('automationTriggerCreate failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+    if (!resource) {
+      console.error('automationTriggerCreate failed, field resource is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field resource is empty')
+    }
+    if (!event) {
+      console.error('automationTriggerCreate failed, field event is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field event is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationTriggerCreateEndpoint({
+        namespaceID,
+        scriptID,
+      }),
+    }
+
+    cfg.data = {
+      resource,
+      event,
+      condition,
+      enabled,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerCreateEndpoint ({namespaceID, scriptID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/${scriptID}/trigger/`
+  }
+
+  // Read automation script trigger by ID
+  async automationTriggerRead (args = {}) {
+    const {namespaceID, scriptID, triggerID, } = args
+    if (!namespaceID) {
+      console.error('automationTriggerRead failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!scriptID) {
+      console.error('automationTriggerRead failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+    if (!triggerID) {
+      console.error('automationTriggerRead failed, field triggerID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field triggerID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.automationTriggerReadEndpoint({
+        namespaceID,
+        scriptID,
+        triggerID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerReadEndpoint ({namespaceID, scriptID, triggerID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/${scriptID}/trigger/${triggerID}`
+  }
+
+  // Update automation script trigger
+  async automationTriggerUpdate (args = {}) {
+    const {namespaceID, scriptID, triggerID, resource, event, condition, enabled, } = args
+    if (!namespaceID) {
+      console.error('automationTriggerUpdate failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!scriptID) {
+      console.error('automationTriggerUpdate failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+    if (!triggerID) {
+      console.error('automationTriggerUpdate failed, field triggerID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field triggerID is empty')
+    }
+    if (!resource) {
+      console.error('automationTriggerUpdate failed, field resource is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field resource is empty')
+    }
+    if (!event) {
+      console.error('automationTriggerUpdate failed, field event is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field event is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationTriggerUpdateEndpoint({
+        namespaceID,
+        scriptID,
+        triggerID,
+      }),
+    }
+
+    cfg.data = {
+      resource,
+      event,
+      condition,
+      enabled,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerUpdateEndpoint ({namespaceID, scriptID, triggerID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/${scriptID}/trigger/${triggerID}`
+  }
+
+  // Delete script
+  async automationTriggerDelete (args = {}) {
+    const {namespaceID, scriptID, triggerID, } = args
+    if (!namespaceID) {
+      console.error('automationTriggerDelete failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!scriptID) {
+      console.error('automationTriggerDelete failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+    if (!triggerID) {
+      console.error('automationTriggerDelete failed, field triggerID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field triggerID is empty')
+    }
+
+    let cfg = {
+      method: 'delete',
+      url: this.automationTriggerDeleteEndpoint({
+        namespaceID,
+        scriptID,
+        triggerID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerDeleteEndpoint ({namespaceID, scriptID, triggerID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/${scriptID}/trigger/${triggerID}`
   }
 
 }

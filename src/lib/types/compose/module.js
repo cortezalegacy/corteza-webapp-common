@@ -2,6 +2,16 @@ import ModuleField from './module-field'
 import { ComposeObject } from './common'
 import { ID, ArrayOf, ISO8601, PropCast } from '../common'
 
+const systemFields = [
+  { name: 'ownedBy', label: `Owned by`, kind: 'User' },
+  { name: 'createdBy', label: `Created by`, kind: 'User' },
+  { name: 'createdAt', label: `Created at`, kind: 'DateTime' },
+  { name: 'updatedBy', label: `Updated by`, kind: 'User' },
+  { name: 'updatedAt', label: `Updated at`, kind: 'DateTime' },
+  { name: 'deletedBy', label: `Deleted by`, kind: 'User' },
+  { name: 'deletedAt', label: `Deleted at`, kind: 'DateTime' },
+].map(f => new ModuleField({ ...f, isSystem: true }))
+
 export default class Module extends ComposeObject {
   constructor (m = {}) {
     super()
@@ -36,5 +46,17 @@ export default class Module extends ComposeObject {
 
   fieldNames () {
     return this.fields.map(f => f.name)
+  }
+
+  systemFields () {
+    return systemFields
+  }
+
+  export () {
+    return this
+  }
+
+  import () {
+    return this
   }
 }

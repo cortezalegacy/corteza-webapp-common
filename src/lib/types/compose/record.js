@@ -76,7 +76,7 @@ export default class Record extends ComposeObject {
       values[name] = isMulti ? [] : undefined
     })
 
-    this.values = Object.seal(values)
+    this.values = values
   }
 
   serializeValues () {
