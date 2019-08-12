@@ -57,10 +57,8 @@ export default class Record extends ComposeObject {
     this.updatedAt = PropCast(ISO8601, r.updatedAt)
     this.deletedAt = PropCast(ISO8601, r.deletedAt)
 
-    if (r.values !== undefined && Array.isArray(r.values)) {
+    if (r.values !== undefined) {
       this.setValues(r.values)
-    } else if (typeof r.values === 'object') {
-      this.values = r.values
     }
   }
 
