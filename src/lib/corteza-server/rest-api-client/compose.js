@@ -744,35 +744,6 @@ export default class Compose {
     return `/namespace/${namespaceID}/module/${moduleID}`
   }
 
-  // List of UA scripts
-  async moduleUaScripts (args = {}) {
-    const {namespaceID, moduleID, } = args
-    if (!namespaceID) {
-      console.error('moduleUaScripts failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field namespaceID is empty')
-    }
-
-    let cfg = {
-      method: 'get',
-      url: this.moduleUaScriptsEndpoint({
-        namespaceID,
-      }),
-    }
-    cfg.params = {
-      moduleID,
-    }
-
-    return new Promise((resolve, reject) => {
-      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
-    })
-  }
-
-  moduleUaScriptsEndpoint ({namespaceID, } = {}) {
-    return `/namespace/${namespaceID}/module/ua-scripts`
-  }
-
   // Generates report from module records
   async recordReport (args = {}) {
     const {namespaceID, moduleID, metrics, dimensions, filter, } = args
@@ -1027,49 +998,6 @@ export default class Compose {
 
   recordDeleteEndpoint ({namespaceID, moduleID, recordID, } = {}) {
     return `/namespace/${namespaceID}/module/${moduleID}/record/${recordID}`
-  }
-
-  // Trigger a specific script on record
-  async recordRunScript (args = {}) {
-    const {namespaceID, moduleID, recordID, scriptID, } = args
-    if (!namespaceID) {
-      console.error('recordRunScript failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field namespaceID is empty')
-    }
-    if (!moduleID) {
-      console.error('recordRunScript failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field moduleID is empty')
-    }
-    if (!scriptID) {
-      console.error('recordRunScript failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field scriptID is empty')
-    }
-
-    let cfg = {
-      method: 'post',
-      url: this.recordRunScriptEndpoint({
-        namespaceID,
-        moduleID,
-      }),
-    }
-
-    cfg.data = {
-      recordID,
-      scriptID,
-    }
-    return new Promise((resolve, reject) => {
-      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
-    })
-  }
-
-  recordRunScriptEndpoint ({namespaceID, moduleID, } = {}) {
-    return `/namespace/${namespaceID}/module/${moduleID}/record/run-script`
   }
 
   // Uploads attachment and validates it against record field requirements
@@ -1897,6 +1825,70 @@ export default class Compose {
 
   automationScriptDeleteEndpoint ({namespaceID, scriptID, } = {}) {
     return `/namespace/${namespaceID}/automation/script/${scriptID}`
+  }
+
+  // List of runnable (event&#x3D;manual) scripts (executable on the backend or from user-agent/browser)
+  async automationScriptRunnable (args = {}) {
+    const {namespaceID, resource, condition, } = args
+    if (!namespaceID) {
+      console.error('automationScriptRunnable failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.automationScriptRunnableEndpoint({
+        namespaceID,
+      }),
+    }
+    cfg.params = {
+      resource,
+      condition,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptRunnableEndpoint ({namespaceID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/runnable`
+  }
+
+  // Run a specific script or code at the backend. For testing and manual execution
+  async automationScriptRun (args = {}) {
+    const {namespaceID, scriptID, source, moduleID, recordID, module, record, } = args
+    if (!namespaceID) {
+      console.error('automationScriptRun failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationScriptRunEndpoint({
+        namespaceID,
+      }),
+    }
+
+    cfg.data = {
+      scriptID,
+      source,
+      moduleID,
+      recordID,
+      module,
+      record,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptRunEndpoint ({namespaceID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/run`
   }
 
   // List/read automation script triggers
