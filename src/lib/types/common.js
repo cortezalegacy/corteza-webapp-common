@@ -25,6 +25,8 @@ export function ID (value) {
     return value
   } else if (typeof value === 'number') {
     return String(value)
+  } else if (typeof value === 'object' && value.toString) {
+    return value.toString()
   } else {
     throw new Error('Invalid ID value')
   }
