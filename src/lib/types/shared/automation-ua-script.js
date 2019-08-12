@@ -8,8 +8,10 @@ export default class UserAgentScript extends CortezaObject {
     this.scriptID = PropCast(ID, s.scriptID)
     this.name = PropCast(String, s.name)
     this.source = PropCast(String, s.source)
+
     this.events = s.events
 
+    this.runInUA = !!s.runInUA
     this.async = !!s.async
   }
 
