@@ -1857,29 +1857,33 @@ export default class Compose {
     return `/namespace/${namespaceID}/automation/script/runnable`
   }
 
-  // Run a specific script or code at the backend. For testing and manual execution
+  // Run a specific script or code at the backend. Used for running script manually
   async automationScriptRun (args = {}) {
-    const {namespaceID, scriptID, source, moduleID, recordID, module, record, } = args
+    const {namespaceID, scriptID, moduleID, recordID, record, } = args
     if (!namespaceID) {
       console.error('automationScriptRun failed, field namespaceID is empty', {
         args,
       }) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
+    if (!scriptID) {
+      console.error('automationScriptRun failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
 
     let cfg = {
       method: 'post',
       url: this.automationScriptRunEndpoint({
         namespaceID,
+        scriptID,
       }),
     }
 
     cfg.data = {
-      scriptID,
-      source,
       moduleID,
       recordID,
-      module,
       record,
     }
     return new Promise((resolve, reject) => {
@@ -1887,8 +1891,39 @@ export default class Compose {
     })
   }
 
-  automationScriptRunEndpoint ({namespaceID, } = {}) {
-    return `/namespace/${namespaceID}/automation/script/run`
+  automationScriptRunEndpoint ({namespaceID, scriptID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/${scriptID}/run`
+  }
+
+  // Run source code in corredor. Used for testing
+  async automationScriptTest (args = {}) {
+    const {namespaceID, source, moduleID, record, } = args
+    if (!namespaceID) {
+      console.error('automationScriptTest failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationScriptTestEndpoint({
+        namespaceID,
+      }),
+    }
+
+    cfg.data = {
+      source,
+      moduleID,
+      record,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptTestEndpoint ({namespaceID, } = {}) {
+    return `/namespace/${namespaceID}/automation/script/test`
   }
 
   // List/read automation script triggers
