@@ -7,7 +7,6 @@
 
     <component
       slot="main"
-      :class="getClass"
       :is="previewType"
       v-on="$listeners"
       v-bind="$attrs" />
@@ -16,23 +15,17 @@
 </template>
 
 <script>
-import Lightbox from '../Lightbox'
-import Base from './Base'
+import { IMG, PDF } from './types'
+import Lightbox from '../../Lightbox'
+import Base from '../Base'
 
 export default {
   components: {
     Lightbox,
+    IMG,
+    PDF,
   },
 
   extends: Base,
-  inheritAttrs: false,
-
-  computed: {
-    getClass () {
-      if (this.previewType === 'IMG') {
-        return [ 'no-scroll' ]
-      }
-    },
-  },
 }
 </script>

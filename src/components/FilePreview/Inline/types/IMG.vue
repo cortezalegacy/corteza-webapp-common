@@ -1,11 +1,11 @@
 <template>
-  <div :class="{ inline }">
+  <div class="inline">
     <img ref="image" @click="$emit('openPreview', {})" :key="src" :src="src" :title="title" :alt="alt" :class="getClass" :style="previewStyle" @error.once="reloadBrokenImage" @load="loaded=true">
   </div>
 </template>
 
 <script>
-import Base from './Base'
+import Base from '../../common/Base'
 
 export default {
   extends: Base,
@@ -42,8 +42,8 @@ export default {
 
   created () {
     this.$nextTick(() => {
-      this.$refs.image.width = this.meta.width
-      this.$refs.image.height = this.meta.height
+      this.$refs.image.width = this.meta.preview.image.width
+      this.$refs.image.height = this.meta.preview.image.height
     })
   },
 
@@ -69,11 +69,6 @@ div {
       height: auto;
       margin: 0 auto;
       display: block;
-    }
-  }
-  &:not(.inline) {
-    margin: 20px auto;
-    img {
     }
   }
   &.inline {

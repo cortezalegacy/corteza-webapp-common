@@ -1,0 +1,74 @@
+<template>
+  <div class="popup-img-preview">
+    <photo-swipe @close="() => $emit('close')" :isOpen="true" :items="items" :options="options" />
+  </div>
+</template>
+
+<script>
+import { PhotoSwipe } from 'v-photoswipe'
+import Base from '../../common/Base'
+
+export default {
+  components: {
+    PhotoSwipe,
+  },
+
+  extends: Base,
+
+  data () {
+    return {
+      options: {
+        index: 0,
+        bgOpacity: 0,
+        closeOnScroll: false,
+        escKey: false,
+        history: false,
+        arrowKeys: false,
+        modal: false,
+
+        closeEl: false,
+        captionEl: false,
+        fullscreenEl: false,
+        zoomEl: false,
+        shareEl: false,
+        counterEl: false,
+        arrowEl: false,
+        preloaderEl: false,
+
+        clickToCloseNonZoomable: false,
+      },
+    }
+  },
+
+  computed: {
+    items () {
+      const { original, preview } = this.meta
+      const image = (original || preview || {}).image
+      if (!image) {
+        this.$emit('close')
+        return []
+      }
+
+      return [{
+        src: this.src,
+        w: image.width,
+        h: image.height,
+      }]
+    },
+  },
+}
+</script>
+
+<style lang="scss">
+.popup-img-preview {
+  .pswp {
+    pointer-events: none;
+    .pswp__img {
+      pointer-events: all;
+    }
+  }
+  .pswp__top-bar {
+    display: none!important;
+  }
+}
+</style>

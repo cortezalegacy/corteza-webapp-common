@@ -2,7 +2,7 @@
   "name": "corteza-webapp-common",
   "description": "Corteza common plugins, libs, components and API client",
   "author": "Denis Arh <denis.arh@crust.tech>",
-  "version": "2019.3.17",
+  "version": "2019.3.18",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,8 @@
     "axios": "^0.18.1",
     "diff": "^3.5.0",
     "mime-types": "^2.1.24",
-    "pdfjs-dist": "^2.0.943"
+    "pdfjs-dist": "^2.0.943",
+    "v-photoswipe": "https://github.com/tjerman/v-photoswipe#master"
   },
   "devDependencies": {
     "@vue/test-utils": "1.0.0-beta.29",

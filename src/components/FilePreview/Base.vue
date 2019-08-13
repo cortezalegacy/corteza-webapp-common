@@ -1,13 +1,7 @@
 <script>
-import { PDF, IMG } from './Types'
-import { getComponent } from '../../lib/file_preview'
+import { getComponent } from './'
 
 export default {
-  components: {
-    PDF,
-    IMG,
-  },
-
   inheritAttrs: false,
 
   computed: {

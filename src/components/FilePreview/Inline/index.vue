@@ -14,9 +14,15 @@
 </template>
 
 <script>
-import Base from './Base'
+import { IMG, PDF } from './types'
+import Base from '../Base'
 
 export default {
+  components: {
+    IMG,
+    PDF,
+  },
+
   extends: Base,
 }
 </script>
