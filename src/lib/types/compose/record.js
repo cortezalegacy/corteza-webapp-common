@@ -23,15 +23,9 @@ export default class Record extends ComposeObject {
       m = r.module
     }
 
-    if (m === undefined) {
-      throw new Error('invalid module (undefined)')
-    } else if (!(m instanceof Module)) {
-      throw new Error(`invalid module type (${typeof m === 'object' && m && m.constructor ? m.constructor.name : typeof m})`)
-    }
-
-    this.module = m
-    this.moduleID = PropCast(ID, m.moduleID)
-    this.namespaceID = PropCast(ID, m.namespaceID)
+    this.module = Object.freeze(new Module(m))
+    this.moduleID = PropCast(ID, this.module.moduleID)
+    this.namespaceID = PropCast(ID, this.module.namespaceID)
 
     this[fields] = {}
     this.module.fields.forEach(({ name, isMulti, kind }) => {
