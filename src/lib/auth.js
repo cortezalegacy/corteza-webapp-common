@@ -55,17 +55,21 @@ export default class Auth {
   //
   // Browsers do not want to play this properly and loose the port if
   // we do a window.location = '/foo'
-  goto (url = '/auth', ref = undefined) {
-    let u
+  goto (url = '/auth', ref = window.location.toString()) {
+    let u, r
 
     if (/^http(s)?:\/\//.test(url)) {
-      u = new URL(url)
+      window.location = url
+    } else if (/^\/\//.test(url)) {
+      r = new URL(ref)
+      window.location = r.protocol + url
     } else {
-      u = new URL(ref || window.location)
+      // Construct full relative URL from path
+      u = new URL(ref)
       u.pathname = url
-    }
 
-    window.location = u.toString()
+      window.location = u.toString()
+    }
   }
 
   open () {
