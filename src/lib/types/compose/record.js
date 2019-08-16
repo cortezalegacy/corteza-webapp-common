@@ -127,19 +127,4 @@ export default class Record extends ComposeObject {
       .map(f => f.validate(this.values[f.name]).length === 0)
       .filter(v => !v).length === 0
   }
-
-  // Add custom, runtime hooks on fields
-  // These hooks will be executed in order they are added
-  //
-  // We use these hooks mainly to handle upload on File field type
-  addHook (hook) {
-    this[hooks].push(hook)
-  }
-
-  // Execute hooks
-  execHooks () {
-    for (const hook of this[hooks]) {
-      hook.apply(this, arguments)
-    }
-  }
 }

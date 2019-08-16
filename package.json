@@ -2,7 +2,7 @@
   "name": "corteza-webapp-common",
   "description": "Corteza common plugins, libs, components and API client",
   "author": "Denis Arh <denis.arh@crust.tech>",
-  "version": "2019.3.18",
+  "version": "2019.6.1",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
@@ -14,18 +14,19 @@
     "diff": "^3.5.0",
     "mime-types": "^2.1.24",
     "pdfjs-dist": "^2.0.943",
-    "v-photoswipe": "https://github.com/tjerman/v-photoswipe#master"
+    "v-photoswipe": "https://github.com/tjerman/v-photoswipe#master",
+    "vm2": "^3.8.2"
   },
   "devDependencies": {
     "@vue/test-utils": "1.0.0-beta.29",
-    "esformatter": "^0.10.0",
-    "esformatter-add-trailing-commas": "^1.1.0",
-    "handlebars": "^4.0.14",
-    "lodash": "^4.17.13",
-    "esm": "^3.2.25",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "esformatter": "^0.10.0",
+    "esformatter-add-trailing-commas": "^1.1.0",
+    "esm": "^3.2.25",
+    "handlebars": "^4.0.14",
+    "lodash": "^4.17.13",
     "mocha": "^6.2.0",
-    "sinon": "^7.3.2"
+    "sinon": "7.4.1"
   }
 }
