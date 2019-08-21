@@ -15,23 +15,80 @@ const systemFields = [
 export default class Module extends ComposeObject {
   constructor (m = {}) {
     super()
+
+    /**
+     * @type {string}
+     */
     this.moduleID = PropCast(ID, m.moduleID)
+
+    /**
+     * @type {string}
+     */
     this.namespaceID = PropCast(ID, m.namespaceID)
+
+    /**
+     * @type {string}
+     */
     this.name = PropCast(String, m.name)
 
+    /**
+     * @type {ModuleField[]}
+     */
     this.fields = PropCast(ArrayOf(ModuleField), m.fields, [])
 
+    /**
+     * @type {string}
+     */
     this.createdAt = PropCast(ISO8601, m.createdAt)
+
+    /**
+     * @type {string}
+     */
     this.updatedAt = PropCast(ISO8601, m.updatedAt)
+
+    /**
+     * @type {string}
+     */
     this.deletedAt = PropCast(ISO8601, m.deletedAt)
 
+    /**
+     * @type {boolean}
+     */
     this.canUpdateModule = !!m.canUpdateModule
+
+    /**
+     * @type {boolean}
+     */
     this.canDeleteModule = !!m.canDeleteModule
+
+    /**
+     * @type {boolean}
+     */
     this.canCreateRecord = !!m.canCreateRecord
+
+    /**
+     * @type {boolean}
+     */
     this.canReadRecord = !!m.canReadRecord
+
+    /**
+     * @type {boolean}
+     */
     this.canUpdateRecord = !!m.canUpdateRecord
+
+    /**
+     * @type {boolean}
+     */
     this.canDeleteRecord = !!m.canDeleteRecord
+
+    /**
+     * @type {boolean}
+     */
     this.canManageAutomationTriggers = !!m.canManageAutomationTriggers
+
+    /**
+     * @type {boolean}
+     */
     this.canGrant = !!m.canGrant
   }
 

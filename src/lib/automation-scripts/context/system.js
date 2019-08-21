@@ -1,6 +1,9 @@
 import { extractID } from './shared'
 
-export default class SystemHelper {
+/**
+ * SystemHelper provides layer over System API and utilities that simplify automation script writing
+ */
+class SystemHelper {
   constructor (ctx = {}) {
     this.SystemAPI = ctx.SystemAPI
   }
@@ -9,7 +12,7 @@ export default class SystemHelper {
    * Searches for users
    *
    * @param filter
-   * @returns {Promise<*>}
+   * @returns {Promise<{filter: Object, set: Object[]}>}
    */
   findUsers (filter) {
     if (typeof filter === 'string') {
@@ -25,11 +28,13 @@ export default class SystemHelper {
   /**
    * Finds user by ID
    *
-   * @param {userID|Object|User}
-   * @returns {Promise<*>}
+   * @param {string|Object} user
+   * @return {Promise<Object>}
    */
-  async findRecordByID (user) {
+  async findUserByID (user) {
     // @todo convert to User obj
     return this.SystemAPI.userRead({ ...extractID(user, 'userID') })
   }
 }
+
+export default SystemHelper

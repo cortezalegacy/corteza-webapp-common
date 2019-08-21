@@ -13,6 +13,7 @@ import { Abort } from './errors'
  *  Here we convert non-$-prefixed namespace/module/record variables to
  *  script-scope $-prefixed variables.
  *
+ * @ignore
  * @param {Object} ctx
  */
 export function sharedContext (ctx = {}) {
@@ -48,6 +49,7 @@ export function sharedContext (ctx = {}) {
 /**
  * Extends & modifies context to be used for UA automation scripting
  *
+ * @ignore
  * @param {Object} ctx
  */
 export function uiContext (ctx = {}) {

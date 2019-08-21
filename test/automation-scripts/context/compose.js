@@ -14,24 +14,10 @@ describe('compose', () => {
   })
 
   describe('supporting functions', () => {
-    describe('findValidModule', () => {
-      it('should first valid module', () => {
+    describe('resolveModule', () => {
+      it('should first valid module', async () => {
         const m = new Module({ moduleID: '1', namespaceID: '2' })
-        expect(h.extractModule(undefined, null, false, 0, '', 'abc', m)).to.deep.equal(m)
-      })
-    })
-
-    describe('extractIDsFromModule', () => {
-      it('should extract IDs from Module', () => {
-        expect(h.extractIDsFromModule(new Module({ moduleID: '1', namespaceID: '2' }))).to.deep.equal({ moduleID: '1', namespaceID: '2' })
-      })
-
-      it('should extract IDs from Object', () => {
-        expect(h.extractIDsFromModule({ moduleID: '1', namespaceID: '2' })).to.deep.equal({ moduleID: '1', namespaceID: '2' })
-      })
-
-      it('should throw error on invalid input', () => {
-        expect(() => h.extractIDsFromModule()).to.throw()
+        expect(await h.resolveModule(undefined, null, false, 0, '', m)).to.deep.equal(m)
       })
     })
   })
@@ -47,10 +33,10 @@ describe('compose', () => {
       ],
     })
 
-    describe('MakeRecord', () => {
-      it('should make a record', () => {
-        expect(h.makeRecord({}, $module)).to.instanceof(Record)
-        expect(h.makeRecord({ str: 'foo' }, $module).values.str).to.equal('foo')
+    describe('makeRecord', () => {
+      it('should make a record', async () => {
+        expect(await h.makeRecord({}, $module)).to.instanceof(Record)
+        expect((await h.makeRecord({ str: 'foo' }, $module)).values.str).to.equal('foo')
       })
     })
 

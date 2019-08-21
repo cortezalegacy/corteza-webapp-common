@@ -5,27 +5,31 @@ const warning = { variant: 'warning', countdown: 120 }
 
 /**
  * ComposeUIHelper provides helpers for accessing Compose's UI
+ *
  */
-export default class ComposeUIHelper {
+class ComposeUIHelper {
+  /**
+   *
+   * @param {Namespace} ctx.$namespace - Current namespace
+   * @param {Module} ctx.$module - Current module
+   * @param {Record} ctx.$record - Current record
+   * @param {Page[]} ctx.pages - Array of Page objects
+   * @param {function} ctx.emitter - Event emitter (vm.$emit)
+   * @param {function} ctx.routePusher - Route pusher (vm.$route.push)
+   */
   constructor (ctx = {}) {
-    /** @member {Record} */
     this.$record = ctx.$record
-
-    /** @member {Module} */
     this.$module = ctx.$module
-
-    /** @member {function} */
     this.pages = ctx.pages
-
-    /** @member {function} */
     this.emitter = ctx.emitter
-
-    /** @member {function} */
     this.routePusher = ctx.routePusher
   }
 
   /**
    * Reload current page
+   *
+   * @example
+   * ComposeUI.reload()
    */
   reloadPage () {
     this.emitter('reload')
@@ -34,24 +38,45 @@ export default class ComposeUIHelper {
   /**
    * Open record viewer page
    *
+   * It searches for page that matches record's module and redirects
+   * user to the view mode on that page
+   *
+   * @example
+   * // Edit current record
+   * ComposeUI.gotoRecordViewer($record)
+   *
+   * // Edit current record ($record can be omitted)
+   * ComposeUI.gotoRecordViewer()
+   *
    * @param {Record} record
    */
-  gotoRecordEditor (record) {
+  gotoRecordViewer (record = this.$record) {
     this.gotoRecordPage('page.record', record)
   }
 
   /**
    * Open record editor page
    *
+   * It searches for page that matches record's module and redirects
+   * user to the edit mode on that page.
+   *
+   * @example
+   * // Edit current record
+   * ComposeUI.gotoRecordEditor($record)
+   *
+   * // Edit current record ($record can be omitted)
+   * ComposeUI.gotoRecordEditor()
+   *
    * @param {Record} record
    */
-  gotoRecordViewer (record) {
+  gotoRecordEditor (record = this.$record) {
     this.gotoRecordPage('page.record.edit', record)
   }
 
   /**
    * Open record page
    *
+   * @private
    * @param {string} name
    * @param {Record} record
    * @param {string} record.recordID
@@ -61,8 +86,12 @@ export default class ComposeUIHelper {
     let { pageID } = this.getRecordPage(record)
     let { recordID } = record
 
-    if (!pageID || !recordID) {
-      return
+    if (!pageID) {
+      throw Error('record page does not exist')
+    }
+
+    if (!recordID) {
+      throw Error('invalid record')
     }
 
     this.goto(name, { pageID, recordID })
@@ -71,6 +100,7 @@ export default class ComposeUIHelper {
   /**
    * Returns record page
    *
+   * @private
    * @param {Object} module
    * @param {string} module.moduleID
    * @returns {Page}
@@ -81,26 +111,35 @@ export default class ComposeUIHelper {
   }
 
   /**
-   * Opens a specific route
+   * Go to a specific route
    *
+   * @private
    * @param {string} name
    * @param {Object} params for $router.push
    */
   goto (name, params) {
+    console.log(name, params, this.routePusher)
     this.routePusher({ name, params })
   }
 
   /**
-   * Shows a success alert
+   * Show a success alert
+   *
+   * @example
+   * ComposeUI.success('Change was successful')
    *
    * @param message
    */
   success (message) {
+    console.log({ message })
     this.emitter('alert', { ...success, message })
   }
 
   /**
-   * Shows a warning alert
+   * Show a warning alert
+   *
+   * @example
+   * ComposeUI.success('Could not save your changes')
    *
    * @param message
    */
@@ -108,3 +147,5 @@ export default class ComposeUIHelper {
     this.emitter('alert', { ...warning, message })
   }
 }
+
+export default ComposeUIHelper

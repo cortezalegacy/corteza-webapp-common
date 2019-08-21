@@ -23,7 +23,11 @@ export default class Record extends ComposeObject {
       m = r.module
     }
 
-    this.module = Object.freeze(new Module(m))
+    // this is a temp solution that works around dual-module system we have (common + compose)
+    // @todo when we migrate to common's module, enable freeze w/ typed Module and remove freeze w/ { ...m }
+    // this.module = Object.freeze(new Module(m))
+    this.module = Object.freeze({ ...m })
+
     this.moduleID = PropCast(ID, this.module.moduleID)
     this.namespaceID = PropCast(ID, this.module.namespaceID)
 
@@ -123,6 +127,11 @@ export default class Record extends ComposeObject {
   }
 
   isValid () {
+    console.trace({
+      mname: this.module.name,
+      fields: this.module.fields,
+    })
+
     return this.module.fields
       .map(f => f.validate(this.values[f.name]).length === 0)
       .filter(v => !v).length === 0

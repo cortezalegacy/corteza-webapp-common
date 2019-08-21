@@ -541,7 +541,7 @@ export default class Compose {
 
   // List modules
   async moduleList (args = {}) {
-    const {namespaceID, query, page, perPage, } = args
+    const {namespaceID, query, name, page, perPage, } = args
     if (!namespaceID) {
       console.error('moduleList failed, field namespaceID is empty', {
         args,
@@ -557,6 +557,7 @@ export default class Compose {
     }
     cfg.params = {
       query,
+      name,
       page,
       perPage,
     }
@@ -825,6 +826,52 @@ export default class Compose {
 
   recordListEndpoint ({namespaceID, moduleID, } = {}) {
     return `/namespace/${namespaceID}/module/${moduleID}/record/`
+  }
+
+  // Exports records that match
+  async recordExport (args = {}) {
+    const {namespaceID, moduleID, filename, ext, filter, sort, download, } = args
+    if (!namespaceID) {
+      console.error('recordExport failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!moduleID) {
+      console.error('recordExport failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
+    }
+    if (!ext) {
+      console.error('recordExport failed, field ext is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field ext is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.recordExportEndpoint({
+        namespaceID,
+        moduleID,
+        filename,
+        ext,
+      }),
+    }
+    cfg.params = {
+      filter,
+      sort,
+      download,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  recordExportEndpoint ({namespaceID, moduleID, filename, ext, } = {}) {
+    return `/namespace/${namespaceID}/module/${moduleID}/record/export${filename}.${ext}`
   }
 
   // Create record in module section

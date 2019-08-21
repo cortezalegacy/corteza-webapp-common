@@ -1,4 +1,8 @@
-export default class MessagingHelper {
+/**
+ * MessagingHelper provides layer over Messaging API and utilities that simplify automation script writing
+ *
+ */
+class MessagingHelper {
   constructor (ctx = {}) {
     this.MessagingAPI = ctx.MessagingAPI
   }
@@ -27,3 +31,5 @@ export default class MessagingHelper {
   //   throw Error('not implemented')
   // }
 }
+
+export default MessagingHelper
