@@ -7,6 +7,8 @@
   "private": true,
   "scripts": {
     "codegen:corteza-api-client": "node tools/codegen/corteza-api-client.js",
+    "docsgen": "./node_modules/.bin/esdoc",
+    "docsgen:watch": "nodemon -w src/ --exec 'yarn docsgen'",
     "test:unit": "mocha -r esm --recursive"
   },
   "dependencies": {
@@ -21,6 +23,9 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
     "esformatter": "^0.10.0",
     "esformatter-add-trailing-commas": "^1.1.0",
     "esm": "^3.2.25",
