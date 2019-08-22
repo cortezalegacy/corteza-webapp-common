@@ -1,4 +1,4 @@
-import Module from './module'
+// import Module from './module'
 import { ComposeObject } from './common'
 import { ID, ISO8601, PropCast } from '../common'
 

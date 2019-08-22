@@ -46,3 +46,13 @@ Resolution rules for module parameter in every ComposeHelper class method:
  - if string, use as module name and load module
  - object, verify that it has namespaceID and moduleID properties
  - if null, use current $module (when available)
+
+
+## Modifying current $record and returning from automation script
+
+Rules:
+
+ - Critical scripts have to be executed sucessfully and return [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) value.
+ - Scripts can return Record value or modify $record
+ - Modifications and return values of async scripts are ignored
+ - Modifications and return values of after* triggers are ignored 

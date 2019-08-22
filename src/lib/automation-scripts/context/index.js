@@ -32,7 +32,7 @@ export function sharedContext (ctx = {}) {
       delete ctx.module
 
       if (ctx.record) {
-        ctx.$record = new Record(ctx.record)
+        ctx.$record = new Record(ctx.$module, ctx.record)
         delete ctx.record
       }
     }
