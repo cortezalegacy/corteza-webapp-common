@@ -118,7 +118,6 @@ class ComposeUIHelper {
    * @param {Object} params for $router.push
    */
   goto (name, params) {
-    console.log(name, params, this.routePusher)
     this.routePusher({ name, params })
   }
 
@@ -131,7 +130,6 @@ class ComposeUIHelper {
    * @param message
    */
   success (message) {
-    console.log({ message })
     this.emitter('alert', { ...success, message })
   }
 
