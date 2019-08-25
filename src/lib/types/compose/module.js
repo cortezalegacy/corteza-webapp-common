@@ -2,6 +2,14 @@ import ModuleField from './module-field'
 import { ComposeObject } from './common'
 import { ID, ArrayOf, ISO8601, PropCast } from '../common'
 
+const defMeta = () => Object.assign({}, {
+  admin: {
+    recordList: {
+      columns: [],
+    },
+  },
+})
+
 const systemFields = [
   { name: 'ownedBy', label: `Owned by`, kind: 'User' },
   { name: 'createdBy', label: `Created by`, kind: 'User' },
@@ -35,6 +43,29 @@ export default class Module extends ComposeObject {
      * @type {ModuleField[]}
      */
     this.fields = PropCast(ArrayOf(ModuleField), m.fields, [])
+
+    /**
+     * @type {Object}
+     */
+    this.meta = Object()
+
+    // Properly convert old meta data that contained fields:
+    if (Array.isArray(m.meta)) {
+      m.meta = defMeta()
+    }
+
+    if (typeof m.meta === 'object') {
+      this.meta = { ...m.meta }
+    }
+
+    if (this.meta.admin && this.meta.admin.recordList) {
+      // @todo check if and where do we
+      //       need this and remove if it is obsolete
+      if ((this.meta.admin.recordList.columns || {}).length === 0) {
+        // Copy fields into columns
+        this.meta.admin.recordList.columns = this.fields.slice()
+      }
+    }
 
     /**
      * @type {string}
