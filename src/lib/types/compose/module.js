@@ -10,7 +10,7 @@ const defMeta = () => Object.assign({}, {
   },
 })
 
-const systemFields = [
+export const systemFields = Object.freeze([
   { name: 'ownedBy', label: `Owned by`, kind: 'User' },
   { name: 'createdBy', label: `Created by`, kind: 'User' },
   { name: 'createdAt', label: `Created at`, kind: 'DateTime' },
@@ -18,7 +18,10 @@ const systemFields = [
   { name: 'updatedAt', label: `Updated at`, kind: 'DateTime' },
   { name: 'deletedBy', label: `Deleted by`, kind: 'User' },
   { name: 'deletedAt', label: `Deleted at`, kind: 'DateTime' },
-].map(f => new ModuleField({ ...f, isSystem: true }))
+].map(f => new ModuleField({
+  ...f,
+  isSystem: true,
+})))
 
 export default class Module extends ComposeObject {
   constructor (m = {}) {
@@ -128,6 +131,7 @@ export default class Module extends ComposeObject {
   filterFields (requested = []) {
     return requested
       .map(r =>
+        this.systemFields().find(f => (r.name || r) === f.name) ||
         this.fields.find(f => (r.name || r) === f.name))
       .filter(f => f)
   }
