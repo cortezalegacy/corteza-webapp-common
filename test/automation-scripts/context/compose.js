@@ -1,6 +1,7 @@
 import { describe, it, beforeEach } from 'mocha'
 import { expect } from 'chai'
 import ComposeHelper from '../../../src/lib/automation-scripts/context/compose'
+import Namespace from '../../../src/lib/types/compose/namespace'
 import Module from '../../../src/lib/types/compose/module'
 import Record from '../../../src/lib/types/compose/record'
 import ModuleField from '../../../src/lib/types/compose/module-field'
@@ -15,9 +16,86 @@ describe('compose', () => {
 
   describe('supporting functions', () => {
     describe('resolveModule', () => {
-      it('should first valid module', async () => {
+      it('should return first valid module', async () => {
         const m = new Module({ moduleID: '1', namespaceID: '2' })
         expect(await h.resolveModule(undefined, null, false, 0, '', m)).to.deep.equal(m)
+      })
+
+      it('should resolve ID', async () => {
+        const m = new Module({ moduleID: '444', namespaceID: '555' })
+
+        h.findModuleByID = sinon.fake.resolves(m)
+        expect(await h.resolveModule(m.moduleID)).to.deep.equal(m)
+
+        sinon.assert.calledOnce(h.findModuleByID)
+        sinon.assert.calledWith(h.findModuleByID, m.moduleID)
+      })
+
+      it('should resolve name', async () => {
+        const m = new Module({ name: 'm-name' })
+
+        h.findModuleByName = sinon.fake.resolves(m)
+        expect(await h.resolveModule(m.name)).to.deep.equal(m)
+
+        sinon.assert.calledOnce(h.findModuleByName)
+        sinon.assert.calledWith(h.findModuleByName, m.name)
+      })
+
+      it('should resolve numeric name', async () => {
+        const m = new Module({ name: '555' })
+
+        h.findModuleByID = sinon.fake.rejects(Error('compose.repository.ModuleNotFound'))
+        h.findModuleByName = sinon.fake.resolves(m)
+
+        expect(await h.resolveModule(m.name)).to.deep.equal(m)
+
+        sinon.assert.calledOnce(h.findModuleByID)
+        sinon.assert.calledWith(h.findModuleByID, m.name)
+
+        sinon.assert.calledOnce(h.findModuleByName)
+        sinon.assert.calledWith(h.findModuleByName, m.name)
+      })
+    })
+
+    describe('resolveNamespace', () => {
+      it('should return first valid namespace', async () => {
+        const ns = new Namespace({ namespaceID: '2' })
+        expect(await h.resolveNamespace(undefined, null, false, 0, '', ns)).to.deep.equal(ns)
+      })
+
+      it('should resolve ID', async () => {
+        const ns = new Namespace({ namespaceID: '555' })
+
+        h.findNamespaceByID = sinon.fake.resolves(ns)
+        expect(await h.resolveNamespace(ns.namespaceID)).to.deep.equal(ns)
+
+        sinon.assert.calledOnce(h.findNamespaceByID)
+        sinon.assert.calledWith(h.findNamespaceByID, ns.namespaceID)
+      })
+
+      it('should resolve slug', async () => {
+        const ns = new Namespace({ slug: 'ns-slug' })
+
+        h.findNamespaceBySlug = sinon.fake.resolves(ns)
+        expect(await h.resolveNamespace(ns.slug)).to.deep.equal(ns)
+
+        sinon.assert.calledOnce(h.findNamespaceBySlug)
+        sinon.assert.calledWith(h.findNamespaceBySlug, ns.slug)
+      })
+
+      it('should resolve numeric slug', async () => {
+        const ns = new Namespace({ slug: '555' })
+
+        h.findNamespaceByID = sinon.fake.rejects(Error('compose.repository.NamespaceNotFound'))
+        h.findNamespaceBySlug = sinon.fake.resolves(ns)
+
+        expect(await h.resolveNamespace(ns.slug)).to.deep.equal(ns)
+
+        sinon.assert.calledOnce(h.findNamespaceByID)
+        sinon.assert.calledWith(h.findNamespaceByID, ns.slug)
+
+        sinon.assert.calledOnce(h.findNamespaceBySlug)
+        sinon.assert.calledWith(h.findNamespaceBySlug, ns.slug)
       })
     })
   })

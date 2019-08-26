@@ -1,5 +1,6 @@
 import Record from '../../types/compose/record'
 import Module from '../../types/compose/module'
+import Namespace from '../../types/compose/namespace'
 import { extractID } from './shared'
 
 const emailStyle = `
@@ -188,11 +189,11 @@ class ComposeHelper {
    * @param {string} filter.sort - sorting rules
    * @param {number} filter.perPage - max returned records per page
    * @param {number} filter.page - page to return (1-based)
-   * @param {Module} [module] - if not set, defaults to filter.module and this.$module
+   * @param {Module} [module] - if not set, defaults to $module
    * @returns {Promise<{filter: Object, set: Record[]}>}
    */
-  async findRecords (filter = '', module = null) {
-    return this.resolveModule(module, (filter || {}).module, this.$module).then((module) => {
+  async findRecords (filter = '', module = this.$module) {
+    return this.resolveModule(module).then((module) => {
       let { moduleID, namespaceID } = module
 
       let params = {
@@ -225,7 +226,7 @@ class ComposeHelper {
    * @param {Module} module
    * @returns {Promise<Record>}
    */
-  async findLastRecord (module = null) {
+  async findLastRecord (module = this.$module) {
     return this.findRecords({ sort: 'recordID DESC', page: 1, perPage: 1 }, module).then(({ set, filter }) => {
       if (filter.count > 0) {
         return set[0]
@@ -246,7 +247,7 @@ class ComposeHelper {
    * @param {Module} module
    * @returns {Promise<Record>}
    */
-  async findFirstRecord (module = null) {
+  async findFirstRecord (module = this.$module) {
     return this.findRecords({ sort: 'recordID ASC', page: 1, perPage: 1 }, module).then(({ set, filter }) => {
       if (filter.count > 0) {
         return set[0]
@@ -269,6 +270,8 @@ class ComposeHelper {
    * @returns {Promise<Record>}
    */
   async findRecordByID (record, module = null) {
+    // We're handling module default a bit differently here
+    // because we want to allow users to use record's module
     return this.resolveModule(module, (record || {}).module, this.$module).then((module) => {
       const { moduleID, namespaceID } = module
       return this.ComposeAPI.recordRead({
@@ -288,16 +291,18 @@ class ComposeHelper {
    * @param {string|Namespace|Object} [namespace]
    * @returns {Promise<{filter: Object, set: Module[]}>}
    */
-  async findModules (filter = '', namespace = null) {
+  async findModules (filter = '', ns = this.$namespace) {
     if (typeof filter === 'string') {
       filter = { query: filter }
     }
 
-    const namespaceID = extractID(namespace || this.$namespace, 'namespaceID')
-    return this.ComposeAPI.moduleList({ namespaceID, ...filter }).then(rval => {
-      // Casting all we got to to Module
-      rval.set = rval.set.map(m => new Module(m))
-      return rval
+    return this.resolveNamespace(ns).then((ns) => {
+      const namespaceID = extractID(ns, 'namespaceID')
+      return this.ComposeAPI.moduleList({ namespaceID, ...filter }).then(rval => {
+        // Casting all we got to to Module
+        rval.set = rval.set.map(m => new Module(m))
+        return rval
+      })
     })
   }
 
@@ -305,7 +310,7 @@ class ComposeHelper {
    * Finds module by ID
    *
    * @example
-   * // Explicitly load module and so something with it
+   * // Explicitly load module and do something with it
    * Compose.findModuleByID('2039248239042').then(myModule => {
    *   // do something with myModule
    *   return Compose.findLastRecord(myModule)
@@ -318,21 +323,23 @@ class ComposeHelper {
    * Compose.findLastRecord('2039248239042').then(....)
    *
    * @param {string|Module|Record} module - accepts Module, moduleID (when string string) or Record
-   * @param {string|Namespace|Object} [namespace]
+   * @param {string|Namespace|Object} ns - namespace
    * @returns {Promise<Module>}
    */
-  async findModuleByID (module, namespace = null) {
-    const moduleID = extractID(module, 'moduleID')
-    const namespaceID = extractID(namespace || this.$namespace || module, 'namespaceID')
+  async findModuleByID (module, ns = this.$namespace) {
+    this.resolveNamespace(ns).then((ns) => {
+      const moduleID = extractID(module, 'moduleID')
+      const namespaceID = extractID(ns, 'namespaceID')
 
-    return this.ComposeAPI.moduleRead({ namespaceID, moduleID }).then(m => new Module(m))
+      return this.ComposeAPI.moduleRead({ namespaceID, moduleID }).then(m => new Module(m))
+    })
   }
 
   /**
    * Finds module by name
    *
    * @example
-   * // Explicitly load module and so something with it
+   * // Explicitly load module and do something with it
    * Compose.findModuleByName('SomeModule').then(myModule => {
    *   // do something with myModule
    *   return Compose.findLastRecord(myModule)
@@ -345,17 +352,87 @@ class ComposeHelper {
    * Compose.findLastRecord('SomeModule').then(....)
    *
    * @param {string} name - name of the module
-   * @param {null|string|Namespace|Object} namespace - defaults to current $namespace
+   * @param {null|string|Namespace|Object} ns - defaults to current $namespace
    * @returns {Promise<Module>}
    */
-  async findModuleByName (name, namespace = null) {
-    const namespaceID = extractID(namespace || this.$namespace, 'namespaceID')
-    return this.ComposeAPI.moduleList({ namespaceID, name }).then(({ set, filter }) => {
+  async findModuleByName (name, ns = this.$namespace) {
+    this.resolveNamespace(ns).then((ns) => {
+      const namespaceID = extractID(ns, 'namespaceID')
+      return this.ComposeAPI.moduleList({ namespaceID, name }).then(({ set, filter }) => {
+        if (filter.count === 0) {
+          return null
+        }
+
+        return new Module(set[0])
+      })
+    })
+  }
+
+  /**
+   * Searches for namespaces
+   *
+   * @private
+   * @param {string|Object} filter
+   * @returns {Promise<{filter: Object, set: Namespace[]}>}
+   */
+  async findNamespaces (filter = '') {
+    if (typeof filter === 'string') {
+      filter = { query: filter }
+    }
+
+    return this.ComposeAPI.namespaceList({ ...filter }).then(rval => {
+      // Casting all we got to to Namespace
+      rval.set = rval.set.map(m => new Namespace(m))
+      return rval
+    })
+  }
+
+  /**
+   * Finds namespace by ID
+   *
+   * @example
+   * // Explicitly load namespace and do something with it
+   * Compose.findNamespaceByID('2039248239042').then(myNamespace => {
+   *   // do something with myNamespace
+   *   return Compose.findModules(myNamespace)
+   * }).then(modules => {})
+   *
+   * // even shorter
+   * Compose.findModules('2039248239042').then(....)
+   *
+   * @param {string|Namespace|Record} ns - accepts Namespace, namespaceID (when string string) or Record
+   * @returns {Promise<Namespace>}
+   */
+  async findNamespaceByID (ns = this.$namespace) {
+    const namespaceID = extractID(ns, 'namespaceID')
+
+    return this.ComposeAPI.namespaceRead({ namespaceID }).then(m => new Namespace(m))
+  }
+
+  /**
+   * Finds namespace by name
+   *
+   * @example
+   * // Explicitly load namespace and do something with it
+   * Compose.findNamespaceBySlug('SomeNamespace').then(myNamespace => {
+   *   // do something with myNamespace
+   *   return Compose.findModules(myNamespace)
+   * }).then(modules => {})
+   *
+   * // even shorter
+   * Compose.findModules('SomeNamespace').then(....)
+   *
+   * @param {string} name - name of the namespace
+   * @param {null|string|Namespace|Object} namespace - defaults to current $namespace
+   * @returns {Promise<Namespace>}
+   */
+  async findNamespaceBySlug (slug) {
+    return this.ComposeAPI.namespaceList({ slug }).then(({ set, filter }) => {
       if (filter.count === 0) {
-        return null
+        return Promise.reject(new Error('namespace not found'))
       }
 
-      return new Module(set[0])
+      return new Namespace(set[0])
     })
   }
 
@@ -510,7 +587,14 @@ class ComposeHelper {
       if (typeof module === 'string') {
         if (/^[0-9]+$/.test(module)) {
           // Looks like an ID
-          return this.findModuleByID(module)
+          return this.findModuleByID(module).catch((err = {}) => {
+            if (err.message && err.message.indexOf('ModuleNotFound') >= 0) {
+              // Not found, let's try if we can find it by slug
+              return this.findModuleByName(module)
+            }
+
+            return Promise.reject(err)
+          })
         }
 
         // Assume name
@@ -558,6 +642,78 @@ class ComposeHelper {
     }
 
     return Promise.reject(Error(`unexpected input type for module resolver`))
+  }
+
+  /**
+   * Scans all given arguments and returns first one that resembles something like a valid namespace, its slug or ID
+   *
+   * @private
+   * @returns {Promise}
+   */
+  async resolveNamespace () {
+    for (let ns of arguments) {
+      if (!ns) {
+        continue
+      }
+
+      if (typeof ns === 'string') {
+        if (/^[0-9]+$/.test(ns)) {
+          // Looks like an ID
+          return this.findNamespaceByID(ns).catch((err = {}) => {
+            if (err.message && err.message.indexOf('NamespaceNotFound') >= 0) {
+              // Not found, let's try if we can find it by slug
+              return this.findNamespaceBySlug(ns)
+            }
+
+            return Promise.reject(err)
+          })
+        }
+
+        // Assume namespace slug
+        return this.findNamespaceBySlug(ns)
+      }
+
+      if (typeof ns !== 'object') {
+        continue
+      }
+
+      // resolve whatever object we have (maybe it's a promise?)
+      // and wait for results
+      ns = await ns
+
+      if (ns instanceof Record) {
+        return this.resolveNamespace(ns.namespaceID)
+      }
+
+      if (ns.set && ns.filter) {
+        // We got a result set with modules
+        ns = ns.set
+      }
+
+      if (Array.isArray(ns)) {
+        // We got array of modules
+        if (ns.length === 0) {
+          // Empty array
+          continue
+        } else {
+          // Use first module from the list
+          ns = ns.shift()
+        }
+      }
+
+      if (!(ns instanceof Namespace)) {
+        // not Namespace? is it an object with namespaceID?
+        if (ns.namespaceID === undefined) {
+          break
+        }
+
+        return Promise.resolve(new Namespace(ns))
+      }
+
+      return Promise.resolve(ns)
+    }
+
+    return Promise.reject(Error(`unexpected input type for namespace resolver`))
   }
 }
 
