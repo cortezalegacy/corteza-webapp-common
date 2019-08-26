@@ -72,7 +72,7 @@ export default class Compose {
 
   // List namespaces
   async namespaceList (args = {}) {
-    const {query, page, perPage, } = args
+    const {query, slug, page, perPage, } = args
 
 
     let cfg = {
@@ -81,6 +81,7 @@ export default class Compose {
     }
     cfg.params = {
       query,
+      slug,
       page,
       perPage,
     }
@@ -830,7 +831,7 @@ export default class Compose {
 
   // Exports records that match
   async recordExport (args = {}) {
-    const {namespaceID, moduleID, filename, ext, filter, sort, download, } = args
+    const {namespaceID, moduleID, filename, ext, filter, fields, } = args
     if (!namespaceID) {
       console.error('recordExport failed, field namespaceID is empty', {
         args,
@@ -849,6 +850,12 @@ export default class Compose {
       }) // log error so we can debug/trace it
       throw Error('field ext is empty')
     }
+    if (!fields) {
+      console.error('recordExport failed, field fields is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field fields is empty')
+    }
 
     let cfg = {
       method: 'get',
@@ -861,8 +868,7 @@ export default class Compose {
     }
     cfg.params = {
       filter,
-      sort,
-      download,
+      fields,
     }
 
     return new Promise((resolve, reject) => {
