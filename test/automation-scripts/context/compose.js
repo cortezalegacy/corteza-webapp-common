@@ -1,5 +1,6 @@
 import { describe, it, beforeEach } from 'mocha'
-import { expect } from 'chai'
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
 import ComposeHelper from '../../../src/lib/automation-scripts/context/compose'
 import Namespace from '../../../src/lib/types/compose/namespace'
 import Module from '../../../src/lib/types/compose/module'
@@ -7,10 +8,13 @@ import Record from '../../../src/lib/types/compose/record'
 import ModuleField from '../../../src/lib/types/compose/module-field'
 import sinon from 'sinon'
 
+chai.use(chaiAsPromised)
+
 describe('compose', () => {
   let h
   beforeEach(() => {
     h = new ComposeHelper()
+    h.ComposeAPI = {}
     sinon.restore()
   })
 
@@ -119,19 +123,61 @@ describe('compose', () => {
     })
 
     describe('saveRecord', () => {
-      it('should save new record')
-      it('should update existing record')
-      it('should throw when updating $record')
-      it('should throw when creating $record')
-      it('should allow to update $record when forced')
-      it('should allow to create $record when forced')
+      it('should validate input', async () => {
+        expect(h.saveRecord(null)).to.be.rejectedWith(Error)
+        expect(h.saveRecord(false)).to.be.rejectedWith(Error)
+        expect(h.saveRecord(true)).to.be.rejectedWith(Error)
+        expect(h.saveRecord({})).to.be.rejectedWith(Error)
+        expect(h.saveRecord(new Module())).to.be.rejectedWith(Error)
+        expect(h.saveRecord(Promise.resolve(new Module()))).to.be.rejectedWith(Error)
+      })
+
+      it('should create new', async () => {
+        h.$module = new Module()
+        const record = await h.makeRecord({})
+
+        h.ComposeAPI.recordCreate = sinon.fake.resolves(record)
+
+        await h.saveRecord(record)
+        sinon.assert.calledWith(h.ComposeAPI.recordCreate, record)
+      })
+
+      it('should update existing', async () => {
+        h.$module = new Module()
+        const record = new Record(h.$module, { recordID: '222' })
+
+        h.ComposeAPI.recordUpdate = sinon.fake.resolves(record)
+
+        await h.saveRecord(record)
+        sinon.assert.calledWith(h.ComposeAPI.recordUpdate, record)
+      })
     })
 
     describe('deleteRecord', () => {
-      it('should throw when input is not a record')
+      it('should validate input', async () => {
+        expect(h.deleteRecord(null)).to.be.rejectedWith(Error)
+        expect(h.deleteRecord(false)).to.be.rejectedWith(Error)
+        expect(h.deleteRecord(true)).to.be.rejectedWith(Error)
+        expect(h.deleteRecord({})).to.be.rejectedWith(Error)
+        expect(h.deleteRecord(new Module())).to.be.rejectedWith(Error)
+        expect(h.deleteRecord(Promise.resolve(new Module()))).to.be.rejectedWith(Error)
+      })
+
+      it('should delete existing record', async () => {
+        const record = new Record(new Module(), { recordID: '222' })
+        h.ComposeAPI.recordDelete = sinon.fake.resolves(record)
+        await h.deleteRecord(record)
+        sinon.assert.calledWith(h.ComposeAPI.recordDelete, record)
+      })
+
+      it('should not delete fresh record', async () => {
+        const record = new Record(new Module())
+        h.ComposeAPI.recordDelete = sinon.fake()
+        await h.deleteRecord(record)
+        sinon.assert.notCalled(h.ComposeAPI.recordDelete)
+      })
+
       it('should delete record')
-      it('should throw when deleting $record')
-      it('should allow to delete $record when forced')
     })
 
     describe('findRecords', () => {
@@ -149,6 +195,33 @@ describe('compose', () => {
       it('should cast retrieved objects to Record')
     })
 
+    describe('makeModule', () => {
+      it('should make new', async () => {
+        h.$namespace = new Namespace()
+        let module = await h.makeModule({ name: 'MyModule' })
+        expect(module).to.be.instanceOf(Module)
+        expect(module.name).to.equal('MyModule')
+      })
+    })
+
+    describe('saveModule', async () => {
+      it('should create new', async () => {
+        const module = new Module()
+        h.$namespace = new Namespace()
+        h.ComposeAPI.moduleCreate = sinon.fake.resolves(module)
+        await h.saveModule(module)
+        sinon.assert.calledWith(h.ComposeAPI.moduleCreate, module)
+      })
+
+      it('should update existing', async () => {
+        const module = new Module({ 'moduleID': '555' })
+        h.$namespace = new Namespace()
+        h.ComposeAPI.moduleUpdate = sinon.fake.resolves(module)
+        await h.saveModule(module)
+        sinon.assert.calledWith(h.ComposeAPI.moduleUpdate, module)
+      })
+    })
+
     describe('findModules', () => {
       it('should find modules on $namespace')
       it('should find modules on a different namespace')
@@ -160,6 +233,35 @@ describe('compose', () => {
       it('should find module on $module')
       it('should find by ID when given a Module object')
       it('should cast retrieved objects to Module')
+    })
+
+    describe('makeNamespace', () => {
+      it('should make active namespace', async () => {
+        // eslint-disable-next-line no-unused-expressions
+        expect((await h.makeNamespace()).enabled).to.be.true
+      })
+
+      it('should use slug as name', async () => {
+        let ns = await h.makeNamespace({ slug: 'sluggy-slug' })
+        expect(ns.slug).to.equal('sluggy-slug')
+        expect(ns.name).to.equal('sluggy-slug')
+      })
+    })
+
+    describe('saveNamespace', async () => {
+      it('should create new', async () => {
+        const ns = new Namespace()
+        h.ComposeAPI.namespaceCreate = sinon.fake.resolves(ns)
+        await h.saveNamespace(ns)
+        sinon.assert.calledWith(h.ComposeAPI.namespaceCreate, ns)
+      })
+
+      it('should update existing', async () => {
+        const ns = new Namespace({ 'namespaceID': '555' })
+        h.ComposeAPI.namespaceUpdate = sinon.fake.resolves(ns)
+        await h.saveNamespace(ns)
+        sinon.assert.calledWith(h.ComposeAPI.namespaceUpdate, ns)
+      })
     })
 
     describe('findUsers', () => {

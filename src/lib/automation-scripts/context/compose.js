@@ -3,6 +3,10 @@ import Module from '../../types/compose/module'
 import Namespace from '../../types/compose/namespace'
 import { extractID } from './shared'
 
+function isFresh (ID) {
+  return !ID || ID === '0'
+}
+
 const emailStyle = `
 body { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #3A393C; font-family: Verdana,Arial,sans-serif; font-size: 14px; height: 100%; margin: 0; padding: 0; width: 100% !important; }
 table { margin: 20px auto; background: #ffffff; border-collapse: collapse; max-width: 100%; }
@@ -114,7 +118,7 @@ class ComposeHelper {
         throw Error('expecting Record type')
       }
 
-      if (!record.recordID) {
+      if (isFresh(record.recordID)) {
         return this.ComposeAPI.recordCreate(record).then(r => new Record(record.module, r))
       } else {
         return this.ComposeAPI.recordUpdate(record).then(r => new Record(record.module, r))
@@ -139,7 +143,7 @@ class ComposeHelper {
         throw Error('expecting Record type')
       }
 
-      if (record.recordID !== '') {
+      if (!isFresh(record.recordID)) {
         return this.ComposeAPI.recordDelete(record)
       }
     })
@@ -284,11 +288,44 @@ class ComposeHelper {
   }
 
   /**
+   * Creates new Module object
+   *
+   * @param {Promise<*>|Module} module
+   * @param {string|Object|Namespace} namespace, defaults to current $namespace
+   * @returns {Promise<Module>}
+   */
+  async makeModule (module = {}, ns = this.$namespace) {
+    return this.resolveNamespace(ns).then((ns) => {
+      return new Module({ ...module, namespaceID: ns.namespaceID })
+    })
+  }
+
+  /**
+   * Creates/updates Module
+   *
+   * @param {Promise<*>|Module} module
+   * @returns {Promise<Module>}
+   */
+  async saveModule (module) {
+    return Promise.resolve(module).then(module => {
+      if (!(module instanceof Module)) {
+        throw Error('expecting Module type')
+      }
+
+      if (isFresh(module.moduleID)) {
+        return this.ComposeAPI.moduleCreate(module)
+      } else {
+        return this.ComposeAPI.moduleUpdate(module)
+      }
+    })
+  }
+
+  /**
    * Searches for modules
    *
    * @private
    * @param {string|Object} filter
-   * @param {string|Namespace|Object} [namespace]
+   * @param {Promise<*>|string|Namespace|Object} ns
    * @returns {Promise<{filter: Object, set: Module[]}>}
    */
   async findModules (filter = '', ns = this.$namespace) {
@@ -323,7 +360,7 @@ class ComposeHelper {
    * Compose.findLastRecord('2039248239042').then(....)
    *
    * @param {string|Module|Record} module - accepts Module, moduleID (when string string) or Record
-   * @param {string|Namespace|Object} ns - namespace
+   * @param {string|Namespace|Object} ns - namespace, defaults to current $namespace
    * @returns {Promise<Module>}
    */
   async findModuleByID (module, ns = this.$namespace) {
@@ -365,6 +402,52 @@ class ComposeHelper {
 
         return new Module(set[0])
       })
+    })
+  }
+
+  /**
+   * Creates new Namespace object
+   *
+   * @example
+   * // Creates enabled (!) namespace with slug & name
+   * Compose.saveNamespace(Compose.makeNamespace({
+   *   slug: 'my-namespace',
+   *   name: 'My Namespace',
+   * }))
+   *
+   * @param {Promise<*>|Namespace} namespace
+   * @param {string|Object|Namespace} namespace, defaults to current $namespace
+   * @returns {Promise<Namespace>}
+   */
+  async makeNamespace (namespace = {}) {
+    return new Namespace({
+      name: namespace.name || namespace.slug,
+      meta: {},
+      enabled: true,
+      ...namespace,
+    })
+  }
+
+  /**
+   * Creates/updates Namespace
+   *
+   * @example
+   * Compose.saveNamespace(myNamespace)
+   *
+   * @param {Promise<*>|Namespace} namespace
+   * @returns {Promise<Namespace>}
+   */
+  async saveNamespace (namespace) {
+    Promise.resolve(namespace).then(namespace => {
+      if (!(namespace instanceof Namespace)) {
+        throw Error('expecting Namespace type')
+      }
+
+      if (isFresh(namespace.namespaceID)) {
+        return this.ComposeAPI.namespaceCreate(namespace)
+      } else {
+        return this.ComposeAPI.namespaceUpdate(namespace)
+      }
     })
   }
 
@@ -422,8 +505,7 @@ class ComposeHelper {
    * // even shorter
    * Compose.findModules('SomeNamespace').then(....)
    *
-   * @param {string} name - name of the namespace
-   * @param {null|string|Namespace|Object} namespace - defaults to current $namespace
+   * @param {string} slug - name of the namespace
    * @returns {Promise<Namespace>}
    */
   async findNamespaceBySlug (slug) {
