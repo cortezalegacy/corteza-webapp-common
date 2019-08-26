@@ -10,16 +10,18 @@ export default class ModuleField {
     this.helpText = PropCast(String, m.helpText)
     this.defaultValue = m.defaultValue
     this.maxLength = PropCast(Number, m.maxLength)
-    this.isRequired = PropCast(Boolean, m.isRequired)
-    this.isPrivate = PropCast(Boolean, m.isPrivate)
-    this.isMulti = PropCast(Boolean, m.isMulti)
-    this.isSystem = PropCast(Boolean, m.isSystem)
+
+    this.isRequired = !!m.isRequired
+    this.isPrivate = !!m.isPrivate
+    this.isMulti = !!m.isMulti
+    this.isSystem = !!m.isSystem
+
     if (this.isSystem) {
       this.canUpdateRecordValue = true
       this.canReadRecordValue = true
     } else {
-      this.canUpdateRecordValue = PropCast(Boolean, m.canUpdateRecordValue)
-      this.canReadRecordValue = PropCast(Boolean, m.canReadRecordValue)
+      this.canUpdateRecordValue = !!m.canUpdateRecordValue
+      this.canReadRecordValue = !!m.canReadRecordValue
     }
 
     this.kind = m.kind
