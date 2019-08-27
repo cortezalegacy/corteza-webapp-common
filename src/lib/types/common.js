@@ -19,10 +19,10 @@ function isNativeClass (thing) {
  *
  * @param {*} type
  * @param {*} value
- * @param {*} def
+ * @param {*} [def] default
  * @returns {*}
  */
-export function PropCast (type, value, def) {
+export function PropCast (type, value, def = undefined) {
   if (value === undefined) {
     return def
   }

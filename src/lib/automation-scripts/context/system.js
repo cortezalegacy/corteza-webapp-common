@@ -8,6 +8,10 @@ import Role from '../../types/system/role'
 class SystemHelper {
   constructor (ctx = {}) {
     this.SystemAPI = ctx.SystemAPI
+
+    this.$user = ctx.$user
+    this.$role = ctx.$role
+    this.$application = ctx.$application
   }
 
   /**
@@ -240,9 +244,9 @@ class SystemHelper {
     let userID
     let roleID
 
-    return this.resolveUser(user).then(user => {
+    return this.resolveUser(user, this.$user).then(user => {
       userID = extractID(user, 'userID')
-      return this.resolveRole(role)
+      return this.resolveRole(role, this.$role)
     }).then(role => {
       roleID = extractID(role, 'roleID')
       return this.SystemAPI.roleMemberAddEndpoint({ roleID, userID })
@@ -262,9 +266,9 @@ class SystemHelper {
     let userID
     let roleID
 
-    return this.resolveUser(user).then(user => {
+    return this.resolveUser(user, this.$user).then(user => {
       userID = extractID(user, 'userID')
-      return this.resolveRole(role)
+      return this.resolveRole(role, this.$role)
     }).then(role => {
       roleID = extractID(role, 'roleID')
       return this.SystemAPI.roleMemberAddEndpoint({ roleID, userID })
