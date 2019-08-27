@@ -8,6 +8,7 @@ import ComposeUIHelper from './compose-ui'
 import { Abort } from './errors'
 import Role from '../../types/system/role'
 import User from '../../types/system/user'
+import Channel from '../../types/messaging/channel'
 
 /**
  * Extends & modifies context to be used for UA and Corredor automation scripting
@@ -17,6 +18,10 @@ import User from '../../types/system/user'
  *
  * @ignore
  * @param {Object} ctx
+ * @property {Object} ctx.authUser (translated to $authUser, frozen)
+ * @property {Namespace} [ctx.namespace] (translated to $namespace)
+ * @property {Module} [ctx.module] (translated to $module)
+ * @property {Record} [ctx.record] (translated to $record)
  */
 export function sharedContext (ctx = {}) {
   // Current user
@@ -33,6 +38,9 @@ export function sharedContext (ctx = {}) {
   // System classes
   ctx.User = User
   ctx.Role = Role
+
+  // Messaging
+  ctx.Channel = Channel
 
   // Transform namespace, module & record to $-prefixed variables
   if (ctx.namespace) {
