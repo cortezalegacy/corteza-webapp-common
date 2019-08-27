@@ -6,6 +6,8 @@ import MessagingHelper from './messaging'
 import SystemHelper from './system'
 import ComposeUIHelper from './compose-ui'
 import { Abort } from './errors'
+import Role from '../../types/system/role'
+import User from '../../types/system/user'
 
 /**
  * Extends & modifies context to be used for UA and Corredor automation scripting
@@ -23,6 +25,10 @@ export function sharedContext (ctx = {}) {
   ctx.Namespace = Namespace
   ctx.Module = Module
   ctx.Record = Record
+
+  // System classes
+  ctx.User = User
+  ctx.Role = Role
 
   // Transform namespace, module & record to $-prefixed variables
   if (ctx.namespace) {
