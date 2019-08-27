@@ -30,6 +30,10 @@ for generating and storing IDs and JavaScript does not support this type nativel
 No special action is needed for the automation script writers.
 
 
+### Current user ($authUser)
+
+Access info (User object) about the current user
+
 ### Current $record, current $module
   
 On automatically triggered scripts (before/after-create/update/delete) events and

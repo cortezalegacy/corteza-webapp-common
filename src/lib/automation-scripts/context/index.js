@@ -19,6 +19,10 @@ import User from '../../types/system/user'
  * @param {Object} ctx
  */
 export function sharedContext (ctx = {}) {
+  // Current user
+  ctx.$authUser = Object.freeze(new User(ctx.authUser))
+  delete ctx.authUser
+
   ctx.Abort = Abort
 
   // Compose classes
