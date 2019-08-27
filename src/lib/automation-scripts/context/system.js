@@ -1,4 +1,4 @@
-import { extractID, isFresh } from './shared'
+import { extractID, genericPermissionUpdater, isFresh } from './shared'
 import User from '../../types/system/user'
 import Role from '../../types/system/role'
 
@@ -380,6 +380,25 @@ class SystemHelper {
     }
 
     return Promise.reject(Error(`unexpected input type for role resolver`))
+  }
+
+  /**
+   * Sets permissions on system resources
+   *
+   * @example
+   * Compose.setPermissions([
+   *   // Allow someRole update permissions on someUser
+   *   new AllowAccess(someRole, someUser, 'update'),
+   *
+   *   // Allow someRole update permissions on all users
+   *   new AllowAccess(anotherRole, new WildcardResource(new User), 'update')
+   * ])
+   *
+   * @param {PermissionRule[]} rules
+   * @returns {Promise<void>}
+   */
+  async setPermissions (rules) {
+    return genericPermissionUpdater(this.SystemAPI, rules)
   }
 }
 

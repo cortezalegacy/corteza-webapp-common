@@ -33,3 +33,19 @@ export function extractID (value, key) {
 export function isFresh (ID) {
   return !ID || ID === '0'
 }
+
+export function genericPermissionUpdater (API, rules) {
+  const g = rules.reduce((acc, p) => {
+    if (!acc[p.role.roleID]) {
+      acc[p.role.roleID] = []
+    }
+
+    acc[p.role.roleID].push(p)
+    return acc
+  }, {})
+
+  Object.keys(g).forEach(async roleID => {
+    // permissions grouped per role
+    await API.permissionsUpdate({ roleID, rules: g[roleID] })
+  })
+}

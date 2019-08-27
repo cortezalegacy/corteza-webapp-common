@@ -1,7 +1,7 @@
 import { describe, it, beforeEach } from 'mocha'
 import { expect } from 'chai'
 import {
-  extractID,
+  extractID, genericPermissionUpdater,
 } from '../../../src/lib/automation-scripts/context/shared'
 import sinon from 'sinon'
 
@@ -31,6 +31,21 @@ describe('shared', () => {
       expect(extractID({})).to.equal('0')
       expect(extractID('')).to.equal('0')
       expect(extractID()).to.equal('0')
+    })
+  })
+
+  describe('generic permission updater', () => {
+    it('should do group by role and make multiple calls to the API (one per role', async () => {
+      let API = { permissionsUpdate: sinon.fake() }
+
+      await genericPermissionUpdater(API, [
+        { role: { roleID: '1111' } },
+        { role: { roleID: '1111' } },
+        { role: { roleID: '5555' } },
+        { role: { roleID: '5555' } },
+      ])
+
+      sinon.assert.calledTwice(API.permissionsUpdate)
     })
   })
 })

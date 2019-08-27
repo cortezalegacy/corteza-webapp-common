@@ -1,7 +1,7 @@
 import Record from '../../types/compose/record'
 import Module from '../../types/compose/module'
 import Namespace from '../../types/compose/namespace'
-import { extractID, isFresh } from './shared'
+import { extractID, genericPermissionUpdater, isFresh } from './shared'
 
 const emailStyle = `
 body { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #3A393C; font-family: Verdana,Arial,sans-serif; font-size: 14px; height: 100%; margin: 0; padding: 0; width: 100% !important; }
@@ -792,6 +792,25 @@ class ComposeHelper {
     }
 
     return Promise.reject(Error(`unexpected input type for namespace resolver`))
+  }
+
+  /**
+   * Sets permissions on messaging resources
+   *
+   * @example
+   * Compose.setPermissions([
+   *   // Allow someRole update to delete newModule
+   *   new AllowAccess(someRole, newModule, 'delete'),
+   *
+   *   // Allow newRole to update any module
+   *   new AllowAccess(newRole, new WildcardResource(new Module), 'update')
+   * ])
+   *
+   * @param {PermissionRule[]} rules
+   * @returns {Promise<void>}
+   */
+  async setPermissions (rules) {
+    return genericPermissionUpdater(this.ComposeAPI, rules)
   }
 }
 

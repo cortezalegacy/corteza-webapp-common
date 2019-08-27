@@ -9,6 +9,7 @@ import { Abort } from './errors'
 import Role from '../../types/system/role'
 import User from '../../types/system/user'
 import Channel from '../../types/messaging/channel'
+import PermissionRule, { AllowAccess, DenyAccess, WildcardResource } from '../../types/shared/permission-rule'
 
 /**
  * Extends & modifies context to be used for UA and Corredor automation scripting
@@ -29,6 +30,10 @@ export function sharedContext (ctx = {}) {
   delete ctx.authUser
 
   ctx.Abort = Abort
+  ctx.AllowAccess = AllowAccess
+  ctx.DenyAccess = DenyAccess
+  ctx.WildcardResource = WildcardResource
+  ctx.PermissionRule = PermissionRule
 
   // Compose classes
   ctx.Namespace = Namespace

@@ -1,5 +1,5 @@
 import Channel from '../../types/messaging/channel'
-import {extractID, isFresh} from './shared'
+import { extractID, genericPermissionUpdater, isFresh } from './shared'
 import User from '../../types/system/user'
 
 /**
@@ -194,6 +194,25 @@ class MessagingHelper {
     }
 
     return Promise.reject(Error(`unexpected input type for channel resolver`))
+  }
+
+  /**
+   * Sets permissions on messaging resources
+   *
+   * @example
+   * Compose.setPermissions([
+   *   // Allow someRole update to delete newChannel
+   *   new AllowAccess(someRole, newChannel, 'delete'),
+   *
+   *   // Allow newRole to update any channel
+   *   new AllowAccess(newRole, new WildcardResource(new Channel), 'update')
+   * ])
+   *
+   * @param {PermissionRule[]} rules
+   * @returns {Promise<void>}
+   */
+  async setPermissions (rules) {
+    return genericPermissionUpdater(this.MessagingAPI, rules)
   }
 }
 
