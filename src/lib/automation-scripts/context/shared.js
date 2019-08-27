@@ -11,12 +11,16 @@ export function extractID (value, key) {
     value = value[key]
   }
 
+  if (!value || Array.isArray(value) || typeof value === 'object') {
+    return '0'
+  }
+
   if (typeof value === 'number') {
     return String(value)
   }
 
   if (typeof value !== 'string') {
-    throw Error(`unexpected value type for ${key} type (got '${typeof value}', expecting string)`)
+    throw Error(`unexpected value type for ${key} type (got '${value}', expecting string)`)
   }
 
   if (!/^[0-9]+$/.test(value)) {
@@ -24,4 +28,8 @@ export function extractID (value, key) {
   }
 
   return value
+}
+
+export function isFresh (ID) {
+  return !ID || ID === '0'
 }

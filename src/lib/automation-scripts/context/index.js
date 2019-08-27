@@ -18,6 +18,8 @@ import { Abort } from './errors'
  */
 export function sharedContext (ctx = {}) {
   ctx.Abort = Abort
+
+  // Compose classes
   ctx.Namespace = Namespace
   ctx.Module = Module
   ctx.Record = Record

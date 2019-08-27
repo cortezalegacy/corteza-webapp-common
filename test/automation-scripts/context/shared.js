@@ -20,9 +20,17 @@ describe('shared', () => {
 
     it('should throw error on invalid input', () => {
       expect(() => extractID('abc')).to.throw()
-      expect(() => extractID([])).to.throw()
-      expect(() => extractID({})).to.throw()
-      expect(() => extractID()).to.throw()
+      expect(() => extractID({ id: 'abc' }, 'id')).to.throw()
+      // expect(() => extractID([])).to.throw()
+      // expect(() => extractID({})).to.throw()
+      // expect(() => extractID()).to.throw()
+    })
+
+    it('should extract 0', () => {
+      expect(extractID([])).to.equal('0')
+      expect(extractID({})).to.equal('0')
+      expect(extractID('')).to.equal('0')
+      expect(extractID()).to.equal('0')
     })
   })
 })

@@ -1,11 +1,7 @@
 import Record from '../../types/compose/record'
 import Module from '../../types/compose/module'
 import Namespace from '../../types/compose/namespace'
-import { extractID } from './shared'
-
-function isFresh (ID) {
-  return !ID || ID === '0'
-}
+import { extractID, isFresh } from './shared'
 
 const emailStyle = `
 body { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #3A393C; font-family: Verdana,Arial,sans-serif; font-size: 14px; height: 100%; margin: 0; padding: 0; width: 100% !important; }
@@ -189,10 +185,10 @@ class ComposeHelper {
    * })
    *
    * @param {string|Object} filter - filter object (or filtering conditions when string)
-   * @param {string} filter.filter - filtering conditions
-   * @param {string} filter.sort - sorting rules
-   * @param {number} filter.perPage - max returned records per page
-   * @param {number} filter.page - page to return (1-based)
+   * @property {string} filter.filter - filtering conditions
+   * @property {string} filter.sort - sorting rules
+   * @property {number} filter.perPage - max returned records per page
+   * @property {number} filter.page - page to return (1-based)
    * @param {Module} [module] - if not set, defaults to $module
    * @returns {Promise<{filter: Object, set: Record[]}>}
    */
@@ -291,7 +287,7 @@ class ComposeHelper {
    * Creates new Module object
    *
    * @param {Promise<*>|Module} module
-   * @param {string|Object|Namespace} namespace, defaults to current $namespace
+   * @param {string|Object|Namespace} ns, defaults to current $namespace
    * @returns {Promise<Module>}
    */
   async makeModule (module = {}, ns = this.$namespace) {
@@ -527,7 +523,7 @@ class ComposeHelper {
    * @param {string|string[]} to - Recipient(s)
    * @param {string} subject - Mail subject
    * @param {Object} body
-   * @param {string} body.html - HTML body to be sent
+   * @property {string} body.html - HTML body to be sent
    * @param {string|string[]} Any additional addresses we want this to be sent to (carbon-copy)
    * @returns {Promise<void>}
    */
@@ -560,13 +556,13 @@ class ComposeHelper {
    * // subject (<module name> + 'record' +  'update'/'created')
    * Compose.sendRecordToMail('example@domain.tld')
    *
-   * // Complex notification with custom subject, intro and outro text and custom record
+   * // Complex notification with custom subject, header and footer text and custom record
    * Compose.sendRecordToMail(
    *   'asignee@domain.tld',
    *   'New lead assigned to you',
    *   {
-   *      intro: '<h1>New lead was created and assigned to you</h1>',
-   *      outro: 'Review and confirm',
+   *      header: '<h1>New lead was created and assigned to you</h1>',
+   *      footer: 'Review and confirm',
    *      cc: [ 'sales@domain.tld' ],
    *      fields: ['name', 'country', 'amount'],
    *   },
@@ -576,9 +572,9 @@ class ComposeHelper {
    * @param {string|string[]} to - Recipient(s)
    * @param {string} subject - Mail subject
    * @param {Object} options - Various options for body & email
-   * @param {string} options.intro - Text (HTML) before the record table
-   * @param {string} options.outro - Text (HTML) after the record table
-   * @param {string} options.style - Custom CSS styles for the email
+   * @property {string} options.header - Text (HTML) before the record table
+   * @property {string} options.footer - Text (HTML) after the record table
+   * @property {string} options.style - Custom CSS styles for the email
    * @param {string[]|null} options.fields - List of record fields we want to output
    * @param {object} options.header - Additional mail headers (cc)
    * @param {Promise|Record} record - record to be converted (or leave for the current $record)
@@ -587,7 +583,7 @@ class ComposeHelper {
   async sendRecordToMail (
     to,
     subject = '',
-    { intro = '', outro = '', style = emailStyle, fields = null, ...mailHeader } = {},
+    { header = '', footer = '', style = emailStyle, fields = null, ...mailHeader } = {},
     record = this.$record
   ) {
     // Wait for the record if we got a promise
@@ -597,11 +593,11 @@ class ComposeHelper {
     let wb = `<div style="width: 800px; margin: 20px auto;">`
     let wa = `</div>`
 
-    intro = `${wb}${intro}${wa}`
-    outro = `${wb}${outro}${wa}`
+    header = `${wb}${header}${wa}`
+    footer = `${wb}${footer}${wa}`
     style = `<style type="text/css">${style}</style>`
 
-    let html = style + intro + this.recordToHTML(fields, record) + outro
+    let html = style + header + this.recordToHTML(fields, record) + footer
 
     if (!subject) {
       subject = record.module.name + ' '

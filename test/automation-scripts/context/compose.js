@@ -264,21 +264,6 @@ describe('compose', () => {
       })
     })
 
-    describe('findUsers', () => {
-      // @todo move to system.js
-      it('should find users on $namespace')
-      it('should find users on a different namespace')
-      it('should properly translate filter to query when string')
-      it('should cast retrieved objects to User')
-    })
-
-    describe('findUserByID', () => {
-      // @todo move to system.js
-      it('should find user on $module')
-      it('should find by ID when given a User object')
-      it('should cast retrieved objects to User')
-    })
-
     describe('sendEmail', () => {
       it('should write some tests')
     })

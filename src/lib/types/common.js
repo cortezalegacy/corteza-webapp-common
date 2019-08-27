@@ -4,11 +4,24 @@ const uint64zeropad = '00000000000000000000'
 
 export class CortezaObject {}
 
+/**
+ * Is native class?
+ *
+ * @param thing
+ * @returns {boolean}
+ */
 function isNativeClass (thing) {
   return typeof thing === 'function' && thing.hasOwnProperty('prototype') && !thing.hasOwnProperty('arguments')
 }
 
-// Casts value to <type> or returns default
+/**
+ * Casts value to <type> or returns default
+ *
+ * @param {*} type
+ * @param {*} value
+ * @param {*} def
+ * @returns {*}
+ */
 export function PropCast (type, value, def) {
   if (value === undefined) {
     return def
@@ -33,7 +46,7 @@ export function ID (value) {
 }
 
 /**
- * @return {undefined}
+ * @return {string}
  */
 export function ISO8601 (value) {
   if (!value || !isISO8601(value)) {
@@ -44,14 +57,23 @@ export function ISO8601 (value) {
   return value
 }
 
+/**
+ * @return {string}
+ */
 export function isISO8601 (value) {
   return iso8601check.test(value)
 }
 
+/**
+ * @return {*}
+ */
 export function ArrayOf (Type) {
   return (vv) => vv.map(v => (isNativeClass(Type) ? new Type(v) : Type(v)))
 }
 
+/**
+ * @return {string}
+ */
 export function makeIDSortable (ID) {
   // We're using uint64 for ID and JavaScript does not know how to handle this type
   // natively. We get the value from backend as string anyway and we need to prefix
