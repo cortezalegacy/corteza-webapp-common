@@ -1,5 +1,5 @@
 import { MessagingObject } from './common'
-import { PropCast, ISO8601, ID, ArrayOf } from '../common'
+import { PropCast, ISO8601, ID } from '../common'
 
 // @todo port fuzkeys, normalizers
 // @todo migrate channel from messaging  webapp to this

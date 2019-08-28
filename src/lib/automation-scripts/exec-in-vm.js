@@ -1,9 +1,9 @@
 import { NodeVM } from 'vm2'
-import castResult from './cast'
+import resultProcessor from './result-proc'
 import { sharedContext } from './context'
 
 export default async (code, ctx = {}, opt = {}) => {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve, reject) => {
     const {
       console = 'off',
       async = false,
@@ -17,23 +17,27 @@ export default async (code, ctx = {}, opt = {}) => {
 
     ctx = sharedContext(ctx)
 
-    const vm = new NodeVM({
-      sandbox: ctx,
+    try {
+      const vm = new NodeVM({
+        sandbox: ctx,
 
-      // Disallow require()
-      require: false,
+        // Disallow require()
+        require: false,
 
-      // timeout after ??
-      timeout,
+        // timeout after ??
+        timeout,
 
-      // Allow console use
-      console,
+        // Allow console use
+        console,
 
-      // No wrapper - we need the result
-      // from the script
-      wrapper: 'none',
-    })
+        // No wrapper - we need the result
+        // from the script
+        wrapper: 'none',
+      })
 
-    resolve(castResult(vm.run(code), ctx))
+      resolve(resultProcessor(ctx, await vm.run(code)))
+    } catch (e) {
+      reject(e)
+    }
   })
 }

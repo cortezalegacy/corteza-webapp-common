@@ -1,20 +1,14 @@
 import { sharedContext, uiContext } from './context'
-import castResult from './cast'
+import resultProcessor from './result-proc'
 
 /**
  * Runs (through eval) script and resolves the results
  *
- * Function is async because we have no idea what happens inside the script.
- * Async allows us to resolve returned promises properly.
- *
- * Inside scripts we use $record, $module, $namespace for variables
+ * Inside scripts we use $record, $module, $namespace (...) for variables
  * that hold current record/module/namespace.
  *
  * @param {String} code
  * @param {Object} ctx
- * @param {Namespace} ctx.namespace
- * @param {Module} ctx.module
- * @param {Record} ctx.record
  * @returns {Promise}
  */
 export default async (code, ctx = {}) => {
@@ -31,9 +25,7 @@ export default async (code, ctx = {}) => {
       const source = `${evalClassLoader}(() => {\n'use strict'; ${code};\n})()`
 
       /* eslint-disable no-eval */
-      let rval = await eval(source)
-
-      resolve(castResult(rval, ctx))
+      resolve(resultProcessor(ctx, await eval(source)))
     } catch (e) {
       return reject(e)
     }

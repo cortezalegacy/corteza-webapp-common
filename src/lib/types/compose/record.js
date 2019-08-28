@@ -77,17 +77,15 @@ export default class Record extends ComposeObject {
 
   serializeValues () {
     let arr = []
-
-    for (let name in this.values) {
+    // console.log({
+    //   entries: Object.entries(this[fields]),
+    //   fields: this[fields],
+    //   values: this.values,
+    // })
+    for (let [name, { isMulti = false }] of Object.entries(this[fields])) {
       if (!this.values.hasOwnProperty(name)) {
         continue
       }
-
-      if (this[fields][name] === undefined) {
-        continue
-      }
-
-      const { isMulti = false } = this[fields][name]
 
       if (isMulti) {
         if (Array.isArray(this.values[name])) {
@@ -127,11 +125,6 @@ export default class Record extends ComposeObject {
   }
 
   isValid () {
-    console.trace({
-      mname: this.module.name,
-      fields: this.module.fields,
-    })
-
     return this.module.fields
       .map(f => f.validate(this.values[f.name]).length === 0)
       .filter(v => !v).length === 0

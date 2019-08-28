@@ -26,8 +26,7 @@ import PermissionRule, { AllowAccess, DenyAccess, WildcardResource } from '../..
  */
 export function sharedContext (ctx = {}) {
   // Current user
-  ctx.$authUser = ctx.authUser ? Object.freeze(new User(ctx.authUser)) : null
-  delete ctx.authUser
+  ctx.$authUser = ctx.$authUser ? Object.freeze(new User(ctx.$authUser)) : null
 
   ctx.Abort = Abort
   ctx.AllowAccess = AllowAccess
@@ -46,22 +45,6 @@ export function sharedContext (ctx = {}) {
 
   // Messaging
   ctx.Channel = Channel
-
-  // Transform namespace, module & record to $-prefixed variables
-  if (ctx.namespace) {
-    ctx.$namespace = new Namespace(ctx.namespace)
-    delete ctx.namespace
-
-    if (ctx.module) {
-      ctx.$module = new Module(ctx.module)
-      delete ctx.module
-
-      if (ctx.record) {
-        ctx.$record = new Record(ctx.$module, ctx.record)
-        delete ctx.record
-      }
-    }
-  }
 
   // Helpers
   ctx.Compose = new ComposeHelper(ctx)

@@ -111,6 +111,18 @@ describe('record.js', () => {
     ])
   })
 
+  it('should serialize changed data', function () {
+    const r = make([
+      { name: 'str', value: 'SomeString' },
+    ])
+
+    r.values.str = 'AnotherString'
+
+    expect(r.values.toJSON()).to.deep.equal([
+      { name: 'str', value: 'AnotherString' },
+    ])
+  })
+
   describe('object protection', () => {
     it.skip('should fail when setting non-existing value', () => {
       let r = make()
