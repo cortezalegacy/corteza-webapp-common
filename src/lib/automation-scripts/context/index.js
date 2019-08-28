@@ -26,7 +26,7 @@ import PermissionRule, { AllowAccess, DenyAccess, WildcardResource } from '../..
  */
 export function sharedContext (ctx = {}) {
   // Current user
-  ctx.$authUser = Object.freeze(new User(ctx.authUser))
+  ctx.$authUser = ctx.authUser ? Object.freeze(new User(ctx.authUser)) : null
   delete ctx.authUser
 
   ctx.Abort = Abort
