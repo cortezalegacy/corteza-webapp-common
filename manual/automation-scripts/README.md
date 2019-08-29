@@ -1,5 +1,11 @@
 # Automation Scripts
 
+As with any system, automation scripts can cause unwanted complications if misused or left open for 
+modification by users who may do harm, willingly or otherwise.
+
+You (or whoever will configure this system) is responsible for making sure scripts are written
+in a way that do not cause problems to users or the underlying system running them.
+
 ## Modern JavaScript 
 
 ### About async/await and Promises
@@ -21,55 +27,42 @@ You can, however wrap your code with `(async () => { ... }())` and place your aw
 MDN article {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions about arrow functions}
 
 
-## Returning values from record scripts
+## Including outside libraries & modules
 
-You can abort script execution by returning (`return ...`) at 
-any point in the script. Returning `false` will cause abort
-and will prevent record create/update/delete in before* triggers.
+In Corredor (non-browser) automation scripts we allow a predefined list of libraries you can use:
 
-You can always return the (changed) record you're currently running the script
-for and cause that a modified (by your script) version of an object 
-is then passed back to Compose. This can be used in beforeCreate and 
-beforeUpdate triggers to save modified version or in manual triggers
-to change the current record on the fly (even without explicitly 
-saving it in the script) 
+### axios
 
-## Automation script context
+> A JavaScript utility library delivering consistency, modularity, performance, & extras.
 
-### IDs
+This is the library used by Corteza API clients.
 
-You'll see a lot of "numeric" IDs stored as string. Reason for this is that the backend uses uint64 type
-for generating and storing IDs and JavaScript does not support this type natively.
-No special action is needed for the automation script writers.
+Visit https://github.com/axios/axios for more info
 
+```javascript
+const axios = require('axios')
 
-### Current user ($authUser)
+// ...
+```
 
-Access info (User object) about the current user
+### request
 
-### Current $record, current $module
-  
-On automatically triggered scripts (before/after-create/update/delete) events and
-manually triggered scripts on record-pages, scripts can use $record and $module
-variables to access current record and/or current module.
+> Request is designed to be the simplest way possible to make http calls. It supports HTTPS and follows redirects by default.
 
-In all methods where there is a function param for record or module that
-param can be omitted (or NULL-ed) and function will use current record or module (when available)
+Visit https://github.com/request/request for more info
+ 
+ ```javascript
+const request = require('request')
 
-### Module parameter
-Resolution rules for module parameter in every ComposeHelper class method:
+// ...
+```
 
- - if string with only digits, use as module ID and load module
- - if string, use as module name and load module
- - object, verify that it has namespaceID and moduleID properties
- - if null, use current $module (when available)
+### lodash
 
+> A JavaScript utility library delivering consistency, modularity, performance, & extras.
+ 
+ ```javascript
+const _ = require('lodash')
 
-## Modifying current $record and returning from automation script
-
-Rules:
-
- - Critical scripts have to be executed sucessfully and return [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) value.
- - Scripts can return Record value or modify $record
- - Modifications and return values of async scripts are ignored
- - Modifications and return values of after* triggers are ignored 
+// ...
+```

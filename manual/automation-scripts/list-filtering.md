@@ -1,4 +1,4 @@
-# Filtering & sorting
+# List filtering & sorting
 
 API endpoints for resource set/lists support filtering, sorting
 and paging of resources.
