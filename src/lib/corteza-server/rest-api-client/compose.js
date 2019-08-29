@@ -829,6 +829,145 @@ export default class Compose {
     return `/namespace/${namespaceID}/module/${moduleID}/record/`
   }
 
+  // Initiate record import session
+  async recordImportInit (args = {}) {
+    const {namespaceID, moduleID, upload, } = args
+    if (!namespaceID) {
+      console.error('recordImportInit failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!moduleID) {
+      console.error('recordImportInit failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
+    }
+    if (!upload) {
+      console.error('recordImportInit failed, field upload is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field upload is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.recordImportInitEndpoint({
+        namespaceID,
+        moduleID,
+      }),
+    }
+
+    cfg.data = {
+      upload,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  recordImportInitEndpoint ({namespaceID, moduleID, } = {}) {
+    return `/namespace/${namespaceID}/module/${moduleID}/record/import`
+  }
+
+  // Run record import
+  async recordImportRun (args = {}) {
+    const {namespaceID, moduleID, sessionID, fields, onError, } = args
+    if (!namespaceID) {
+      console.error('recordImportRun failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!moduleID) {
+      console.error('recordImportRun failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
+    }
+    if (!sessionID) {
+      console.error('recordImportRun failed, field sessionID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field sessionID is empty')
+    }
+    if (!fields) {
+      console.error('recordImportRun failed, field fields is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field fields is empty')
+    }
+    if (!onError) {
+      console.error('recordImportRun failed, field onError is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field onError is empty')
+    }
+
+    let cfg = {
+      method: 'patch',
+      url: this.recordImportRunEndpoint({
+        namespaceID,
+        moduleID,
+        sessionID,
+      }),
+    }
+
+    cfg.data = {
+      fields,
+      onError,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  recordImportRunEndpoint ({namespaceID, moduleID, sessionID, } = {}) {
+    return `/namespace/${namespaceID}/module/${moduleID}/record/import/${sessionID}`
+  }
+
+  // Get import progress
+  async recordImportProgress (args = {}) {
+    const {namespaceID, moduleID, sessionID, } = args
+    if (!namespaceID) {
+      console.error('recordImportProgress failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!moduleID) {
+      console.error('recordImportProgress failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
+    }
+    if (!sessionID) {
+      console.error('recordImportProgress failed, field sessionID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field sessionID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.recordImportProgressEndpoint({
+        namespaceID,
+        moduleID,
+        sessionID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  recordImportProgressEndpoint ({namespaceID, moduleID, sessionID, } = {}) {
+    return `/namespace/${namespaceID}/module/${moduleID}/record/import/${sessionID}`
+  }
+
   // Exports records that match
   async recordExport (args = {}) {
     const {namespaceID, moduleID, filename, ext, filter, fields, } = args
