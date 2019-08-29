@@ -1,3 +1,5 @@
+import { make } from './url'
+
 const lsAuthJWTKey = 'auth.jwt'
 const lsAuthUserKey = 'auth.user'
 
@@ -48,28 +50,8 @@ export default class Auth {
     return !!this.JWT
   }
 
-  // A friendly little wrapper that helps us navigate
-  //
-  // This should be used in all cases where we want to do a (relative)
-  // redirection.
-  //
-  // Browsers do not want to play this properly and loose the port if
-  // we do a window.location = '/foo'
   goto (url = '/auth', ref = window.location.toString()) {
-    let u, r
-
-    if (/^http(s)?:\/\//.test(url)) {
-      window.location = url
-    } else if (/^\/\//.test(url)) {
-      r = new URL(ref)
-      window.location = r.protocol + url
-    } else {
-      // Construct full relative URL from path
-      u = new URL(ref)
-      u.pathname = url
-
-      window.location = u.toString()
-    }
+    window.location = make({ url, ref })
   }
 
   open () {
