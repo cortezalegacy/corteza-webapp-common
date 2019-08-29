@@ -40,6 +40,16 @@ describe('/src/lib/url.js', () => {
   })
 
   describe('make query string', () => {
+    it('ignore undefined keys', () => {
+      const test = make({ ref, query: { k: undefined } })
+      expect(test).to.eq(`${ref}/`)
+    })
+
+    it('keep null keys', () => {
+      const test = make({ ref, query: { k: null } })
+      expect(test).to.eq(`${ref}/?k=`)
+    })
+
     it('simple structs', () => {
       const test = make({ ref, query: simple })
       expect(test).to.eq(`${ref}/?s=src`)
