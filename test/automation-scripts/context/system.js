@@ -1,11 +1,6 @@
 import { describe, it, beforeEach } from 'mocha'
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
-import ComposeHelper from '../../../src/lib/automation-scripts/context/compose'
-import Namespace from '../../../src/lib/types/compose/namespace'
-import Module from '../../../src/lib/types/compose/module'
-import Record from '../../../src/lib/types/compose/record'
-import ModuleField from '../../../src/lib/types/compose/module-field'
 import sinon from 'sinon'
 import SystemHelper from '../../../src/lib/automation-scripts/context/system'
 import User from '../../../src/lib/types/system/user'
@@ -21,16 +16,63 @@ describe('system', () => {
     sinon.restore()
   })
 
+  describe('supporting functions', () => {
+    describe('resolveUser', () => {
+      it('should return first valid user', async () => {
+        const u = new User({ userID: '444' })
+        expect(await h.resolveUser(undefined, null, false, 0, '', u)).to.deep.equal(u)
+      })
+
+      it('should resolve ID', async () => {
+        const u = new User({ userID: '444' })
+
+        h.findUserByID = sinon.fake.resolves(u)
+        expect(await h.resolveUser(u.userID)).to.deep.equal(u)
+
+        sinon.assert.calledOnce(h.findUserByID)
+        sinon.assert.calledWith(h.findUserByID, u.userID)
+      })
+
+      it('should resolve name', async () => {
+        const u = new User({ handle: 'user-handle' })
+
+        h.findUsers = sinon.fake.resolves({ filter: { count: 1 }, set: [u] })
+
+        expect(await h.resolveUser(u.handle)).to.deep.equal(u)
+      })
+
+      it('should resolve numeric handle', async () => {
+        const u = new User({ handle: '555' })
+
+        h.findUsers = sinon.fake.resolves({ filter: { count: 1 }, set: [u] })
+        h.findUserByID = sinon.fake.rejects(Error('compose.repository.UserNotFound'))
+
+        expect(await h.resolveUser(u.handle)).to.deep.equal(u)
+
+        sinon.assert.calledOnce(h.findUserByID)
+        sinon.assert.calledWith(h.findUserByID, u.handle)
+      })
+
+      it('should resolve email', async () => {
+        const u = new User({ email: 'foo@bar.baz' })
+
+        h.findUsers = sinon.fake.resolves({ filter: { count: 1 }, set: [u] })
+
+        expect(await h.resolveUser(u.email)).to.deep.equal(u)
+      })
+    })
+  })
+
   describe('helpers', () => {
     describe('findUsers', () => {
       it('handles string filter', async () => {
-        h.SystemAPI.userList = sinon.fake.resolves({ set:[ new User() ] })
+        h.SystemAPI.userList = sinon.fake.resolves({ set: [ new User() ] })
         await h.findUsers('filter')
         sinon.assert.calledWith(h.SystemAPI.userList, { query: 'filter' })
       })
 
       it('returns valid object', async () => {
-        h.SystemAPI.userList = sinon.fake.resolves({ set:[ new User() ] })
+        h.SystemAPI.userList = sinon.fake.resolves({ set: [ new User() ] })
         expect((await h.findUsers()).set[0]).is.instanceOf(User)
       })
     })
@@ -76,13 +118,13 @@ describe('system', () => {
 
     describe('findRoles', () => {
       it('handles string filter', async () => {
-        h.SystemAPI.roleList = sinon.fake.resolves({ set:[ new Role() ] })
+        h.SystemAPI.roleList = sinon.fake.resolves({ set: [ new Role() ] })
         await h.findRoles('filter')
         sinon.assert.calledWith(h.SystemAPI.roleList, { query: 'filter' })
       })
 
       it('returns valid object', async () => {
-        h.SystemAPI.roleList = sinon.fake.resolves({ set:[ new Role() ] })
+        h.SystemAPI.roleList = sinon.fake.resolves({ set: [ new Role() ] })
         expect((await h.findRoles()).set[0]).is.instanceOf(Role)
       })
     })

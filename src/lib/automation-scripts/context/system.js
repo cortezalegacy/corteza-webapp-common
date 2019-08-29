@@ -41,7 +41,10 @@ class SystemHelper {
     }
 
     return this.SystemAPI.userList(filter).then(rval => {
-      rval.set = rval.set.map(m => new User(m))
+      if (rval && rval.set) {
+        rval.set = rval.set.map(m => new User(m))
+      }
+
       return rval
     })
   }
@@ -73,10 +76,10 @@ class SystemHelper {
    */
   async findUserByEmail (email) {
     return this.findUsers({ email }).then(({ set, filter }) => {
-      if (filter.count === 0) {
+      if (set.length === 0) {
         return Promise.reject(new Error('user not found'))
       }
-      //
+
       return set[0]
     })
   }
@@ -94,7 +97,7 @@ class SystemHelper {
    */
   async findUserByHandle (handle) {
     return this.findUsers({ handle }).then(({ set, filter }) => {
-      if (filter.count === 0) {
+      if (set.length === 0) {
         return Promise.reject(new Error('user not found'))
       }
 
@@ -121,6 +124,30 @@ class SystemHelper {
       } else {
         return this.SystemAPI.userUpdate(user)
       }
+    })
+  }
+
+  /**
+   * Sets/updates password for the user
+   *
+   * @example
+   * System.findUserByHandle('some-handle').then(user => {
+   *   user.handle = 'better-handle'
+   *   return System.saveUser(user)
+   * })
+   *
+   * @param {User} user
+   * @returns {Promise<User>}
+   */
+  async setPassword (password, user = this.user) {
+    return this.resolveUser(user).then(user => {
+      let { userID } = user
+
+      if (isFresh(userID)) {
+        return
+      }
+
+      return this.SystemAPI.userSetPassword({ password, userID })
     })
   }
 
@@ -300,15 +327,16 @@ class SystemHelper {
       }
 
       if (typeof u === 'string') {
-        if (/^[0-9]+$/.test(u)) {
-          // Looks like an ID, try to find it and fall back to handle
-          return this.findUserByID(u).catch(() => this.findUserByHandle(u))
-        }
+        try {
+          if (/^[0-9]+$/.test(u)) {
+            // Looks like an ID, try to find it and fall back to handle
+            return await this.findUserByID(u)
+          } else if (u.indexOf('@') > 0) {
+            return await this.findUserByEmail(u)
+          }
+        } catch (e) {}
 
-        if (u.indexOf('@') > 0) {
-          return this.findUserByEmail(u).catch(() => this.findUserByHandle(u))
-        }
-
+        // Always fall back to handle
         return this.findUserByHandle(u)
       }
 

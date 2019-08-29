@@ -16,7 +16,7 @@ describe('script executor', () => {
 
   beforeEach(() => {
     const $namespace = new Namespace({ namespaceID: 444 })
-    const $module = new Module({ moduleID: 555, namespaceID: 444 })
+    const $module = new Module({ moduleID: 555, namespaceID: 444, fields: [ { name: 'dummy' } ] })
 
     ctx = {
       $namespace,
@@ -79,7 +79,7 @@ describe('script executor', () => {
         it('should call recordRead when FindRecordByID is used (explicit module)', async () => {
           ctx.ComposeAPI.recordRead = sinon.fake.resolves(new Record(ctx.$module, { recordID: '555' }))
 
-          let result = await exec(`return Compose.findRecordByID('123', new Module({ moduleID: '321', namespaceID: '99' }))`, ctx)
+          let result = await exec(`return Compose.findRecordByID('123', new Module({ moduleID: '321', namespaceID: '99', fields: [ { name: 'dummy' } ] }))`, ctx)
 
           sinon.assert.calledWith(ctx.ComposeAPI.recordRead, {
             recordID: '123',

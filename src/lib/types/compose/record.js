@@ -28,6 +28,12 @@ export default class Record extends ComposeObject {
     // this.module = Object.freeze(new Module(m))
     this.module = Object.freeze({ ...m })
 
+    if (!this.module) {
+      throw new Error('invalid module used to initialize a record')
+    } else if (!this.module.fields || !Array.isArray(this.module.fields) || this.module.fields.length === 0) {
+      throw new Error('module used to initialize a record does not contain any fields')
+    }
+
     this.moduleID = PropCast(ID, this.module.moduleID)
     this.namespaceID = PropCast(ID, this.module.namespaceID)
 

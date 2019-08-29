@@ -11,8 +11,10 @@ import sinon from 'sinon'
 chai.use(chaiAsPromised)
 
 describe('compose', () => {
+  let DummyModule
   let h
   beforeEach(() => {
+    DummyModule = new Module({ fields: [{ name: 'dummy' }] })
     h = new ComposeHelper()
     h.ComposeAPI = {}
     sinon.restore()
@@ -128,12 +130,12 @@ describe('compose', () => {
         expect(h.saveRecord(false)).to.be.rejectedWith(Error)
         expect(h.saveRecord(true)).to.be.rejectedWith(Error)
         expect(h.saveRecord({})).to.be.rejectedWith(Error)
-        expect(h.saveRecord(new Module())).to.be.rejectedWith(Error)
-        expect(h.saveRecord(Promise.resolve(new Module()))).to.be.rejectedWith(Error)
+        expect(h.saveRecord(DummyModule)).to.be.rejectedWith(Error)
+        expect(h.saveRecord(Promise.resolve(DummyModule))).to.be.rejectedWith(Error)
       })
 
       it('should create new', async () => {
-        h.$module = new Module()
+        h.$module = DummyModule
         const record = await h.makeRecord({})
 
         h.ComposeAPI.recordCreate = sinon.fake.resolves(record)
@@ -143,7 +145,7 @@ describe('compose', () => {
       })
 
       it('should update existing', async () => {
-        h.$module = new Module()
+        h.$module = DummyModule
         const record = new Record(h.$module, { recordID: '222' })
 
         h.ComposeAPI.recordUpdate = sinon.fake.resolves(record)
@@ -159,19 +161,19 @@ describe('compose', () => {
         expect(h.deleteRecord(false)).to.be.rejectedWith(Error)
         expect(h.deleteRecord(true)).to.be.rejectedWith(Error)
         expect(h.deleteRecord({})).to.be.rejectedWith(Error)
-        expect(h.deleteRecord(new Module())).to.be.rejectedWith(Error)
-        expect(h.deleteRecord(Promise.resolve(new Module()))).to.be.rejectedWith(Error)
+        expect(h.deleteRecord(DummyModule)).to.be.rejectedWith(Error)
+        expect(h.deleteRecord(Promise.resolve(DummyModule))).to.be.rejectedWith(Error)
       })
 
       it('should delete existing record', async () => {
-        const record = new Record(new Module(), { recordID: '222' })
+        const record = new Record(DummyModule, { recordID: '222' })
         h.ComposeAPI.recordDelete = sinon.fake.resolves(record)
         await h.deleteRecord(record)
         sinon.assert.calledWith(h.ComposeAPI.recordDelete, record)
       })
 
       it('should not delete fresh record', async () => {
-        const record = new Record(new Module())
+        const record = new Record(DummyModule)
         h.ComposeAPI.recordDelete = sinon.fake()
         await h.deleteRecord(record)
         sinon.assert.notCalled(h.ComposeAPI.recordDelete)
@@ -206,7 +208,7 @@ describe('compose', () => {
 
     describe('saveModule', async () => {
       it('should create new', async () => {
-        const module = new Module()
+        const module = DummyModule
         h.$namespace = new Namespace()
         h.ComposeAPI.moduleCreate = sinon.fake.resolves(module)
         await h.saveModule(module)

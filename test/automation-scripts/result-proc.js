@@ -8,7 +8,8 @@ describe('result processor', () => {
   let ctx, M
 
   beforeEach(() => {
-    M = Object.freeze(new Module({ moduleID: 555 }))
+    M = Object.freeze(new Module({ moduleID: 555, namespaceID: 444, fields: [ { name: 'dummy' } ] }))
+
     ctx = {}
   })
 
