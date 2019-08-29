@@ -1,11 +1,18 @@
 import { NodeVM } from 'vm2'
+import path from 'path'
 import resultProcessor from './result-proc'
 import { sharedContext } from './context'
+
+export const allowedExternalModules = Object.freeze([
+  'axios',
+  'request',
+  'lodash',
+])
 
 export default async (code, ctx = {}, opt = {}) => {
   return new Promise(async (resolve, reject) => {
     const {
-      console = 'off',
+      basedir = path.join(path.resolve(), 'node_modules'),
       async = false,
       timeout,
     } = opt
@@ -22,20 +29,24 @@ export default async (code, ctx = {}, opt = {}) => {
         sandbox: ctx,
 
         // Disallow require()
-        require: false,
+        require: {
+          external: {
+            modules: allowedExternalModules,
+          },
+        },
 
         // timeout after ??
         timeout,
 
         // Allow console use
-        console,
+        console: opt.console || 'off',
 
         // No wrapper - we need the result
         // from the script
         wrapper: 'none',
       })
 
-      resolve(resultProcessor(ctx, await vm.run(code)))
+      resolve(resultProcessor(ctx, await vm.run(code, basedir)))
     } catch (e) {
       reject(e)
     }
