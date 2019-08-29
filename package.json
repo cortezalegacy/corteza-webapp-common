@@ -2,20 +2,21 @@
   "name": "corteza-webapp-common",
   "description": "Corteza common plugins, libs, components and API client",
   "author": "Denis Arh <denis.arh@crust.tech>",
-  "version": "2019.9.0-rc.2",
+  "version": "2019.9.0-rc.3",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "codegen:corteza-api-client": "node tools/codegen/corteza-api-client.js",
     "docsgen": "./node_modules/.bin/esdoc",
     "docsgen:watch": "nodemon -w src/ --exec 'yarn docsgen'",
-    "test:unit": "mocha -r esm --recursive"
+    "test:unit": "mocha -r esm -r jsdom-global/register --recursive"
   },
   "dependencies": {
     "axios": "0.19.0",
     "diff": "4.0.1",
     "mime-types": "2.1.24",
     "pdfjs-dist": "2.1.266",
+    "qs": "^6.8.0",
     "v-photoswipe": "https://github.com/tjerman/v-photoswipe#master",
     "vm2": "^3.8.2"
   },
@@ -30,6 +31,8 @@
     "esformatter-add-trailing-commas": "^1.1.0",
     "esm": "^3.2.25",
     "handlebars": "^4.0.14",
+    "jsdom": "15.1.1",
+    "jsdom-global": "3.0.2",
     "lodash": "^4.17.13",
     "mocha": "^6.2.0",
     "sinon": "7.4.1"
