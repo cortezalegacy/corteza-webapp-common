@@ -360,7 +360,7 @@ class ComposeHelper {
    * @returns {Promise<Module>}
    */
   async findModuleByID (module, ns = this.$namespace) {
-    this.resolveNamespace(ns).then((ns) => {
+    return this.resolveNamespace(ns).then((ns) => {
       const moduleID = extractID(module, 'moduleID')
       const namespaceID = extractID(ns, 'namespaceID')
 
@@ -389,10 +389,10 @@ class ComposeHelper {
    * @returns {Promise<Module>}
    */
   async findModuleByName (name, ns = this.$namespace) {
-    this.resolveNamespace(ns).then((ns) => {
+    return this.resolveNamespace(ns).then((ns) => {
       const namespaceID = extractID(ns, 'namespaceID')
       return this.ComposeAPI.moduleList({ namespaceID, name }).then(({ set, filter }) => {
-        if (filter.count === 0) {
+        if (filter && filter.count === 0) {
           return null
         }
 
@@ -434,7 +434,7 @@ class ComposeHelper {
    * @returns {Promise<Namespace>}
    */
   async saveNamespace (namespace) {
-    Promise.resolve(namespace).then(namespace => {
+    return Promise.resolve(namespace).then(namespace => {
       if (!(namespace instanceof Namespace)) {
         throw Error('expecting Namespace type')
       }

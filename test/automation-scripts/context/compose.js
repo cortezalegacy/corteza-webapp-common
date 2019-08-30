@@ -1,3 +1,4 @@
+
 import { describe, it, beforeEach } from 'mocha'
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
@@ -231,10 +232,24 @@ describe('compose', () => {
       it('should cast retrieved objects to Module')
     })
 
-    describe('findModuleByID', () => {
-      it('should find module on $module')
-      it('should find by ID when given a Module object')
-      it('should cast retrieved objects to Module')
+    describe.only('findModuleByID', () => {
+      it('should find module on $namespace', async () => {
+        const module = new Module({ moduleID: '555' })
+        h.$namespace = new Namespace({ namespaceID: '444' })
+        h.ComposeAPI.moduleRead = sinon.fake.resolves({ ...module })
+        expect(await h.findModuleByID('555')).to.be.instanceOf(Module)
+        sinon.assert.calledWith(h.ComposeAPI.moduleRead, { moduleID: '555', namespaceID: h.$namespace.namespaceID })
+      })
+    })
+
+    describe('findModuleByName', () => {
+      it('should find module on $namespace', async () => {
+        const module = new Module({ moduleID: '555' })
+        h.$namespace = new Namespace({ namespaceID: '444' })
+        h.ComposeAPI.moduleList = sinon.fake.resolves({ filter: { count: 1 }, set: [module] })
+        expect(await h.findModuleByName('some-module')).to.be.instanceOf(Module)
+        sinon.assert.calledWith(h.ComposeAPI.moduleList, { name: 'some-module', namespaceID: h.$namespace.namespaceID })
+      })
     })
 
     describe('makeNamespace', () => {
