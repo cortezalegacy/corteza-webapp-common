@@ -17,7 +17,7 @@ export default class UserAgentScript extends CortezaObject {
 
   Match (event, condition = '0') {
     // Is there any code to run?
-    if (this.source.trim().length === 0) {
+    if (!this.source || this.source.trim().length === 0) {
       return false
     }
 
