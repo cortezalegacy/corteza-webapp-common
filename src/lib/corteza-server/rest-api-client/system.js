@@ -1592,4 +1592,427 @@ export default class System {
     return `/permissions/${roleID}/rules`
   }
 
+  // List/read automation script
+  async automationScriptList (args = {}) {
+    const {query, resource, incDeleted, page, perPage, } = args
+
+
+    let cfg = {
+      method: 'get',
+      url: this.automationScriptListEndpoint({  }),
+    }
+    cfg.params = {
+      query,
+      resource,
+      incDeleted,
+      page,
+      perPage,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptListEndpoint () {
+    return `/automation/script/`
+  }
+
+  // Add new automation script
+  async automationScriptCreate (args = {}) {
+    const {name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = args
+
+
+    let cfg = {
+      method: 'post',
+      url: this.automationScriptCreateEndpoint({  }),
+    }
+
+    cfg.data = {
+      name,
+      sourceRef,
+      source,
+      runAs,
+      runInUA,
+      timeout,
+      critical,
+      async,
+      enabled,
+      triggers,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptCreateEndpoint () {
+    return `/automation/script/`
+  }
+
+  // Read automation script by ID
+  async automationScriptRead (args = {}) {
+    const {scriptID, } = args
+    if (!scriptID) {
+      console.error('automationScriptRead failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.automationScriptReadEndpoint({
+        scriptID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptReadEndpoint ({scriptID, } = {}) {
+    return `/automation/script/${scriptID}`
+  }
+
+  // Update automation script
+  async automationScriptUpdate (args = {}) {
+    const {scriptID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = args
+    if (!scriptID) {
+      console.error('automationScriptUpdate failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationScriptUpdateEndpoint({
+        scriptID,
+      }),
+    }
+
+    cfg.data = {
+      name,
+      sourceRef,
+      source,
+      runAs,
+      runInUA,
+      timeout,
+      critical,
+      async,
+      enabled,
+      triggers,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptUpdateEndpoint ({scriptID, } = {}) {
+    return `/automation/script/${scriptID}`
+  }
+
+  // Delete script
+  async automationScriptDelete (args = {}) {
+    const {scriptID, } = args
+    if (!scriptID) {
+      console.error('automationScriptDelete failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'delete',
+      url: this.automationScriptDeleteEndpoint({
+        scriptID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptDeleteEndpoint ({scriptID, } = {}) {
+    return `/automation/script/${scriptID}`
+  }
+
+  // List of runnable (event&#x3D;manual) scripts (executable on the backend or from user-agent/browser)
+  async automationScriptRunnable (args = {}) {
+    const {resource, condition, } = args
+
+
+    let cfg = {
+      method: 'get',
+      url: this.automationScriptRunnableEndpoint({  }),
+    }
+    cfg.params = {
+      resource,
+      condition,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptRunnableEndpoint () {
+    return `/automation/script/runnable`
+  }
+
+  // Run a specific script or code at the backend. Used for running script manually
+  async automationScriptRun (args = {}) {
+    const {scriptID, moduleID, recordID, record, } = args
+    if (!scriptID) {
+      console.error('automationScriptRun failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationScriptRunEndpoint({
+        scriptID,
+      }),
+    }
+
+    cfg.data = {
+      moduleID,
+      recordID,
+      record,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptRunEndpoint ({scriptID, } = {}) {
+    return `/automation/script/${scriptID}/run`
+  }
+
+  // Run source code in corredor. Used for testing
+  async automationScriptTest (args = {}) {
+    const {source, moduleID, record, } = args
+
+
+    let cfg = {
+      method: 'post',
+      url: this.automationScriptTestEndpoint({  }),
+    }
+
+    cfg.data = {
+      source,
+      moduleID,
+      record,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationScriptTestEndpoint () {
+    return `/automation/script/test`
+  }
+
+  // List/read automation script triggers
+  async automationTriggerList (args = {}) {
+    const {scriptID, resource, event, incDeleted, page, perPage, } = args
+    if (!scriptID) {
+      console.error('automationTriggerList failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.automationTriggerListEndpoint({
+        scriptID,
+      }),
+    }
+    cfg.params = {
+      resource,
+      event,
+      incDeleted,
+      page,
+      perPage,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerListEndpoint ({scriptID, } = {}) {
+    return `/automation/script/${scriptID}/trigger/`
+  }
+
+  // Add new automation script trigger
+  async automationTriggerCreate (args = {}) {
+    const {scriptID, resource, event, condition, enabled, } = args
+    if (!scriptID) {
+      console.error('automationTriggerCreate failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+    if (!resource) {
+      console.error('automationTriggerCreate failed, field resource is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field resource is empty')
+    }
+    if (!event) {
+      console.error('automationTriggerCreate failed, field event is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field event is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationTriggerCreateEndpoint({
+        scriptID,
+      }),
+    }
+
+    cfg.data = {
+      resource,
+      event,
+      condition,
+      enabled,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerCreateEndpoint ({scriptID, } = {}) {
+    return `/automation/script/${scriptID}/trigger/`
+  }
+
+  // Read automation script trigger by ID
+  async automationTriggerRead (args = {}) {
+    const {scriptID, triggerID, } = args
+    if (!scriptID) {
+      console.error('automationTriggerRead failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+    if (!triggerID) {
+      console.error('automationTriggerRead failed, field triggerID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field triggerID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.automationTriggerReadEndpoint({
+        scriptID,
+        triggerID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerReadEndpoint ({scriptID, triggerID, } = {}) {
+    return `/automation/script/${scriptID}/trigger/${triggerID}`
+  }
+
+  // Update automation script trigger
+  async automationTriggerUpdate (args = {}) {
+    const {scriptID, triggerID, resource, event, condition, enabled, } = args
+    if (!scriptID) {
+      console.error('automationTriggerUpdate failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+    if (!triggerID) {
+      console.error('automationTriggerUpdate failed, field triggerID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field triggerID is empty')
+    }
+    if (!resource) {
+      console.error('automationTriggerUpdate failed, field resource is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field resource is empty')
+    }
+    if (!event) {
+      console.error('automationTriggerUpdate failed, field event is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field event is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.automationTriggerUpdateEndpoint({
+        scriptID,
+        triggerID,
+      }),
+    }
+
+    cfg.data = {
+      resource,
+      event,
+      condition,
+      enabled,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerUpdateEndpoint ({scriptID, triggerID, } = {}) {
+    return `/automation/script/${scriptID}/trigger/${triggerID}`
+  }
+
+  // Delete script
+  async automationTriggerDelete (args = {}) {
+    const {scriptID, triggerID, } = args
+    if (!scriptID) {
+      console.error('automationTriggerDelete failed, field scriptID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field scriptID is empty')
+    }
+    if (!triggerID) {
+      console.error('automationTriggerDelete failed, field triggerID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field triggerID is empty')
+    }
+
+    let cfg = {
+      method: 'delete',
+      url: this.automationTriggerDeleteEndpoint({
+        scriptID,
+        triggerID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  automationTriggerDeleteEndpoint ({scriptID, triggerID, } = {}) {
+    return `/automation/script/${scriptID}/trigger/${triggerID}`
+  }
+
 }
