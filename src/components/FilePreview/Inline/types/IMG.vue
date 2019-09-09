@@ -1,6 +1,18 @@
 <template>
   <div class="inline">
-    <img ref="image" @click="$emit('openPreview', {})" :key="src" :src="src" :title="title" :alt="alt" :class="getClass" :style="previewStyle" @error.once="reloadBrokenImage" @load="loaded=true">
+    <img ref="image"
+         @click="$emit('openPreview', {})"
+         :key="src"
+         :src="src"
+         :title="title"
+         :alt="alt"
+         :class="getClass"
+         :style="previewStyle"
+         @error.once="reloadBrokenImage"
+         @load="loaded=true"
+         :width="getWidth"
+         :height="getHeight">
+
   </div>
 </template>
 
@@ -38,13 +50,13 @@ export default {
       }
       return rtr
     },
-  },
 
-  created () {
-    this.$nextTick(() => {
-      this.$refs.image.width = this.meta.preview.image.width
-      this.$refs.image.height = this.meta.preview.image.height
-    })
+    getWidth () {
+      return this.meta.preview.image.width
+    },
+    getHeight () {
+      return this.meta.preview.image.height
+    },
   },
 
   methods: {
