@@ -674,12 +674,18 @@ export default class System {
 
   // Update role details
   async roleCreate (args = {}) {
-    const {name, members, } = args
+    const {name, handle, members, } = args
     if (!name) {
       console.error('roleCreate failed, field name is empty', {
         args,
       }) // log error so we can debug/trace it
       throw Error('field name is empty')
+    }
+    if (!handle) {
+      console.error('roleCreate failed, field handle is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field handle is empty')
     }
 
     let cfg = {
@@ -689,6 +695,7 @@ export default class System {
 
     cfg.data = {
       name,
+      handle,
       members,
     }
     return new Promise((resolve, reject) => {
@@ -702,7 +709,7 @@ export default class System {
 
   // Update role details
   async roleUpdate (args = {}) {
-    const {roleID, name, members, } = args
+    const {roleID, name, handle, members, } = args
     if (!roleID) {
       console.error('roleUpdate failed, field roleID is empty', {
         args,
@@ -719,6 +726,7 @@ export default class System {
 
     cfg.data = {
       name,
+      handle,
       members,
     }
     return new Promise((resolve, reject) => {

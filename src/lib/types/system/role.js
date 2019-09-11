@@ -15,6 +15,13 @@ class Role extends SystemObject {
     /** @type {string} name */
     this.name = PropCast(String, r.name)
 
+    /** @type {string|[string]} members */
+    if (Array.isArray(r.members)) {
+      this.members = r.members.map(m => PropCast(String, m))
+    } else {
+      this.members = PropCast(String, r.members)
+    }
+
     /** @type {string} createdAt */
     this.createdAt = PropCast(ISO8601, r.createdAt)
 
