@@ -613,6 +613,35 @@ class ComposeHelper {
   }
 
   /**
+   * Walks over white listed fields.
+   *
+   * @param {null|Array|Record} fwl - field white list; if not defined, all fields are used
+   * @param {Record} record - record to be walked over
+   * @param {Function} formatter
+   * @returns {*}
+   *
+   * @private
+   */
+  walkFields (fwl, record, formatter) {
+    if (!formatter) {
+      throw new Error('formatter.undefined')
+    }
+
+    if (fwl instanceof Record) {
+      record = fwl
+      fwl = undefined
+    }
+
+    if (Array.isArray(fwl) && fwl.length === 0) {
+      fwl = null
+    }
+
+    return record.module.fields
+      .filter(f => !fwl || fwl.indexOf(f.name) > -1)
+      .map(formatter)
+  }
+
+  /**
    * Sends a simple record report as HTML
    *
    * @example
@@ -630,24 +659,33 @@ class ComposeHelper {
    * @returns {string}
    */
   recordToHTML (fwl = null, record = this.$record) {
-    if (fwl instanceof Record) {
-      record = fwl
-      fwl = undefined
-    }
-
-    if (Array.isArray(fwl) && fwl.length === 0) {
-      fwl = null
-    }
-
-    let rows = record.module.fields
-      .filter(f => !fwl || fwl.indexOf(f.name) > -1)
-      .map(f => {
-        const v = record.values[f.name]
-        return `<tr><td>${f.label || f.name}</td><td>${(Array.isArray(v) ? v : [v]).join(', ') || '&nbsp;'}</td></tr>`
-      })
-      .join('')
+    const rows = this.walkFields(fwl, record, f => {
+      const v = record.values[f.name]
+      return `<tr><td>${f.label || f.name}</td><td>${(Array.isArray(v) ? v : [v]).join(', ') || '&nbsp;'}</td></tr>`
+    }).join('')
 
     return `<table width="800" cellspacing="0" cellpadding="0" border="0">${rows}</table>`
+  }
+
+  /**
+   * Represents a given record as plain text
+   *
+   * @example
+   * // generates report for current $record with all fields
+   * let report = recordToPlainText()
+   *
+   * // generates report for current $record from a list of fields
+   * let report = recordToPlainText(['fieldA', 'fieldB', 'fieldC'])
+   *
+   * @param {null|Array|Record} fwl - field white list (or leave empty/null/false for all fields)
+   * @param {Record} record - record to be converted (or leave for the current $record)
+   * @returns {string}
+   */
+  recordToPlainText (fwl = null, record = this.$record) {
+    return this.walkFields(fwl, record, f => {
+      const v = record.values[f.name]
+      return `${f.label || f.name}: ${(Array.isArray(v) ? v : [v]).join(', ') || '/'}\n`
+    }).join('')
   }
 
   /**
