@@ -71,8 +71,8 @@ export default class Compose {
   }
 
   // List namespaces
-  async namespaceList (args = {}) {
-    const {query, slug, page, perPage, } = args
+  async namespaceList () {
+    const {query, slug, page, perPage, } = arguments[0] || {}
 
 
     let cfg = {
@@ -96,8 +96,8 @@ export default class Compose {
   }
 
   // Create namespace
-  async namespaceCreate (args = {}) {
-    const {name, slug, enabled, meta, } = args
+  async namespaceCreate () {
+    const {name, slug, enabled, meta, } = arguments[0] || {}
     if (!name) {
       console.error('namespaceCreate failed, field name is empty', {
         args,
@@ -132,8 +132,8 @@ export default class Compose {
   }
 
   // Read namespace
-  async namespaceRead (args = {}) {
-    const {namespaceID, } = args
+  async namespaceRead () {
+    const {namespaceID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('namespaceRead failed, field namespaceID is empty', {
         args,
@@ -159,8 +159,8 @@ export default class Compose {
   }
 
   // Update namespace
-  async namespaceUpdate (args = {}) {
-    const {namespaceID, name, slug, enabled, meta, updatedAt, } = args
+  async namespaceUpdate () {
+    const {namespaceID, name, slug, enabled, meta, updatedAt, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('namespaceUpdate failed, field namespaceID is empty', {
         args,
@@ -204,8 +204,8 @@ export default class Compose {
   }
 
   // Delete namespace
-  async namespaceDelete (args = {}) {
-    const {namespaceID, } = args
+  async namespaceDelete () {
+    const {namespaceID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('namespaceDelete failed, field namespaceID is empty', {
         args,
@@ -231,8 +231,8 @@ export default class Compose {
   }
 
   // List available pages
-  async pageList (args = {}) {
-    const {namespaceID, selfID, query, page, perPage, } = args
+  async pageList () {
+    const {namespaceID, selfID, query, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageList failed, field namespaceID is empty', {
         args,
@@ -263,8 +263,8 @@ export default class Compose {
   }
 
   // Create page
-  async pageCreate (args = {}) {
-    const {namespaceID, selfID, moduleID, title, description, visible, blocks, } = args
+  async pageCreate () {
+    const {namespaceID, selfID, moduleID, title, description, visible, blocks, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageCreate failed, field namespaceID is empty', {
         args,
@@ -309,8 +309,8 @@ export default class Compose {
   }
 
   // Get page details
-  async pageRead (args = {}) {
-    const {namespaceID, pageID, } = args
+  async pageRead () {
+    const {namespaceID, pageID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageRead failed, field namespaceID is empty', {
         args,
@@ -343,8 +343,8 @@ export default class Compose {
   }
 
   // Get page all (non-record) pages, hierarchically
-  async pageTree (args = {}) {
-    const {namespaceID, } = args
+  async pageTree () {
+    const {namespaceID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageTree failed, field namespaceID is empty', {
         args,
@@ -370,8 +370,8 @@ export default class Compose {
   }
 
   // Update page
-  async pageUpdate (args = {}) {
-    const {namespaceID, pageID, selfID, moduleID, title, description, visible, blocks, } = args
+  async pageUpdate () {
+    const {namespaceID, pageID, selfID, moduleID, title, description, visible, blocks, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageUpdate failed, field namespaceID is empty', {
         args,
@@ -423,8 +423,8 @@ export default class Compose {
   }
 
   // Reorder pages
-  async pageReorder (args = {}) {
-    const {namespaceID, selfID, pageIDs, } = args
+  async pageReorder () {
+    const {namespaceID, selfID, pageIDs, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageReorder failed, field namespaceID is empty', {
         args,
@@ -465,8 +465,8 @@ export default class Compose {
   }
 
   // Delete page
-  async pageDelete (args = {}) {
-    const {namespaceID, pageID, } = args
+  async pageDelete () {
+    const {namespaceID, pageID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageDelete failed, field namespaceID is empty', {
         args,
@@ -499,8 +499,8 @@ export default class Compose {
   }
 
   // Uploads attachment to page
-  async pageUpload (args = {}) {
-    const {namespaceID, pageID, upload, } = args
+  async pageUpload () {
+    const {namespaceID, pageID, upload, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageUpload failed, field namespaceID is empty', {
         args,
@@ -541,8 +541,8 @@ export default class Compose {
   }
 
   // List modules
-  async moduleList (args = {}) {
-    const {namespaceID, query, name, page, perPage, } = args
+  async moduleList () {
+    const {namespaceID, query, name, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('moduleList failed, field namespaceID is empty', {
         args,
@@ -573,8 +573,8 @@ export default class Compose {
   }
 
   // Create module
-  async moduleCreate (args = {}) {
-    const {namespaceID, name, fields, meta, } = args
+  async moduleCreate () {
+    const {namespaceID, name, fields, meta, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('moduleCreate failed, field namespaceID is empty', {
         args,
@@ -622,8 +622,8 @@ export default class Compose {
   }
 
   // Read module
-  async moduleRead (args = {}) {
-    const {namespaceID, moduleID, } = args
+  async moduleRead () {
+    const {namespaceID, moduleID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('moduleRead failed, field namespaceID is empty', {
         args,
@@ -656,8 +656,8 @@ export default class Compose {
   }
 
   // Update module
-  async moduleUpdate (args = {}) {
-    const {namespaceID, moduleID, name, fields, meta, updatedAt, } = args
+  async moduleUpdate () {
+    const {namespaceID, moduleID, name, fields, meta, updatedAt, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('moduleUpdate failed, field namespaceID is empty', {
         args,
@@ -713,8 +713,8 @@ export default class Compose {
   }
 
   // Delete module
-  async moduleDelete (args = {}) {
-    const {namespaceID, moduleID, } = args
+  async moduleDelete () {
+    const {namespaceID, moduleID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('moduleDelete failed, field namespaceID is empty', {
         args,
@@ -747,8 +747,8 @@ export default class Compose {
   }
 
   // Generates report from module records
-  async recordReport (args = {}) {
-    const {namespaceID, moduleID, metrics, dimensions, filter, } = args
+  async recordReport () {
+    const {namespaceID, moduleID, metrics, dimensions, filter, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordReport failed, field namespaceID is empty', {
         args,
@@ -791,8 +791,8 @@ export default class Compose {
   }
 
   // List/read records from module section
-  async recordList (args = {}) {
-    const {namespaceID, moduleID, filter, page, perPage, sort, } = args
+  async recordList () {
+    const {namespaceID, moduleID, filter, page, perPage, sort, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordList failed, field namespaceID is empty', {
         args,
@@ -830,8 +830,8 @@ export default class Compose {
   }
 
   // Initiate record import session
-  async recordImportInit (args = {}) {
-    const {namespaceID, moduleID, upload, } = args
+  async recordImportInit () {
+    const {namespaceID, moduleID, upload, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordImportInit failed, field namespaceID is empty', {
         args,
@@ -872,8 +872,8 @@ export default class Compose {
   }
 
   // Run record import
-  async recordImportRun (args = {}) {
-    const {namespaceID, moduleID, sessionID, fields, onError, } = args
+  async recordImportRun () {
+    const {namespaceID, moduleID, sessionID, fields, onError, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordImportRun failed, field namespaceID is empty', {
         args,
@@ -928,8 +928,8 @@ export default class Compose {
   }
 
   // Get import progress
-  async recordImportProgress (args = {}) {
-    const {namespaceID, moduleID, sessionID, } = args
+  async recordImportProgress () {
+    const {namespaceID, moduleID, sessionID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordImportProgress failed, field namespaceID is empty', {
         args,
@@ -969,8 +969,8 @@ export default class Compose {
   }
 
   // Exports records that match
-  async recordExport (args = {}) {
-    const {namespaceID, moduleID, filename, ext, filter, fields, } = args
+  async recordExport () {
+    const {namespaceID, moduleID, filename, ext, filter, fields, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordExport failed, field namespaceID is empty', {
         args,
@@ -1019,9 +1019,52 @@ export default class Compose {
     return `/namespace/${namespaceID}/module/${moduleID}/record/export${filename}.${ext}`
   }
 
+  // Executes server-side procedure over one or more module records
+  async recordExec () {
+    const {namespaceID, moduleID, procedure, args, } = arguments[0] || {}
+    if (!namespaceID) {
+      console.error('recordExec failed, field namespaceID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field namespaceID is empty')
+    }
+    if (!moduleID) {
+      console.error('recordExec failed, field moduleID is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field moduleID is empty')
+    }
+    if (!procedure) {
+      console.error('recordExec failed, field procedure is empty', {
+        args,
+      }) // log error so we can debug/trace it
+      throw Error('field procedure is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.recordExecEndpoint({
+        namespaceID,
+        moduleID,
+        procedure,
+      }),
+    }
+
+    cfg.data = {
+      args,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  recordExecEndpoint ({namespaceID, moduleID, procedure, } = {}) {
+    return `/namespace/${namespaceID}/module/${moduleID}/record/exec/${procedure}`
+  }
+
   // Create record in module section
-  async recordCreate (args = {}) {
-    const {namespaceID, moduleID, values, } = args
+  async recordCreate () {
+    const {namespaceID, moduleID, values, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordCreate failed, field namespaceID is empty', {
         args,
@@ -1062,8 +1105,8 @@ export default class Compose {
   }
 
   // Read records by ID from module section
-  async recordRead (args = {}) {
-    const {namespaceID, moduleID, recordID, } = args
+  async recordRead () {
+    const {namespaceID, moduleID, recordID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordRead failed, field namespaceID is empty', {
         args,
@@ -1103,8 +1146,8 @@ export default class Compose {
   }
 
   // Update records in module section
-  async recordUpdate (args = {}) {
-    const {namespaceID, moduleID, recordID, values, } = args
+  async recordUpdate () {
+    const {namespaceID, moduleID, recordID, values, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordUpdate failed, field namespaceID is empty', {
         args,
@@ -1152,8 +1195,8 @@ export default class Compose {
   }
 
   // Delete record row from module section
-  async recordDelete (args = {}) {
-    const {namespaceID, moduleID, recordID, } = args
+  async recordDelete () {
+    const {namespaceID, moduleID, recordID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordDelete failed, field namespaceID is empty', {
         args,
@@ -1193,8 +1236,8 @@ export default class Compose {
   }
 
   // Uploads attachment and validates it against record field requirements
-  async recordUpload (args = {}) {
-    const {namespaceID, moduleID, recordID, fieldName, upload, } = args
+  async recordUpload () {
+    const {namespaceID, moduleID, recordID, fieldName, upload, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('recordUpload failed, field namespaceID is empty', {
         args,
@@ -1243,8 +1286,8 @@ export default class Compose {
   }
 
   // List/read charts
-  async chartList (args = {}) {
-    const {namespaceID, query, page, perPage, } = args
+  async chartList () {
+    const {namespaceID, query, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('chartList failed, field namespaceID is empty', {
         args,
@@ -1274,8 +1317,8 @@ export default class Compose {
   }
 
   // List/read charts
-  async chartCreate (args = {}) {
-    const {namespaceID, config, name, } = args
+  async chartCreate () {
+    const {namespaceID, config, name, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('chartCreate failed, field namespaceID is empty', {
         args,
@@ -1316,8 +1359,8 @@ export default class Compose {
   }
 
   // Read charts by ID
-  async chartRead (args = {}) {
-    const {namespaceID, chartID, } = args
+  async chartRead () {
+    const {namespaceID, chartID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('chartRead failed, field namespaceID is empty', {
         args,
@@ -1350,8 +1393,8 @@ export default class Compose {
   }
 
   // Add/update charts
-  async chartUpdate (args = {}) {
-    const {namespaceID, chartID, config, name, updatedAt, } = args
+  async chartUpdate () {
+    const {namespaceID, chartID, config, name, updatedAt, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('chartUpdate failed, field namespaceID is empty', {
         args,
@@ -1400,8 +1443,8 @@ export default class Compose {
   }
 
   // Delete chart
-  async chartDelete (args = {}) {
-    const {namespaceID, chartID, } = args
+  async chartDelete () {
+    const {namespaceID, chartID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('chartDelete failed, field namespaceID is empty', {
         args,
@@ -1434,8 +1477,8 @@ export default class Compose {
   }
 
   // Send email from the Compose
-  async notificationEmailSend (args = {}) {
-    const {to, cc, replyTo, subject, content, } = args
+  async notificationEmailSend () {
+    const {to, cc, replyTo, subject, content, } = arguments[0] || {}
     if (!to) {
       console.error('notificationEmailSend failed, field to is empty', {
         args,
@@ -1471,8 +1514,8 @@ export default class Compose {
   }
 
   // List, filter all page attachments
-  async attachmentList (args = {}) {
-    const {kind, namespaceID, sign, userID, pageID, moduleID, recordID, fieldName, page, perPage, } = args
+  async attachmentList () {
+    const {kind, namespaceID, sign, userID, pageID, moduleID, recordID, fieldName, page, perPage, } = arguments[0] || {}
     if (!kind) {
       console.error('attachmentList failed, field kind is empty', {
         args,
@@ -1514,8 +1557,8 @@ export default class Compose {
   }
 
   // Attachment details
-  async attachmentRead (args = {}) {
-    const {kind, namespaceID, attachmentID, sign, userID, } = args
+  async attachmentRead () {
+    const {kind, namespaceID, attachmentID, sign, userID, } = arguments[0] || {}
     if (!kind) {
       console.error('attachmentRead failed, field kind is empty', {
         args,
@@ -1558,8 +1601,8 @@ export default class Compose {
   }
 
   // Delete attachment
-  async attachmentDelete (args = {}) {
-    const {kind, namespaceID, attachmentID, sign, userID, } = args
+  async attachmentDelete () {
+    const {kind, namespaceID, attachmentID, sign, userID, } = arguments[0] || {}
     if (!kind) {
       console.error('attachmentDelete failed, field kind is empty', {
         args,
@@ -1602,8 +1645,8 @@ export default class Compose {
   }
 
   // Serves attached file
-  async attachmentOriginal (args = {}) {
-    const {kind, namespaceID, attachmentID, name, sign, userID, download, } = args
+  async attachmentOriginal () {
+    const {kind, namespaceID, attachmentID, name, sign, userID, download, } = arguments[0] || {}
     if (!kind) {
       console.error('attachmentOriginal failed, field kind is empty', {
         args,
@@ -1654,8 +1697,8 @@ export default class Compose {
   }
 
   // Serves preview of an attached file
-  async attachmentPreview (args = {}) {
-    const {kind, namespaceID, attachmentID, ext, sign, userID, } = args
+  async attachmentPreview () {
+    const {kind, namespaceID, attachmentID, ext, sign, userID, } = arguments[0] || {}
     if (!kind) {
       console.error('attachmentPreview failed, field kind is empty', {
         args,
@@ -1705,7 +1748,7 @@ export default class Compose {
   }
 
   // Retrieve defined permissions
-  async permissionsList (args = {}) {
+  async permissionsList () {
 
 
 
@@ -1725,8 +1768,8 @@ export default class Compose {
   }
 
   // Effective rules for current user
-  async permissionsEffective (args = {}) {
-    const {resource, } = args
+  async permissionsEffective () {
+    const {resource, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1747,8 +1790,8 @@ export default class Compose {
   }
 
   // Retrieve role permissions
-  async permissionsRead (args = {}) {
-    const {roleID, } = args
+  async permissionsRead () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('permissionsRead failed, field roleID is empty', {
         args,
@@ -1774,8 +1817,8 @@ export default class Compose {
   }
 
   // Remove all defined role permissions
-  async permissionsDelete (args = {}) {
-    const {roleID, } = args
+  async permissionsDelete () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('permissionsDelete failed, field roleID is empty', {
         args,
@@ -1801,8 +1844,8 @@ export default class Compose {
   }
 
   // Update permission settings
-  async permissionsUpdate (args = {}) {
-    const {roleID, rules, } = args
+  async permissionsUpdate () {
+    const {roleID, rules, } = arguments[0] || {}
     if (!roleID) {
       console.error('permissionsUpdate failed, field roleID is empty', {
         args,
@@ -1836,8 +1879,8 @@ export default class Compose {
   }
 
   // List/read automation script
-  async automationScriptList (args = {}) {
-    const {namespaceID, query, resource, incDeleted, page, perPage, } = args
+  async automationScriptList () {
+    const {namespaceID, query, resource, incDeleted, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationScriptList failed, field namespaceID is empty', {
         args,
@@ -1869,8 +1912,8 @@ export default class Compose {
   }
 
   // Add new automation script
-  async automationScriptCreate (args = {}) {
-    const {namespaceID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = args
+  async automationScriptCreate () {
+    const {namespaceID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationScriptCreate failed, field namespaceID is empty', {
         args,
@@ -1907,8 +1950,8 @@ export default class Compose {
   }
 
   // Read automation script by ID
-  async automationScriptRead (args = {}) {
-    const {namespaceID, scriptID, } = args
+  async automationScriptRead () {
+    const {namespaceID, scriptID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationScriptRead failed, field namespaceID is empty', {
         args,
@@ -1941,8 +1984,8 @@ export default class Compose {
   }
 
   // Update automation script
-  async automationScriptUpdate (args = {}) {
-    const {namespaceID, scriptID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = args
+  async automationScriptUpdate () {
+    const {namespaceID, scriptID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationScriptUpdate failed, field namespaceID is empty', {
         args,
@@ -1986,8 +2029,8 @@ export default class Compose {
   }
 
   // Delete script
-  async automationScriptDelete (args = {}) {
-    const {namespaceID, scriptID, } = args
+  async automationScriptDelete () {
+    const {namespaceID, scriptID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationScriptDelete failed, field namespaceID is empty', {
         args,
@@ -2020,8 +2063,8 @@ export default class Compose {
   }
 
   // List of runnable (event&#x3D;manual) scripts (executable on the backend or from user-agent/browser)
-  async automationScriptRunnable (args = {}) {
-    const {namespaceID, resource, condition, } = args
+  async automationScriptRunnable () {
+    const {namespaceID, resource, condition, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationScriptRunnable failed, field namespaceID is empty', {
         args,
@@ -2050,8 +2093,8 @@ export default class Compose {
   }
 
   // Run a specific script or code at the backend. Used for running script manually
-  async automationScriptRun (args = {}) {
-    const {namespaceID, scriptID, moduleID, recordID, record, } = args
+  async automationScriptRun () {
+    const {namespaceID, scriptID, moduleID, recordID, record, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationScriptRun failed, field namespaceID is empty', {
         args,
@@ -2088,8 +2131,8 @@ export default class Compose {
   }
 
   // Run source code in corredor. Used for testing
-  async automationScriptTest (args = {}) {
-    const {namespaceID, source, moduleID, record, } = args
+  async automationScriptTest () {
+    const {namespaceID, source, moduleID, record, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationScriptTest failed, field namespaceID is empty', {
         args,
@@ -2119,8 +2162,8 @@ export default class Compose {
   }
 
   // List/read automation script triggers
-  async automationTriggerList (args = {}) {
-    const {namespaceID, scriptID, resource, event, incDeleted, page, perPage, } = args
+  async automationTriggerList () {
+    const {namespaceID, scriptID, resource, event, incDeleted, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationTriggerList failed, field namespaceID is empty', {
         args,
@@ -2159,8 +2202,8 @@ export default class Compose {
   }
 
   // Add new automation script trigger
-  async automationTriggerCreate (args = {}) {
-    const {namespaceID, scriptID, resource, event, condition, enabled, } = args
+  async automationTriggerCreate () {
+    const {namespaceID, scriptID, resource, event, condition, enabled, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationTriggerCreate failed, field namespaceID is empty', {
         args,
@@ -2210,8 +2253,8 @@ export default class Compose {
   }
 
   // Read automation script trigger by ID
-  async automationTriggerRead (args = {}) {
-    const {namespaceID, scriptID, triggerID, } = args
+  async automationTriggerRead () {
+    const {namespaceID, scriptID, triggerID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationTriggerRead failed, field namespaceID is empty', {
         args,
@@ -2251,8 +2294,8 @@ export default class Compose {
   }
 
   // Update automation script trigger
-  async automationTriggerUpdate (args = {}) {
-    const {namespaceID, scriptID, triggerID, resource, event, condition, enabled, } = args
+  async automationTriggerUpdate () {
+    const {namespaceID, scriptID, triggerID, resource, event, condition, enabled, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationTriggerUpdate failed, field namespaceID is empty', {
         args,
@@ -2309,8 +2352,8 @@ export default class Compose {
   }
 
   // Delete script
-  async automationTriggerDelete (args = {}) {
-    const {namespaceID, scriptID, triggerID, } = args
+  async automationTriggerDelete () {
+    const {namespaceID, scriptID, triggerID, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('automationTriggerDelete failed, field namespaceID is empty', {
         args,

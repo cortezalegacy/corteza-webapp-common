@@ -71,7 +71,7 @@ export default class Messaging {
   }
 
   // List of available commands
-  async commandsList (args = {}) {
+  async commandsList () {
 
 
 
@@ -91,7 +91,7 @@ export default class Messaging {
   }
 
   // See all current statuses
-  async statusList (args = {}) {
+  async statusList () {
 
 
 
@@ -111,8 +111,8 @@ export default class Messaging {
   }
 
   // Set user&#x27;s status
-  async statusSet (args = {}) {
-    const {icon, message, expires, } = args
+  async statusSet () {
+    const {icon, message, expires, } = arguments[0] || {}
 
 
     let cfg = {
@@ -135,7 +135,7 @@ export default class Messaging {
   }
 
   // Clear status
-  async statusDelete (args = {}) {
+  async statusDelete () {
 
 
 
@@ -155,8 +155,8 @@ export default class Messaging {
   }
 
   // Sends user&#x27;s activity to all subscribers; globally or per channel/message.
-  async activitySend (args = {}) {
-    const {channelID, messageID, kind, } = args
+  async activitySend () {
+    const {channelID, messageID, kind, } = arguments[0] || {}
     if (!kind) {
       console.error('activitySend failed, field kind is empty', {
         args,
@@ -184,8 +184,8 @@ export default class Messaging {
   }
 
   // List channels
-  async channelList (args = {}) {
-    const {query, } = args
+  async channelList () {
+    const {query, } = arguments[0] || {}
 
 
     let cfg = {
@@ -206,8 +206,8 @@ export default class Messaging {
   }
 
   // Create new channel
-  async channelCreate (args = {}) {
-    const {name, topic, type, membershipPolicy, members, } = args
+  async channelCreate () {
+    const {name, topic, type, membershipPolicy, members, } = arguments[0] || {}
 
 
     let cfg = {
@@ -232,8 +232,8 @@ export default class Messaging {
   }
 
   // Update channel details
-  async channelUpdate (args = {}) {
-    const {channelID, name, topic, membershipPolicy, type, organisationID, } = args
+  async channelUpdate () {
+    const {channelID, name, topic, membershipPolicy, type, organisationID, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelUpdate failed, field channelID is empty', {
         args,
@@ -265,8 +265,8 @@ export default class Messaging {
   }
 
   // Update channel state
-  async channelState (args = {}) {
-    const {channelID, state, } = args
+  async channelState () {
+    const {channelID, state, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelState failed, field channelID is empty', {
         args,
@@ -300,8 +300,8 @@ export default class Messaging {
   }
 
   // Update channel membership flag
-  async channelSetFlag (args = {}) {
-    const {channelID, flag, } = args
+  async channelSetFlag () {
+    const {channelID, flag, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelSetFlag failed, field channelID is empty', {
         args,
@@ -335,8 +335,8 @@ export default class Messaging {
   }
 
   // Remove channel membership flag
-  async channelRemoveFlag (args = {}) {
-    const {channelID, } = args
+  async channelRemoveFlag () {
+    const {channelID, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelRemoveFlag failed, field channelID is empty', {
         args,
@@ -362,8 +362,8 @@ export default class Messaging {
   }
 
   // Read channel details
-  async channelRead (args = {}) {
-    const {channelID, } = args
+  async channelRead () {
+    const {channelID, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelRead failed, field channelID is empty', {
         args,
@@ -389,8 +389,8 @@ export default class Messaging {
   }
 
   // List channel members
-  async channelMembers (args = {}) {
-    const {channelID, } = args
+  async channelMembers () {
+    const {channelID, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelMembers failed, field channelID is empty', {
         args,
@@ -416,8 +416,8 @@ export default class Messaging {
   }
 
   // Join channel
-  async channelJoin (args = {}) {
-    const {channelID, userID, } = args
+  async channelJoin () {
+    const {channelID, userID, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelJoin failed, field channelID is empty', {
         args,
@@ -444,8 +444,8 @@ export default class Messaging {
   }
 
   // Remove member from channel
-  async channelPart (args = {}) {
-    const {channelID, userID, } = args
+  async channelPart () {
+    const {channelID, userID, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelPart failed, field channelID is empty', {
         args,
@@ -472,8 +472,8 @@ export default class Messaging {
   }
 
   // Join channel
-  async channelInvite (args = {}) {
-    const {channelID, userID, } = args
+  async channelInvite () {
+    const {channelID, userID, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelInvite failed, field channelID is empty', {
         args,
@@ -501,8 +501,8 @@ export default class Messaging {
   }
 
   // Attach file to channel
-  async channelAttach (args = {}) {
-    const {channelID, replyTo, upload, } = args
+  async channelAttach () {
+    const {channelID, replyTo, upload, } = arguments[0] || {}
     if (!channelID) {
       console.error('channelAttach failed, field channelID is empty', {
         args,
@@ -537,8 +537,8 @@ export default class Messaging {
   }
 
   // Post new message to the channel
-  async messageCreate (args = {}) {
-    const {channelID, message, } = args
+  async messageCreate () {
+    const {channelID, message, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageCreate failed, field channelID is empty', {
         args,
@@ -572,8 +572,8 @@ export default class Messaging {
   }
 
   // Execute command
-  async messageExecuteCommand (args = {}) {
-    const {channelID, command, input, params, } = args
+  async messageExecuteCommand () {
+    const {channelID, command, input, params, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageExecuteCommand failed, field channelID is empty', {
         args,
@@ -609,8 +609,8 @@ export default class Messaging {
   }
 
   // Manages read/unread messages in a channel or a thread
-  async messageMarkAsRead (args = {}) {
-    const {channelID, threadID, lastReadMessageID, } = args
+  async messageMarkAsRead () {
+    const {channelID, threadID, lastReadMessageID, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageMarkAsRead failed, field channelID is empty', {
         args,
@@ -639,8 +639,8 @@ export default class Messaging {
   }
 
   // Edit existing message
-  async messageEdit (args = {}) {
-    const {channelID, messageID, message, } = args
+  async messageEdit () {
+    const {channelID, messageID, message, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageEdit failed, field channelID is empty', {
         args,
@@ -681,8 +681,8 @@ export default class Messaging {
   }
 
   // Delete existing message
-  async messageDelete (args = {}) {
-    const {channelID, messageID, } = args
+  async messageDelete () {
+    const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageDelete failed, field channelID is empty', {
         args,
@@ -715,8 +715,8 @@ export default class Messaging {
   }
 
   // Reply to a message
-  async messageReplyCreate (args = {}) {
-    const {channelID, messageID, message, } = args
+  async messageReplyCreate () {
+    const {channelID, messageID, message, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageReplyCreate failed, field channelID is empty', {
         args,
@@ -757,8 +757,8 @@ export default class Messaging {
   }
 
   // Pin message to channel (public bookmark)
-  async messagePinCreate (args = {}) {
-    const {channelID, messageID, } = args
+  async messagePinCreate () {
+    const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
       console.error('messagePinCreate failed, field channelID is empty', {
         args,
@@ -791,8 +791,8 @@ export default class Messaging {
   }
 
   // Pin message to channel (public bookmark)
-  async messagePinRemove (args = {}) {
-    const {channelID, messageID, } = args
+  async messagePinRemove () {
+    const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
       console.error('messagePinRemove failed, field channelID is empty', {
         args,
@@ -825,8 +825,8 @@ export default class Messaging {
   }
 
   // Bookmark a message (private bookmark)
-  async messageBookmarkCreate (args = {}) {
-    const {channelID, messageID, } = args
+  async messageBookmarkCreate () {
+    const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageBookmarkCreate failed, field channelID is empty', {
         args,
@@ -859,8 +859,8 @@ export default class Messaging {
   }
 
   // Remove boomark from message (private bookmark)
-  async messageBookmarkRemove (args = {}) {
-    const {channelID, messageID, } = args
+  async messageBookmarkRemove () {
+    const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageBookmarkRemove failed, field channelID is empty', {
         args,
@@ -893,8 +893,8 @@ export default class Messaging {
   }
 
   // React to a message
-  async messageReactionCreate (args = {}) {
-    const {channelID, messageID, reaction, } = args
+  async messageReactionCreate () {
+    const {channelID, messageID, reaction, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageReactionCreate failed, field channelID is empty', {
         args,
@@ -934,8 +934,8 @@ export default class Messaging {
   }
 
   // Delete reaction from a message
-  async messageReactionRemove (args = {}) {
-    const {channelID, messageID, reaction, } = args
+  async messageReactionRemove () {
+    const {channelID, messageID, reaction, } = arguments[0] || {}
     if (!channelID) {
       console.error('messageReactionRemove failed, field channelID is empty', {
         args,
@@ -975,8 +975,8 @@ export default class Messaging {
   }
 
   // Serves attached file
-  async attachmentOriginal (args = {}) {
-    const {attachmentID, name, sign, userID, download, } = args
+  async attachmentOriginal () {
+    const {attachmentID, name, sign, userID, download, } = arguments[0] || {}
     if (!attachmentID) {
       console.error('attachmentOriginal failed, field attachmentID is empty', {
         args,
@@ -1025,8 +1025,8 @@ export default class Messaging {
   }
 
   // Serves preview of an attached file
-  async attachmentPreview (args = {}) {
-    const {attachmentID, ext, sign, userID, } = args
+  async attachmentPreview () {
+    const {attachmentID, ext, sign, userID, } = arguments[0] || {}
     if (!attachmentID) {
       console.error('attachmentPreview failed, field attachmentID is empty', {
         args,
@@ -1074,8 +1074,8 @@ export default class Messaging {
   }
 
   // Search for messages
-  async searchMessages (args = {}) {
-    const {query, channelID, afterMessageID, beforeMessageID, fromMessageID, toMessageID, threadID, userID, type, pinnedOnly, bookmarkedOnly, limit, } = args
+  async searchMessages () {
+    const {query, channelID, afterMessageID, beforeMessageID, fromMessageID, toMessageID, threadID, userID, type, pinnedOnly, bookmarkedOnly, limit, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1107,8 +1107,8 @@ export default class Messaging {
   }
 
   // Search for threads
-  async searchThreads (args = {}) {
-    const {query, channelID, limit, } = args
+  async searchThreads () {
+    const {query, channelID, limit, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1131,8 +1131,8 @@ export default class Messaging {
   }
 
   // List created webhooks
-  async webhooksList (args = {}) {
-    const {channelID, userID, } = args
+  async webhooksList () {
+    const {channelID, userID, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1154,8 +1154,8 @@ export default class Messaging {
   }
 
   // Create webhook
-  async webhooksCreate (args = {}) {
-    const {channelID, kind, userID, trigger, url, username, avatar, avatarURL, } = args
+  async webhooksCreate () {
+    const {channelID, kind, userID, trigger, url, username, avatar, avatarURL, } = arguments[0] || {}
     if (!channelID) {
       console.error('webhooksCreate failed, field channelID is empty', {
         args,
@@ -1200,8 +1200,8 @@ export default class Messaging {
   }
 
   // Attach file to channel
-  async webhooksUpdate (args = {}) {
-    const {webhookID, channelID, kind, userID, trigger, url, username, avatar, avatarURL, } = args
+  async webhooksUpdate () {
+    const {webhookID, channelID, kind, userID, trigger, url, username, avatar, avatarURL, } = arguments[0] || {}
     if (!webhookID) {
       console.error('webhooksUpdate failed, field webhookID is empty', {
         args,
@@ -1254,8 +1254,8 @@ export default class Messaging {
   }
 
   // Get webhook details
-  async webhooksGet (args = {}) {
-    const {webhookID, } = args
+  async webhooksGet () {
+    const {webhookID, } = arguments[0] || {}
     if (!webhookID) {
       console.error('webhooksGet failed, field webhookID is empty', {
         args,
@@ -1281,8 +1281,8 @@ export default class Messaging {
   }
 
   // Delete webhook
-  async webhooksDelete (args = {}) {
-    const {webhookID, } = args
+  async webhooksDelete () {
+    const {webhookID, } = arguments[0] || {}
     if (!webhookID) {
       console.error('webhooksDelete failed, field webhookID is empty', {
         args,
@@ -1308,8 +1308,8 @@ export default class Messaging {
   }
 
   // Delete webhook
-  async webhooksPublicDelete (args = {}) {
-    const {webhookID, webhookToken, } = args
+  async webhooksPublicDelete () {
+    const {webhookID, webhookToken, } = arguments[0] || {}
     if (!webhookID) {
       console.error('webhooksPublicDelete failed, field webhookID is empty', {
         args,
@@ -1342,8 +1342,8 @@ export default class Messaging {
   }
 
   // Create a message from a webhook payload
-  async webhooksPublicCreate (args = {}) {
-    const {webhookID, webhookToken, username, avatarURL, content, } = args
+  async webhooksPublicCreate () {
+    const {webhookID, webhookToken, username, avatarURL, content, } = arguments[0] || {}
     if (!webhookID) {
       console.error('webhooksPublicCreate failed, field webhookID is empty', {
         args,
@@ -1386,7 +1386,7 @@ export default class Messaging {
   }
 
   // Retrieve defined permissions
-  async permissionsList (args = {}) {
+  async permissionsList () {
 
 
 
@@ -1406,8 +1406,8 @@ export default class Messaging {
   }
 
   // Effective rules for current user
-  async permissionsEffective (args = {}) {
-    const {resource, } = args
+  async permissionsEffective () {
+    const {resource, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1428,8 +1428,8 @@ export default class Messaging {
   }
 
   // Retrieve role permissions
-  async permissionsRead (args = {}) {
-    const {roleID, } = args
+  async permissionsRead () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('permissionsRead failed, field roleID is empty', {
         args,
@@ -1455,8 +1455,8 @@ export default class Messaging {
   }
 
   // Remove all defined role permissions
-  async permissionsDelete (args = {}) {
-    const {roleID, } = args
+  async permissionsDelete () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('permissionsDelete failed, field roleID is empty', {
         args,
@@ -1482,8 +1482,8 @@ export default class Messaging {
   }
 
   // Update permission settings
-  async permissionsUpdate (args = {}) {
-    const {roleID, rules, } = args
+  async permissionsUpdate () {
+    const {roleID, rules, } = arguments[0] || {}
     if (!roleID) {
       console.error('permissionsUpdate failed, field roleID is empty', {
         args,

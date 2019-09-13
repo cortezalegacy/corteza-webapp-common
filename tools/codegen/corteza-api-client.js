@@ -103,8 +103,8 @@ export default class {{className}} {
 {{#endpoints}}
   // {{title}}{{#description}}
   // {{description}}{{/description}}
-  async {{fname}} (args = {}) {
-    {{#if fargs}}const { {{#fargs}}{{.}},{{/fargs}} } = args{{/if}}
+  async {{fname}} () {
+    {{#if fargs}}const { {{#fargs}}{{.}},{{/fargs}} } = arguments[0] || {}{{/if}}
     {{#required}}
     if (!{{.}}) {
       console.error('{{../fname}} failed, field {{.}} is empty', { args }) // log error so we can debug/trace it

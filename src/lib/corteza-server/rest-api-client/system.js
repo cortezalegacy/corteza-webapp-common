@@ -71,7 +71,7 @@ export default class System {
   }
 
   // Returns auth settings
-  async authSettings (args = {}) {
+  async authSettings () {
 
 
 
@@ -91,7 +91,7 @@ export default class System {
   }
 
   // Check JWT token
-  async authCheck (args = {}) {
+  async authCheck () {
 
 
 
@@ -111,8 +111,8 @@ export default class System {
   }
 
   // Exchange auth token for JWT
-  async authExchangeAuthToken (args = {}) {
-    const {token, } = args
+  async authExchangeAuthToken () {
+    const {token, } = arguments[0] || {}
     if (!token) {
       console.error('authExchangeAuthToken failed, field token is empty', {
         args,
@@ -138,7 +138,7 @@ export default class System {
   }
 
   // Logout
-  async authLogout (args = {}) {
+  async authLogout () {
 
 
 
@@ -158,8 +158,8 @@ export default class System {
   }
 
   // Login user
-  async authInternalLogin (args = {}) {
-    const {email, password, } = args
+  async authInternalLogin () {
+    const {email, password, } = arguments[0] || {}
     if (!email) {
       console.error('authInternalLogin failed, field email is empty', {
         args,
@@ -192,8 +192,8 @@ export default class System {
   }
 
   // User signup/registration
-  async authInternalSignup (args = {}) {
-    const {email, username, password, handle, name, } = args
+  async authInternalSignup () {
+    const {email, username, password, handle, name, } = arguments[0] || {}
     if (!email) {
       console.error('authInternalSignup failed, field email is empty', {
         args,
@@ -229,8 +229,8 @@ export default class System {
   }
 
   // Request password reset token (via email)
-  async authInternalRequestPasswordReset (args = {}) {
-    const {email, } = args
+  async authInternalRequestPasswordReset () {
+    const {email, } = arguments[0] || {}
     if (!email) {
       console.error('authInternalRequestPasswordReset failed, field email is empty', {
         args,
@@ -256,8 +256,8 @@ export default class System {
   }
 
   // Exchange password reset token for new token and user info
-  async authInternalExchangePasswordResetToken (args = {}) {
-    const {token, } = args
+  async authInternalExchangePasswordResetToken () {
+    const {token, } = arguments[0] || {}
     if (!token) {
       console.error('authInternalExchangePasswordResetToken failed, field token is empty', {
         args,
@@ -283,8 +283,8 @@ export default class System {
   }
 
   // Reset password with exchanged password reset token
-  async authInternalResetPassword (args = {}) {
-    const {token, password, } = args
+  async authInternalResetPassword () {
+    const {token, password, } = arguments[0] || {}
     if (!token) {
       console.error('authInternalResetPassword failed, field token is empty', {
         args,
@@ -317,8 +317,8 @@ export default class System {
   }
 
   // Confirm email with token
-  async authInternalConfirmEmail (args = {}) {
-    const {token, } = args
+  async authInternalConfirmEmail () {
+    const {token, } = arguments[0] || {}
     if (!token) {
       console.error('authInternalConfirmEmail failed, field token is empty', {
         args,
@@ -344,8 +344,8 @@ export default class System {
   }
 
   // Changes password for current user, requires current password
-  async authInternalChangePassword (args = {}) {
-    const {oldPassword, newPassword, } = args
+  async authInternalChangePassword () {
+    const {oldPassword, newPassword, } = arguments[0] || {}
     if (!oldPassword) {
       console.error('authInternalChangePassword failed, field oldPassword is empty', {
         args,
@@ -378,8 +378,8 @@ export default class System {
   }
 
   // List settings
-  async settingsList (args = {}) {
-    const {prefix, } = args
+  async settingsList () {
+    const {prefix, } = arguments[0] || {}
 
 
     let cfg = {
@@ -400,8 +400,8 @@ export default class System {
   }
 
   // Update settings
-  async settingsUpdate (args = {}) {
-    const {values, } = args
+  async settingsUpdate () {
+    const {values, } = arguments[0] || {}
     if (!values) {
       console.error('settingsUpdate failed, field values is empty', {
         args,
@@ -427,8 +427,8 @@ export default class System {
   }
 
   // Check JWT token
-  async settingsGet (args = {}) {
-    const {key, ownerID, } = args
+  async settingsGet () {
+    const {key, ownerID, } = arguments[0] || {}
     if (!key) {
       console.error('settingsGet failed, field key is empty', {
         args,
@@ -456,8 +456,8 @@ export default class System {
   }
 
   // Set a value for a key
-  async settingsSet (args = {}) {
-    const {key, ownerID, value, } = args
+  async settingsSet () {
+    const {key, ownerID, value, } = arguments[0] || {}
     if (!key) {
       console.error('settingsSet failed, field key is empty', {
         args,
@@ -492,8 +492,8 @@ export default class System {
   }
 
   // List organisations
-  async organisationList (args = {}) {
-    const {query, } = args
+  async organisationList () {
+    const {query, } = arguments[0] || {}
 
 
     let cfg = {
@@ -514,8 +514,8 @@ export default class System {
   }
 
   // Create organisation
-  async organisationCreate (args = {}) {
-    const {name, } = args
+  async organisationCreate () {
+    const {name, } = arguments[0] || {}
     if (!name) {
       console.error('organisationCreate failed, field name is empty', {
         args,
@@ -541,8 +541,8 @@ export default class System {
   }
 
   // Update organisation details
-  async organisationUpdate (args = {}) {
-    const {id, name, } = args
+  async organisationUpdate () {
+    const {id, name, } = arguments[0] || {}
     if (!name) {
       console.error('organisationUpdate failed, field name is empty', {
         args,
@@ -570,8 +570,8 @@ export default class System {
   }
 
   // Remove organisation
-  async organisationDelete (args = {}) {
-    const {id, } = args
+  async organisationDelete () {
+    const {id, } = arguments[0] || {}
     if (!id) {
       console.error('organisationDelete failed, field id is empty', {
         args,
@@ -597,8 +597,8 @@ export default class System {
   }
 
   // Read organisation details
-  async organisationRead (args = {}) {
-    const {id, } = args
+  async organisationRead () {
+    const {id, } = arguments[0] || {}
     if (!id) {
       console.error('organisationRead failed, field id is empty', {
         args,
@@ -624,8 +624,8 @@ export default class System {
   }
 
   // Archive organisation
-  async organisationArchive (args = {}) {
-    const {id, } = args
+  async organisationArchive () {
+    const {id, } = arguments[0] || {}
     if (!id) {
       console.error('organisationArchive failed, field id is empty', {
         args,
@@ -651,8 +651,8 @@ export default class System {
   }
 
   // List roles
-  async roleList (args = {}) {
-    const {query, } = args
+  async roleList () {
+    const {query, } = arguments[0] || {}
 
 
     let cfg = {
@@ -673,19 +673,13 @@ export default class System {
   }
 
   // Update role details
-  async roleCreate (args = {}) {
-    const {name, handle, members, } = args
+  async roleCreate () {
+    const {name, members, } = arguments[0] || {}
     if (!name) {
       console.error('roleCreate failed, field name is empty', {
         args,
       }) // log error so we can debug/trace it
       throw Error('field name is empty')
-    }
-    if (!handle) {
-      console.error('roleCreate failed, field handle is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field handle is empty')
     }
 
     let cfg = {
@@ -695,7 +689,6 @@ export default class System {
 
     cfg.data = {
       name,
-      handle,
       members,
     }
     return new Promise((resolve, reject) => {
@@ -708,8 +701,8 @@ export default class System {
   }
 
   // Update role details
-  async roleUpdate (args = {}) {
-    const {roleID, name, handle, members, } = args
+  async roleUpdate () {
+    const {roleID, name, members, } = arguments[0] || {}
     if (!roleID) {
       console.error('roleUpdate failed, field roleID is empty', {
         args,
@@ -726,7 +719,6 @@ export default class System {
 
     cfg.data = {
       name,
-      handle,
       members,
     }
     return new Promise((resolve, reject) => {
@@ -739,8 +731,8 @@ export default class System {
   }
 
   // Read role details and memberships
-  async roleRead (args = {}) {
-    const {roleID, } = args
+  async roleRead () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('roleRead failed, field roleID is empty', {
         args,
@@ -766,8 +758,8 @@ export default class System {
   }
 
   // Remove role
-  async roleDelete (args = {}) {
-    const {roleID, } = args
+  async roleDelete () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('roleDelete failed, field roleID is empty', {
         args,
@@ -793,8 +785,8 @@ export default class System {
   }
 
   // Archive role
-  async roleArchive (args = {}) {
-    const {roleID, } = args
+  async roleArchive () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('roleArchive failed, field roleID is empty', {
         args,
@@ -820,8 +812,8 @@ export default class System {
   }
 
   // Move role to different organisation
-  async roleMove (args = {}) {
-    const {roleID, organisationID, } = args
+  async roleMove () {
+    const {roleID, organisationID, } = arguments[0] || {}
     if (!roleID) {
       console.error('roleMove failed, field roleID is empty', {
         args,
@@ -855,8 +847,8 @@ export default class System {
   }
 
   // Merge one role into another
-  async roleMerge (args = {}) {
-    const {roleID, destination, } = args
+  async roleMerge () {
+    const {roleID, destination, } = arguments[0] || {}
     if (!roleID) {
       console.error('roleMerge failed, field roleID is empty', {
         args,
@@ -890,8 +882,8 @@ export default class System {
   }
 
   // Returns all role members
-  async roleMemberList (args = {}) {
-    const {roleID, } = args
+  async roleMemberList () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('roleMemberList failed, field roleID is empty', {
         args,
@@ -917,8 +909,8 @@ export default class System {
   }
 
   // Add member to a role
-  async roleMemberAdd (args = {}) {
-    const {roleID, userID, } = args
+  async roleMemberAdd () {
+    const {roleID, userID, } = arguments[0] || {}
     if (!roleID) {
       console.error('roleMemberAdd failed, field roleID is empty', {
         args,
@@ -951,8 +943,8 @@ export default class System {
   }
 
   // Remove member from a role
-  async roleMemberRemove (args = {}) {
-    const {roleID, userID, } = args
+  async roleMemberRemove () {
+    const {roleID, userID, } = arguments[0] || {}
     if (!roleID) {
       console.error('roleMemberRemove failed, field roleID is empty', {
         args,
@@ -985,8 +977,8 @@ export default class System {
   }
 
   // Search users (Directory)
-  async userList (args = {}) {
-    const {query, username, email, handle, kind, incDeleted, incSuspended, sort, page, perPage, } = args
+  async userList () {
+    const {query, username, email, handle, kind, incDeleted, incSuspended, sort, page, perPage, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1016,8 +1008,8 @@ export default class System {
   }
 
   // Create user
-  async userCreate (args = {}) {
-    const {email, name, handle, kind, } = args
+  async userCreate () {
+    const {email, name, handle, kind, } = arguments[0] || {}
     if (!email) {
       console.error('userCreate failed, field email is empty', {
         args,
@@ -1046,8 +1038,8 @@ export default class System {
   }
 
   // Update user details
-  async userUpdate (args = {}) {
-    const {userID, email, name, handle, kind, } = args
+  async userUpdate () {
+    const {userID, email, name, handle, kind, } = arguments[0] || {}
     if (!userID) {
       console.error('userUpdate failed, field userID is empty', {
         args,
@@ -1090,8 +1082,8 @@ export default class System {
   }
 
   // Read user details
-  async userRead (args = {}) {
-    const {userID, } = args
+  async userRead () {
+    const {userID, } = arguments[0] || {}
     if (!userID) {
       console.error('userRead failed, field userID is empty', {
         args,
@@ -1117,8 +1109,8 @@ export default class System {
   }
 
   // Remove user
-  async userDelete (args = {}) {
-    const {userID, } = args
+  async userDelete () {
+    const {userID, } = arguments[0] || {}
     if (!userID) {
       console.error('userDelete failed, field userID is empty', {
         args,
@@ -1144,8 +1136,8 @@ export default class System {
   }
 
   // Suspend user
-  async userSuspend (args = {}) {
-    const {userID, } = args
+  async userSuspend () {
+    const {userID, } = arguments[0] || {}
     if (!userID) {
       console.error('userSuspend failed, field userID is empty', {
         args,
@@ -1171,8 +1163,8 @@ export default class System {
   }
 
   // Unsuspend user
-  async userUnsuspend (args = {}) {
-    const {userID, } = args
+  async userUnsuspend () {
+    const {userID, } = arguments[0] || {}
     if (!userID) {
       console.error('userUnsuspend failed, field userID is empty', {
         args,
@@ -1198,8 +1190,8 @@ export default class System {
   }
 
   // Set&#x27;s or changes user&#x27;s password
-  async userSetPassword (args = {}) {
-    const {userID, password, } = args
+  async userSetPassword () {
+    const {userID, password, } = arguments[0] || {}
     if (!userID) {
       console.error('userSetPassword failed, field userID is empty', {
         args,
@@ -1233,8 +1225,8 @@ export default class System {
   }
 
   // Add member to a role
-  async userMembershipList (args = {}) {
-    const {userID, } = args
+  async userMembershipList () {
+    const {userID, } = arguments[0] || {}
     if (!userID) {
       console.error('userMembershipList failed, field userID is empty', {
         args,
@@ -1260,8 +1252,8 @@ export default class System {
   }
 
   // Add role to a user
-  async userMembershipAdd (args = {}) {
-    const {roleID, userID, } = args
+  async userMembershipAdd () {
+    const {roleID, userID, } = arguments[0] || {}
     if (!roleID) {
       console.error('userMembershipAdd failed, field roleID is empty', {
         args,
@@ -1294,8 +1286,8 @@ export default class System {
   }
 
   // Remove role from a user
-  async userMembershipRemove (args = {}) {
-    const {roleID, userID, } = args
+  async userMembershipRemove () {
+    const {roleID, userID, } = arguments[0] || {}
     if (!roleID) {
       console.error('userMembershipRemove failed, field roleID is empty', {
         args,
@@ -1328,7 +1320,7 @@ export default class System {
   }
 
   // List applications
-  async applicationList (args = {}) {
+  async applicationList () {
 
 
 
@@ -1348,8 +1340,8 @@ export default class System {
   }
 
   // Create application
-  async applicationCreate (args = {}) {
-    const {name, enabled, unify, config, } = args
+  async applicationCreate () {
+    const {name, enabled, unify, config, } = arguments[0] || {}
     if (!name) {
       console.error('applicationCreate failed, field name is empty', {
         args,
@@ -1378,8 +1370,8 @@ export default class System {
   }
 
   // Update user details
-  async applicationUpdate (args = {}) {
-    const {applicationID, name, enabled, unify, config, } = args
+  async applicationUpdate () {
+    const {applicationID, name, enabled, unify, config, } = arguments[0] || {}
     if (!applicationID) {
       console.error('applicationUpdate failed, field applicationID is empty', {
         args,
@@ -1416,8 +1408,8 @@ export default class System {
   }
 
   // Read application details
-  async applicationRead (args = {}) {
-    const {applicationID, } = args
+  async applicationRead () {
+    const {applicationID, } = arguments[0] || {}
     if (!applicationID) {
       console.error('applicationRead failed, field applicationID is empty', {
         args,
@@ -1443,8 +1435,8 @@ export default class System {
   }
 
   // Remove application
-  async applicationDelete (args = {}) {
-    const {applicationID, } = args
+  async applicationDelete () {
+    const {applicationID, } = arguments[0] || {}
     if (!applicationID) {
       console.error('applicationDelete failed, field applicationID is empty', {
         args,
@@ -1470,7 +1462,7 @@ export default class System {
   }
 
   // Retrieve defined permissions
-  async permissionsList (args = {}) {
+  async permissionsList () {
 
 
 
@@ -1490,8 +1482,8 @@ export default class System {
   }
 
   // Effective rules for current user
-  async permissionsEffective (args = {}) {
-    const {resource, } = args
+  async permissionsEffective () {
+    const {resource, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1512,8 +1504,8 @@ export default class System {
   }
 
   // Retrieve role permissions
-  async permissionsRead (args = {}) {
-    const {roleID, } = args
+  async permissionsRead () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('permissionsRead failed, field roleID is empty', {
         args,
@@ -1539,8 +1531,8 @@ export default class System {
   }
 
   // Remove all defined role permissions
-  async permissionsDelete (args = {}) {
-    const {roleID, } = args
+  async permissionsDelete () {
+    const {roleID, } = arguments[0] || {}
     if (!roleID) {
       console.error('permissionsDelete failed, field roleID is empty', {
         args,
@@ -1566,8 +1558,8 @@ export default class System {
   }
 
   // Update permission settings
-  async permissionsUpdate (args = {}) {
-    const {roleID, rules, } = args
+  async permissionsUpdate () {
+    const {roleID, rules, } = arguments[0] || {}
     if (!roleID) {
       console.error('permissionsUpdate failed, field roleID is empty', {
         args,
@@ -1601,8 +1593,8 @@ export default class System {
   }
 
   // List/read automation script
-  async automationScriptList (args = {}) {
-    const {query, resource, incDeleted, page, perPage, } = args
+  async automationScriptList () {
+    const {query, resource, incDeleted, page, perPage, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1627,8 +1619,8 @@ export default class System {
   }
 
   // Add new automation script
-  async automationScriptCreate (args = {}) {
-    const {name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = args
+  async automationScriptCreate () {
+    const {name, sourceRef, source, runAs, timeout, critical, async, enabled, triggers, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1641,7 +1633,6 @@ export default class System {
       sourceRef,
       source,
       runAs,
-      runInUA,
       timeout,
       critical,
       async,
@@ -1658,8 +1649,8 @@ export default class System {
   }
 
   // Read automation script by ID
-  async automationScriptRead (args = {}) {
-    const {scriptID, } = args
+  async automationScriptRead () {
+    const {scriptID, } = arguments[0] || {}
     if (!scriptID) {
       console.error('automationScriptRead failed, field scriptID is empty', {
         args,
@@ -1685,8 +1676,8 @@ export default class System {
   }
 
   // Update automation script
-  async automationScriptUpdate (args = {}) {
-    const {scriptID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = args
+  async automationScriptUpdate () {
+    const {scriptID, name, sourceRef, source, runAs, timeout, critical, async, enabled, triggers, } = arguments[0] || {}
     if (!scriptID) {
       console.error('automationScriptUpdate failed, field scriptID is empty', {
         args,
@@ -1706,7 +1697,6 @@ export default class System {
       sourceRef,
       source,
       runAs,
-      runInUA,
       timeout,
       critical,
       async,
@@ -1723,8 +1713,8 @@ export default class System {
   }
 
   // Delete script
-  async automationScriptDelete (args = {}) {
-    const {scriptID, } = args
+  async automationScriptDelete () {
+    const {scriptID, } = arguments[0] || {}
     if (!scriptID) {
       console.error('automationScriptDelete failed, field scriptID is empty', {
         args,
@@ -1749,63 +1739,9 @@ export default class System {
     return `/automation/script/${scriptID}`
   }
 
-  // List of runnable (event&#x3D;manual) scripts (executable on the backend or from user-agent/browser)
-  async automationScriptRunnable (args = {}) {
-    const {resource, condition, } = args
-
-
-    let cfg = {
-      method: 'get',
-      url: this.automationScriptRunnableEndpoint({  }),
-    }
-    cfg.params = {
-      resource,
-      condition,
-    }
-
-    return new Promise((resolve, reject) => {
-      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
-    })
-  }
-
-  automationScriptRunnableEndpoint () {
-    return `/automation/script/runnable`
-  }
-
-  // Run a specific script or code at the backend. Used for running script manually
-  async automationScriptRun (args = {}) {
-    const {scriptID, moduleID, recordID, record, } = args
-    if (!scriptID) {
-      console.error('automationScriptRun failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
-      throw Error('field scriptID is empty')
-    }
-
-    let cfg = {
-      method: 'post',
-      url: this.automationScriptRunEndpoint({
-        scriptID,
-      }),
-    }
-
-    cfg.data = {
-      moduleID,
-      recordID,
-      record,
-    }
-    return new Promise((resolve, reject) => {
-      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
-    })
-  }
-
-  automationScriptRunEndpoint ({scriptID, } = {}) {
-    return `/automation/script/${scriptID}/run`
-  }
-
   // Run source code in corredor. Used for testing
-  async automationScriptTest (args = {}) {
-    const {source, moduleID, record, } = args
+  async automationScriptTest () {
+    const {source, payload, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1815,8 +1751,7 @@ export default class System {
 
     cfg.data = {
       source,
-      moduleID,
-      record,
+      payload,
     }
     return new Promise((resolve, reject) => {
       this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
@@ -1828,8 +1763,8 @@ export default class System {
   }
 
   // List/read automation script triggers
-  async automationTriggerList (args = {}) {
-    const {scriptID, resource, event, incDeleted, page, perPage, } = args
+  async automationTriggerList () {
+    const {scriptID, resource, event, incDeleted, page, perPage, } = arguments[0] || {}
     if (!scriptID) {
       console.error('automationTriggerList failed, field scriptID is empty', {
         args,
@@ -1861,8 +1796,8 @@ export default class System {
   }
 
   // Add new automation script trigger
-  async automationTriggerCreate (args = {}) {
-    const {scriptID, resource, event, condition, enabled, } = args
+  async automationTriggerCreate () {
+    const {scriptID, resource, event, condition, enabled, } = arguments[0] || {}
     if (!scriptID) {
       console.error('automationTriggerCreate failed, field scriptID is empty', {
         args,
@@ -1905,8 +1840,8 @@ export default class System {
   }
 
   // Read automation script trigger by ID
-  async automationTriggerRead (args = {}) {
-    const {scriptID, triggerID, } = args
+  async automationTriggerRead () {
+    const {scriptID, triggerID, } = arguments[0] || {}
     if (!scriptID) {
       console.error('automationTriggerRead failed, field scriptID is empty', {
         args,
@@ -1939,8 +1874,8 @@ export default class System {
   }
 
   // Update automation script trigger
-  async automationTriggerUpdate (args = {}) {
-    const {scriptID, triggerID, resource, event, condition, enabled, } = args
+  async automationTriggerUpdate () {
+    const {scriptID, triggerID, resource, event, condition, enabled, } = arguments[0] || {}
     if (!scriptID) {
       console.error('automationTriggerUpdate failed, field scriptID is empty', {
         args,
@@ -1990,8 +1925,8 @@ export default class System {
   }
 
   // Delete script
-  async automationTriggerDelete (args = {}) {
-    const {scriptID, triggerID, } = args
+  async automationTriggerDelete () {
+    const {scriptID, triggerID, } = arguments[0] || {}
     if (!scriptID) {
       console.error('automationTriggerDelete failed, field scriptID is empty', {
         args,
