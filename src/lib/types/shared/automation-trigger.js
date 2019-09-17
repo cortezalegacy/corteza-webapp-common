@@ -3,6 +3,10 @@ import { CortezaObject, ID, ISO8601, PropCast } from '../common'
 export default class AutomationTrigger extends CortezaObject {
   constructor (m = {}) {
     super()
+    this.merge(m)
+  }
+
+  merge (m) {
     this.scriptID = PropCast(ID, m.scriptID)
     this.resource = PropCast(String, m.resource)
     this.event = PropCast(String, m.event)

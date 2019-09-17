@@ -34,6 +34,51 @@ export default {
       return t && t.isValid()
     },
 
+    // @todo add tests & refactor all below methods
+    enableByIndex (resource, event, condition, index) {
+      let t = this.triggers.filter(({ resource: r, event: e }) => r === resource && e === event)[index]
+
+      if (!t) {
+        // Trigger not found, make new
+        this.$emit('update:triggers', [...this.triggers, new AutomationTrigger({
+          condition,
+          event,
+          resource,
+          enabled: true,
+        })])
+      } else {
+        t.merge({
+          condition,
+          event,
+          resource,
+          enabled: true,
+        })
+
+        this.$emit('update:triggers', this.triggers)
+      }
+    },
+
+    removeByIndex (resource, event, index) {
+      let ctr = -1
+      let rm = -1
+      this.triggers.forEach(({ resource: r, event: e }, i) => {
+        if (r === resource && e === event) {
+          ctr++
+          if (ctr === index) {
+            rm = i
+          }
+        }
+      })
+      if (rm <= -1) {
+        return
+      }
+
+      this.$emit('update:triggers', [
+        ...this.triggers.slice(0, rm),
+        ...this.triggers.slice(rm + 1),
+      ])
+    },
+
     enable (resource, event, condition) {
       let t = this.index[key(resource, event, condition)]
 
