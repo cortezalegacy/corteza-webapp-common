@@ -2,28 +2,33 @@
   <span>
     <span v-if="!inConfirmation">
       <b-button pill
-                variant="outline-danger"
-                size="sm"
+                :variant="variant"
+                :size="size"
                 @click.prevent="onPrompt"
-                :disabled="disabled">
+                :disabled="disabled"
+                :class="[ borderless && 'border-0' ]">
+
       <slot />
     </b-button>
 
     </span>
-    <span v-if="inConfirmation">
+    <span v-else>
       <b-button pill
-                variant="danger"
-                size="sm"
+                :variant="variantOk"
+                :size="sizeConfirm"
                 class="mr-1"
+                :class="[ borderless && 'border-0' ]"
                 @click.prevent="onConfirmation()">
 
-        {{ $t('general.label.yes') }}
+        <slot name="yes" />
       </b-button>
       <b-button pill
-                size="sm"
+                :variant="variantCancel"
+                :size="sizeConfirm"
+                :class="[ borderless && 'border-0' ]"
                 @click.prevent="inConfirmation=false">
 
-        {{ $t('general.label.no') }}
+        <slot name="no" />
       </b-button>
     </span>
   </span>
@@ -34,6 +39,31 @@ export default {
     ctaClass: { type: String, default: 'btn-danger' },
     disabled: Boolean,
     noPrompt: Boolean,
+
+    borderless: {
+      type: Boolean,
+      default: true,
+    },
+    variant: {
+      type: String,
+      default: 'outline-danger',
+    },
+    size: {
+      type: String,
+      default: 'sm',
+    },
+    variantOk: {
+      type: String,
+      default: 'danger',
+    },
+    variantCancel: {
+      type: String,
+      default: undefined,
+    },
+    sizeConfirm: {
+      type: String,
+      default: 'sm',
+    },
   },
 
   data () {
