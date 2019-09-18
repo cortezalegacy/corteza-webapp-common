@@ -1,11 +1,11 @@
 <template>
   <b-form-group :label="label">
-    <b-form-input v-if="!onlyTime"
+    <b-form-input v-if="!noDate"
                   type="date"
                   class="d-inline w-50"
                   v-model="date" />
 
-    <b-form-input v-if="!onlyDate"
+    <b-form-input v-if="!noTime"
                   type="time"
                   class="d-inline w-50"
                   v-model="time" />
@@ -20,8 +20,14 @@ export default {
   extends: base,
 
   props: {
-    onlyTime: Boolean,
-    onlyDate: Boolean,
+    noTime: {
+      type: Boolean,
+      default: false,
+    },
+    noDate: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   computed: {
@@ -46,7 +52,7 @@ export default {
   methods: {
     getTime () {
       if (!this.value) {
-        return ''
+        return undefined
       }
 
       let dt = this.value.split(' ')
@@ -62,33 +68,35 @@ export default {
     },
 
     setTime (t) {
-      if (t && t.length > 1) {
-        let tm = moment()
-        let date = this.getDate()
-        if (this.onlyTime) {
-          tm = moment(t, 'HH:mm')
-          tm = tm.format('HH:mm')
-        } else {
-          if (!date) {
-            // If no date is yet set default to today
-            date = moment().format('YYYY-MM-DD')
-          }
-          tm = moment(date + ' ' + t, 'YYYY-MM-DD HH:mm')
-          tm = tm.format('YYYY-MM-DD HH:mm')
-        }
-
-        this.$emit('input', tm)
+      if (this.noTime || !t || !t.length) {
+        return
       }
+
+      let tm = moment()
+      let date = this.getDate()
+      if (this.noDate) {
+        tm = moment(t, 'HH:mm')
+        tm = tm.format('HH:mm')
+      } else {
+        if (!date) {
+          // If no date is yet set default to today
+          date = moment().format('YYYY-MM-DD')
+        }
+        tm = moment(date + ' ' + t, 'YYYY-MM-DD HH:mm')
+        tm = tm.format('YYYY-MM-DD HH:mm')
+      }
+
+      this.$emit('input', tm)
     },
 
     getDate () {
       if (!this.value) {
-        return ''
+        return undefined
       }
 
       if (this.value === 'Invalid date') {
         // Make sure this weird value does not cause us problems
-        return ''
+        return undefined
       }
 
       let dt = this.value.split(' ')
@@ -103,19 +111,21 @@ export default {
     },
 
     setDate (d) {
-      if (d && d.length > 1) {
-        let dm = moment()
-        const time = this.getTime()
-        if (this.onlyDate) {
-          dm = moment(d, 'YYYY-MM-DD')
-          dm = dm.format('YYYY-MM-DD')
-        } else {
-          dm = moment(d + ' ' + time, 'YYYY-MM-DD HH:mm')
-          dm = dm.format('YYYY-MM-DD HH:mm')
-        }
-
-        this.$emit('input', dm)
+      if (this.noDate || !d || !d.length) {
+        return
       }
+
+      let dm = moment()
+      const time = this.getTime()
+      if (this.noTime) {
+        dm = moment(d, 'YYYY-MM-DD')
+        dm = dm.format('YYYY-MM-DD')
+      } else {
+        dm = moment(d + ' ' + time, 'YYYY-MM-DD HH:mm')
+        dm = dm.format('YYYY-MM-DD HH:mm')
+      }
+
+      this.$emit('input', dm)
     },
   },
 }

@@ -1,9 +1,31 @@
-import { shallowMount } from '@vue/test-utils'
+import Vue from 'vue'
+import { createLocalVue, shallowMount as sm } from '@vue/test-utils'
 
-const writeableWindowLocation = ({ path: value = '/' } = {}) => Object.defineProperty(window, 'location', { writable: true, value })
+Vue.config.ignoredElements = [
+  'font-awesome-icon',
+  // Ignore all bootstrap elements
+  /^b-/,
+]
 
-const mount = (component, params = {}) => shallowMount(component, { ...params })
+export const writeableWindowLocation = ({ path: value = '/' } = {}) => Object.defineProperty(window, 'location', { writable: true, value })
 
-const stdStubs = ['router-view', 'router-link', 'b-form-group', 'b-form-text', 'b-button', 'b-form-input', 'b-button-close', 'b-form']
+export const mount = (component, params = {}) => shallowMount(component, { ...params })
 
-export { writeableWindowLocation, mount, stdStubs }
+export const shallowMount = (component, { mocks = {}, stubs = [], ...options } = {}) => {
+  let localVue = createLocalVue()
+
+  return sm(component, {
+    localVue,
+    stubs: ['router-view', 'router-link', 'confirmation-toggle', 'user-roles', 'permissions-button', ...stubs],
+    mocks: {
+      $t: (e) => e,
+      $SystemAPI: {},
+      $route: { query: { fullPath: '', token: undefined } },
+      $auth: {},
+      ...mocks,
+    },
+    ...options,
+  })
+}
+
+export default shallowMount

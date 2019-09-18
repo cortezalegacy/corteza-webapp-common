@@ -22,7 +22,8 @@
   "peerDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "moment": "^2.22.2"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
@@ -42,6 +43,7 @@
     "jsdom-global": "3.0.2",
     "lodash": "^4.17.13",
     "mocha": "^6.2.0",
+    "moment": "^2.22.2",
     "sinon": "7.4.1"
   }
 }
