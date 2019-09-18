@@ -43,6 +43,11 @@ export default class Module extends ComposeObject {
     this.name = PropCast(String, m.name)
 
     /**
+     * @type {string}
+     */
+    this.handle = PropCast(String, m.handle)
+
+    /**
      * @type {ModuleField[]}
      */
     this.fields = PropCast(ArrayOf(ModuleField), m.fields, [])
@@ -59,15 +64,6 @@ export default class Module extends ComposeObject {
 
     if (typeof m.meta === 'object') {
       this.meta = { ...m.meta }
-    }
-
-    if (this.meta.admin && this.meta.admin.recordList) {
-      // @todo check if and where do we
-      //       need this and remove if it is obsolete
-      if ((this.meta.admin.recordList.columns || {}).length === 0) {
-        // Copy fields into columns
-        this.meta.admin.recordList.columns = this.fields.slice()
-      }
     }
 
     /**

@@ -114,9 +114,7 @@ export default class System {
   async authExchangeAuthToken () {
     const {token, } = arguments[0] || {}
     if (!token) {
-      console.error('authExchangeAuthToken failed, field token is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authExchangeAuthToken failed, field token is empty', arguments) // log error so we can debug/trace it
       throw Error('field token is empty')
     }
 
@@ -161,15 +159,11 @@ export default class System {
   async authInternalLogin () {
     const {email, password, } = arguments[0] || {}
     if (!email) {
-      console.error('authInternalLogin failed, field email is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalLogin failed, field email is empty', arguments) // log error so we can debug/trace it
       throw Error('field email is empty')
     }
     if (!password) {
-      console.error('authInternalLogin failed, field password is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalLogin failed, field password is empty', arguments) // log error so we can debug/trace it
       throw Error('field password is empty')
     }
 
@@ -195,15 +189,11 @@ export default class System {
   async authInternalSignup () {
     const {email, username, password, handle, name, } = arguments[0] || {}
     if (!email) {
-      console.error('authInternalSignup failed, field email is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalSignup failed, field email is empty', arguments) // log error so we can debug/trace it
       throw Error('field email is empty')
     }
     if (!password) {
-      console.error('authInternalSignup failed, field password is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalSignup failed, field password is empty', arguments) // log error so we can debug/trace it
       throw Error('field password is empty')
     }
 
@@ -232,9 +222,7 @@ export default class System {
   async authInternalRequestPasswordReset () {
     const {email, } = arguments[0] || {}
     if (!email) {
-      console.error('authInternalRequestPasswordReset failed, field email is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalRequestPasswordReset failed, field email is empty', arguments) // log error so we can debug/trace it
       throw Error('field email is empty')
     }
 
@@ -259,9 +247,7 @@ export default class System {
   async authInternalExchangePasswordResetToken () {
     const {token, } = arguments[0] || {}
     if (!token) {
-      console.error('authInternalExchangePasswordResetToken failed, field token is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalExchangePasswordResetToken failed, field token is empty', arguments) // log error so we can debug/trace it
       throw Error('field token is empty')
     }
 
@@ -286,15 +272,11 @@ export default class System {
   async authInternalResetPassword () {
     const {token, password, } = arguments[0] || {}
     if (!token) {
-      console.error('authInternalResetPassword failed, field token is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalResetPassword failed, field token is empty', arguments) // log error so we can debug/trace it
       throw Error('field token is empty')
     }
     if (!password) {
-      console.error('authInternalResetPassword failed, field password is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalResetPassword failed, field password is empty', arguments) // log error so we can debug/trace it
       throw Error('field password is empty')
     }
 
@@ -320,9 +302,7 @@ export default class System {
   async authInternalConfirmEmail () {
     const {token, } = arguments[0] || {}
     if (!token) {
-      console.error('authInternalConfirmEmail failed, field token is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalConfirmEmail failed, field token is empty', arguments) // log error so we can debug/trace it
       throw Error('field token is empty')
     }
 
@@ -347,15 +327,11 @@ export default class System {
   async authInternalChangePassword () {
     const {oldPassword, newPassword, } = arguments[0] || {}
     if (!oldPassword) {
-      console.error('authInternalChangePassword failed, field oldPassword is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalChangePassword failed, field oldPassword is empty', arguments) // log error so we can debug/trace it
       throw Error('field oldPassword is empty')
     }
     if (!newPassword) {
-      console.error('authInternalChangePassword failed, field newPassword is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('authInternalChangePassword failed, field newPassword is empty', arguments) // log error so we can debug/trace it
       throw Error('field newPassword is empty')
     }
 
@@ -403,9 +379,7 @@ export default class System {
   async settingsUpdate () {
     const {values, } = arguments[0] || {}
     if (!values) {
-      console.error('settingsUpdate failed, field values is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('settingsUpdate failed, field values is empty', arguments) // log error so we can debug/trace it
       throw Error('field values is empty')
     }
 
@@ -430,9 +404,7 @@ export default class System {
   async settingsGet () {
     const {key, ownerID, } = arguments[0] || {}
     if (!key) {
-      console.error('settingsGet failed, field key is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('settingsGet failed, field key is empty', arguments) // log error so we can debug/trace it
       throw Error('field key is empty')
     }
 
@@ -459,15 +431,11 @@ export default class System {
   async settingsSet () {
     const {key, ownerID, value, } = arguments[0] || {}
     if (!key) {
-      console.error('settingsSet failed, field key is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('settingsSet failed, field key is empty', arguments) // log error so we can debug/trace it
       throw Error('field key is empty')
     }
     if (!value) {
-      console.error('settingsSet failed, field value is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('settingsSet failed, field value is empty', arguments) // log error so we can debug/trace it
       throw Error('field value is empty')
     }
 
@@ -517,9 +485,7 @@ export default class System {
   async organisationCreate () {
     const {name, } = arguments[0] || {}
     if (!name) {
-      console.error('organisationCreate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('organisationCreate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
 
@@ -544,9 +510,7 @@ export default class System {
   async organisationUpdate () {
     const {id, name, } = arguments[0] || {}
     if (!name) {
-      console.error('organisationUpdate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('organisationUpdate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
 
@@ -573,9 +537,7 @@ export default class System {
   async organisationDelete () {
     const {id, } = arguments[0] || {}
     if (!id) {
-      console.error('organisationDelete failed, field id is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('organisationDelete failed, field id is empty', arguments) // log error so we can debug/trace it
       throw Error('field id is empty')
     }
 
@@ -600,9 +562,7 @@ export default class System {
   async organisationRead () {
     const {id, } = arguments[0] || {}
     if (!id) {
-      console.error('organisationRead failed, field id is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('organisationRead failed, field id is empty', arguments) // log error so we can debug/trace it
       throw Error('field id is empty')
     }
 
@@ -627,9 +587,7 @@ export default class System {
   async organisationArchive () {
     const {id, } = arguments[0] || {}
     if (!id) {
-      console.error('organisationArchive failed, field id is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('organisationArchive failed, field id is empty', arguments) // log error so we can debug/trace it
       throw Error('field id is empty')
     }
 
@@ -674,12 +632,14 @@ export default class System {
 
   // Update role details
   async roleCreate () {
-    const {name, members, } = arguments[0] || {}
+    const {name, handle, members, } = arguments[0] || {}
     if (!name) {
-      console.error('roleCreate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleCreate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
+    }
+    if (!handle) {
+      console.error('roleCreate failed, field handle is empty', arguments) // log error so we can debug/trace it
+      throw Error('field handle is empty')
     }
 
     let cfg = {
@@ -689,6 +649,7 @@ export default class System {
 
     cfg.data = {
       name,
+      handle,
       members,
     }
     return new Promise((resolve, reject) => {
@@ -702,11 +663,9 @@ export default class System {
 
   // Update role details
   async roleUpdate () {
-    const {roleID, name, members, } = arguments[0] || {}
+    const {roleID, name, handle, members, } = arguments[0] || {}
     if (!roleID) {
-      console.error('roleUpdate failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleUpdate failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -719,6 +678,7 @@ export default class System {
 
     cfg.data = {
       name,
+      handle,
       members,
     }
     return new Promise((resolve, reject) => {
@@ -734,9 +694,7 @@ export default class System {
   async roleRead () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('roleRead failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleRead failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -761,9 +719,7 @@ export default class System {
   async roleDelete () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('roleDelete failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleDelete failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -788,9 +744,7 @@ export default class System {
   async roleArchive () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('roleArchive failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleArchive failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -815,15 +769,11 @@ export default class System {
   async roleMove () {
     const {roleID, organisationID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('roleMove failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleMove failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
     if (!organisationID) {
-      console.error('roleMove failed, field organisationID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleMove failed, field organisationID is empty', arguments) // log error so we can debug/trace it
       throw Error('field organisationID is empty')
     }
 
@@ -850,15 +800,11 @@ export default class System {
   async roleMerge () {
     const {roleID, destination, } = arguments[0] || {}
     if (!roleID) {
-      console.error('roleMerge failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleMerge failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
     if (!destination) {
-      console.error('roleMerge failed, field destination is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleMerge failed, field destination is empty', arguments) // log error so we can debug/trace it
       throw Error('field destination is empty')
     }
 
@@ -885,9 +831,7 @@ export default class System {
   async roleMemberList () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('roleMemberList failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleMemberList failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -912,15 +856,11 @@ export default class System {
   async roleMemberAdd () {
     const {roleID, userID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('roleMemberAdd failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleMemberAdd failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
     if (!userID) {
-      console.error('roleMemberAdd failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleMemberAdd failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -946,15 +886,11 @@ export default class System {
   async roleMemberRemove () {
     const {roleID, userID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('roleMemberRemove failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleMemberRemove failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
     if (!userID) {
-      console.error('roleMemberRemove failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('roleMemberRemove failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1011,9 +947,7 @@ export default class System {
   async userCreate () {
     const {email, name, handle, kind, } = arguments[0] || {}
     if (!email) {
-      console.error('userCreate failed, field email is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userCreate failed, field email is empty', arguments) // log error so we can debug/trace it
       throw Error('field email is empty')
     }
 
@@ -1041,21 +975,15 @@ export default class System {
   async userUpdate () {
     const {userID, email, name, handle, kind, } = arguments[0] || {}
     if (!userID) {
-      console.error('userUpdate failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userUpdate failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
     if (!email) {
-      console.error('userUpdate failed, field email is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userUpdate failed, field email is empty', arguments) // log error so we can debug/trace it
       throw Error('field email is empty')
     }
     if (!name) {
-      console.error('userUpdate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userUpdate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
 
@@ -1085,9 +1013,7 @@ export default class System {
   async userRead () {
     const {userID, } = arguments[0] || {}
     if (!userID) {
-      console.error('userRead failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userRead failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1112,9 +1038,7 @@ export default class System {
   async userDelete () {
     const {userID, } = arguments[0] || {}
     if (!userID) {
-      console.error('userDelete failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userDelete failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1139,9 +1063,7 @@ export default class System {
   async userSuspend () {
     const {userID, } = arguments[0] || {}
     if (!userID) {
-      console.error('userSuspend failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userSuspend failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1166,9 +1088,7 @@ export default class System {
   async userUnsuspend () {
     const {userID, } = arguments[0] || {}
     if (!userID) {
-      console.error('userUnsuspend failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userUnsuspend failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1193,15 +1113,11 @@ export default class System {
   async userSetPassword () {
     const {userID, password, } = arguments[0] || {}
     if (!userID) {
-      console.error('userSetPassword failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userSetPassword failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
     if (!password) {
-      console.error('userSetPassword failed, field password is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userSetPassword failed, field password is empty', arguments) // log error so we can debug/trace it
       throw Error('field password is empty')
     }
 
@@ -1228,9 +1144,7 @@ export default class System {
   async userMembershipList () {
     const {userID, } = arguments[0] || {}
     if (!userID) {
-      console.error('userMembershipList failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userMembershipList failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1255,15 +1169,11 @@ export default class System {
   async userMembershipAdd () {
     const {roleID, userID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('userMembershipAdd failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userMembershipAdd failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
     if (!userID) {
-      console.error('userMembershipAdd failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userMembershipAdd failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1289,15 +1199,11 @@ export default class System {
   async userMembershipRemove () {
     const {roleID, userID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('userMembershipRemove failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userMembershipRemove failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
     if (!userID) {
-      console.error('userMembershipRemove failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('userMembershipRemove failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1343,9 +1249,7 @@ export default class System {
   async applicationCreate () {
     const {name, enabled, unify, config, } = arguments[0] || {}
     if (!name) {
-      console.error('applicationCreate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('applicationCreate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
 
@@ -1373,15 +1277,11 @@ export default class System {
   async applicationUpdate () {
     const {applicationID, name, enabled, unify, config, } = arguments[0] || {}
     if (!applicationID) {
-      console.error('applicationUpdate failed, field applicationID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('applicationUpdate failed, field applicationID is empty', arguments) // log error so we can debug/trace it
       throw Error('field applicationID is empty')
     }
     if (!name) {
-      console.error('applicationUpdate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('applicationUpdate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
 
@@ -1411,9 +1311,7 @@ export default class System {
   async applicationRead () {
     const {applicationID, } = arguments[0] || {}
     if (!applicationID) {
-      console.error('applicationRead failed, field applicationID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('applicationRead failed, field applicationID is empty', arguments) // log error so we can debug/trace it
       throw Error('field applicationID is empty')
     }
 
@@ -1438,9 +1336,7 @@ export default class System {
   async applicationDelete () {
     const {applicationID, } = arguments[0] || {}
     if (!applicationID) {
-      console.error('applicationDelete failed, field applicationID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('applicationDelete failed, field applicationID is empty', arguments) // log error so we can debug/trace it
       throw Error('field applicationID is empty')
     }
 
@@ -1507,9 +1403,7 @@ export default class System {
   async permissionsRead () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('permissionsRead failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsRead failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -1534,9 +1428,7 @@ export default class System {
   async permissionsDelete () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('permissionsDelete failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsDelete failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -1561,15 +1453,11 @@ export default class System {
   async permissionsUpdate () {
     const {roleID, rules, } = arguments[0] || {}
     if (!roleID) {
-      console.error('permissionsUpdate failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsUpdate failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
     if (!rules) {
-      console.error('permissionsUpdate failed, field rules is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsUpdate failed, field rules is empty', arguments) // log error so we can debug/trace it
       throw Error('field rules is empty')
     }
 
@@ -1652,9 +1540,7 @@ export default class System {
   async automationScriptRead () {
     const {scriptID, } = arguments[0] || {}
     if (!scriptID) {
-      console.error('automationScriptRead failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptRead failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
 
@@ -1679,9 +1565,7 @@ export default class System {
   async automationScriptUpdate () {
     const {scriptID, name, sourceRef, source, runAs, timeout, critical, async, enabled, triggers, } = arguments[0] || {}
     if (!scriptID) {
-      console.error('automationScriptUpdate failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptUpdate failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
 
@@ -1716,9 +1600,7 @@ export default class System {
   async automationScriptDelete () {
     const {scriptID, } = arguments[0] || {}
     if (!scriptID) {
-      console.error('automationScriptDelete failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptDelete failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
 
@@ -1766,9 +1648,7 @@ export default class System {
   async automationTriggerList () {
     const {scriptID, resource, event, incDeleted, page, perPage, } = arguments[0] || {}
     if (!scriptID) {
-      console.error('automationTriggerList failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerList failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
 
@@ -1799,21 +1679,15 @@ export default class System {
   async automationTriggerCreate () {
     const {scriptID, resource, event, condition, enabled, } = arguments[0] || {}
     if (!scriptID) {
-      console.error('automationTriggerCreate failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerCreate failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
     if (!resource) {
-      console.error('automationTriggerCreate failed, field resource is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerCreate failed, field resource is empty', arguments) // log error so we can debug/trace it
       throw Error('field resource is empty')
     }
     if (!event) {
-      console.error('automationTriggerCreate failed, field event is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerCreate failed, field event is empty', arguments) // log error so we can debug/trace it
       throw Error('field event is empty')
     }
 
@@ -1843,15 +1717,11 @@ export default class System {
   async automationTriggerRead () {
     const {scriptID, triggerID, } = arguments[0] || {}
     if (!scriptID) {
-      console.error('automationTriggerRead failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerRead failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
     if (!triggerID) {
-      console.error('automationTriggerRead failed, field triggerID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerRead failed, field triggerID is empty', arguments) // log error so we can debug/trace it
       throw Error('field triggerID is empty')
     }
 
@@ -1877,27 +1747,19 @@ export default class System {
   async automationTriggerUpdate () {
     const {scriptID, triggerID, resource, event, condition, enabled, } = arguments[0] || {}
     if (!scriptID) {
-      console.error('automationTriggerUpdate failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerUpdate failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
     if (!triggerID) {
-      console.error('automationTriggerUpdate failed, field triggerID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerUpdate failed, field triggerID is empty', arguments) // log error so we can debug/trace it
       throw Error('field triggerID is empty')
     }
     if (!resource) {
-      console.error('automationTriggerUpdate failed, field resource is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerUpdate failed, field resource is empty', arguments) // log error so we can debug/trace it
       throw Error('field resource is empty')
     }
     if (!event) {
-      console.error('automationTriggerUpdate failed, field event is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerUpdate failed, field event is empty', arguments) // log error so we can debug/trace it
       throw Error('field event is empty')
     }
 
@@ -1928,15 +1790,11 @@ export default class System {
   async automationTriggerDelete () {
     const {scriptID, triggerID, } = arguments[0] || {}
     if (!scriptID) {
-      console.error('automationTriggerDelete failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerDelete failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
     if (!triggerID) {
-      console.error('automationTriggerDelete failed, field triggerID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerDelete failed, field triggerID is empty', arguments) // log error so we can debug/trace it
       throw Error('field triggerID is empty')
     }
 

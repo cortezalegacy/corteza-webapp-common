@@ -99,15 +99,11 @@ export default class Compose {
   async namespaceCreate () {
     const {name, slug, enabled, meta, } = arguments[0] || {}
     if (!name) {
-      console.error('namespaceCreate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('namespaceCreate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
     if (!meta) {
-      console.error('namespaceCreate failed, field meta is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('namespaceCreate failed, field meta is empty', arguments) // log error so we can debug/trace it
       throw Error('field meta is empty')
     }
 
@@ -135,9 +131,7 @@ export default class Compose {
   async namespaceRead () {
     const {namespaceID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('namespaceRead failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('namespaceRead failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -162,21 +156,15 @@ export default class Compose {
   async namespaceUpdate () {
     const {namespaceID, name, slug, enabled, meta, updatedAt, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('namespaceUpdate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('namespaceUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!name) {
-      console.error('namespaceUpdate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('namespaceUpdate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
     if (!meta) {
-      console.error('namespaceUpdate failed, field meta is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('namespaceUpdate failed, field meta is empty', arguments) // log error so we can debug/trace it
       throw Error('field meta is empty')
     }
 
@@ -207,9 +195,7 @@ export default class Compose {
   async namespaceDelete () {
     const {namespaceID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('namespaceDelete failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('namespaceDelete failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -232,11 +218,9 @@ export default class Compose {
 
   // List available pages
   async pageList () {
-    const {namespaceID, selfID, query, page, perPage, } = arguments[0] || {}
+    const {namespaceID, selfID, query, handle, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('pageList failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -249,6 +233,7 @@ export default class Compose {
     cfg.params = {
       selfID,
       query,
+      handle,
       page,
       perPage,
     }
@@ -264,23 +249,17 @@ export default class Compose {
 
   // Create page
   async pageCreate () {
-    const {namespaceID, selfID, moduleID, title, description, visible, blocks, } = arguments[0] || {}
+    const {namespaceID, selfID, moduleID, title, handle, description, visible, blocks, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('pageCreate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageCreate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!title) {
-      console.error('pageCreate failed, field title is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageCreate failed, field title is empty', arguments) // log error so we can debug/trace it
       throw Error('field title is empty')
     }
     if (!blocks) {
-      console.error('pageCreate failed, field blocks is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageCreate failed, field blocks is empty', arguments) // log error so we can debug/trace it
       throw Error('field blocks is empty')
     }
 
@@ -295,6 +274,7 @@ export default class Compose {
       selfID,
       moduleID,
       title,
+      handle,
       description,
       visible,
       blocks,
@@ -312,15 +292,11 @@ export default class Compose {
   async pageRead () {
     const {namespaceID, pageID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('pageRead failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageRead failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!pageID) {
-      console.error('pageRead failed, field pageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageRead failed, field pageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field pageID is empty')
     }
 
@@ -346,9 +322,7 @@ export default class Compose {
   async pageTree () {
     const {namespaceID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('pageTree failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageTree failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -371,29 +345,21 @@ export default class Compose {
 
   // Update page
   async pageUpdate () {
-    const {namespaceID, pageID, selfID, moduleID, title, description, visible, blocks, } = arguments[0] || {}
+    const {namespaceID, pageID, selfID, moduleID, title, handle, description, visible, blocks, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('pageUpdate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!pageID) {
-      console.error('pageUpdate failed, field pageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageUpdate failed, field pageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field pageID is empty')
     }
     if (!title) {
-      console.error('pageUpdate failed, field title is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageUpdate failed, field title is empty', arguments) // log error so we can debug/trace it
       throw Error('field title is empty')
     }
     if (!blocks) {
-      console.error('pageUpdate failed, field blocks is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageUpdate failed, field blocks is empty', arguments) // log error so we can debug/trace it
       throw Error('field blocks is empty')
     }
 
@@ -409,6 +375,7 @@ export default class Compose {
       selfID,
       moduleID,
       title,
+      handle,
       description,
       visible,
       blocks,
@@ -426,21 +393,15 @@ export default class Compose {
   async pageReorder () {
     const {namespaceID, selfID, pageIDs, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('pageReorder failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageReorder failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!selfID) {
-      console.error('pageReorder failed, field selfID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageReorder failed, field selfID is empty', arguments) // log error so we can debug/trace it
       throw Error('field selfID is empty')
     }
     if (!pageIDs) {
-      console.error('pageReorder failed, field pageIDs is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageReorder failed, field pageIDs is empty', arguments) // log error so we can debug/trace it
       throw Error('field pageIDs is empty')
     }
 
@@ -468,15 +429,11 @@ export default class Compose {
   async pageDelete () {
     const {namespaceID, pageID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('pageDelete failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageDelete failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!pageID) {
-      console.error('pageDelete failed, field pageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageDelete failed, field pageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field pageID is empty')
     }
 
@@ -502,21 +459,15 @@ export default class Compose {
   async pageUpload () {
     const {namespaceID, pageID, upload, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('pageUpload failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageUpload failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!pageID) {
-      console.error('pageUpload failed, field pageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageUpload failed, field pageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field pageID is empty')
     }
     if (!upload) {
-      console.error('pageUpload failed, field upload is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('pageUpload failed, field upload is empty', arguments) // log error so we can debug/trace it
       throw Error('field upload is empty')
     }
 
@@ -542,11 +493,9 @@ export default class Compose {
 
   // List modules
   async moduleList () {
-    const {namespaceID, query, name, page, perPage, } = arguments[0] || {}
+    const {namespaceID, query, name, handle, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('moduleList failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -559,6 +508,7 @@ export default class Compose {
     cfg.params = {
       query,
       name,
+      handle,
       page,
       perPage,
     }
@@ -574,29 +524,21 @@ export default class Compose {
 
   // Create module
   async moduleCreate () {
-    const {namespaceID, name, fields, meta, } = arguments[0] || {}
+    const {namespaceID, name, handle, fields, meta, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('moduleCreate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleCreate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!name) {
-      console.error('moduleCreate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleCreate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
     if (!fields) {
-      console.error('moduleCreate failed, field fields is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleCreate failed, field fields is empty', arguments) // log error so we can debug/trace it
       throw Error('field fields is empty')
     }
     if (!meta) {
-      console.error('moduleCreate failed, field meta is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleCreate failed, field meta is empty', arguments) // log error so we can debug/trace it
       throw Error('field meta is empty')
     }
 
@@ -609,6 +551,7 @@ export default class Compose {
 
     cfg.data = {
       name,
+      handle,
       fields,
       meta,
     }
@@ -625,15 +568,11 @@ export default class Compose {
   async moduleRead () {
     const {namespaceID, moduleID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('moduleRead failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleRead failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('moduleRead failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleRead failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
 
@@ -657,35 +596,25 @@ export default class Compose {
 
   // Update module
   async moduleUpdate () {
-    const {namespaceID, moduleID, name, fields, meta, updatedAt, } = arguments[0] || {}
+    const {namespaceID, moduleID, name, handle, fields, meta, updatedAt, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('moduleUpdate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('moduleUpdate failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleUpdate failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!name) {
-      console.error('moduleUpdate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleUpdate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
     if (!fields) {
-      console.error('moduleUpdate failed, field fields is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleUpdate failed, field fields is empty', arguments) // log error so we can debug/trace it
       throw Error('field fields is empty')
     }
     if (!meta) {
-      console.error('moduleUpdate failed, field meta is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleUpdate failed, field meta is empty', arguments) // log error so we can debug/trace it
       throw Error('field meta is empty')
     }
 
@@ -699,6 +628,7 @@ export default class Compose {
 
     cfg.data = {
       name,
+      handle,
       fields,
       meta,
       updatedAt,
@@ -716,15 +646,11 @@ export default class Compose {
   async moduleDelete () {
     const {namespaceID, moduleID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('moduleDelete failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleDelete failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('moduleDelete failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('moduleDelete failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
 
@@ -750,21 +676,15 @@ export default class Compose {
   async recordReport () {
     const {namespaceID, moduleID, metrics, dimensions, filter, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordReport failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordReport failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordReport failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordReport failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!dimensions) {
-      console.error('recordReport failed, field dimensions is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordReport failed, field dimensions is empty', arguments) // log error so we can debug/trace it
       throw Error('field dimensions is empty')
     }
 
@@ -794,15 +714,11 @@ export default class Compose {
   async recordList () {
     const {namespaceID, moduleID, filter, page, perPage, sort, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordList failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordList failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordList failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
 
@@ -833,21 +749,15 @@ export default class Compose {
   async recordImportInit () {
     const {namespaceID, moduleID, upload, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordImportInit failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportInit failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordImportInit failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportInit failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!upload) {
-      console.error('recordImportInit failed, field upload is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportInit failed, field upload is empty', arguments) // log error so we can debug/trace it
       throw Error('field upload is empty')
     }
 
@@ -875,33 +785,23 @@ export default class Compose {
   async recordImportRun () {
     const {namespaceID, moduleID, sessionID, fields, onError, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordImportRun failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportRun failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordImportRun failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportRun failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!sessionID) {
-      console.error('recordImportRun failed, field sessionID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportRun failed, field sessionID is empty', arguments) // log error so we can debug/trace it
       throw Error('field sessionID is empty')
     }
     if (!fields) {
-      console.error('recordImportRun failed, field fields is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportRun failed, field fields is empty', arguments) // log error so we can debug/trace it
       throw Error('field fields is empty')
     }
     if (!onError) {
-      console.error('recordImportRun failed, field onError is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportRun failed, field onError is empty', arguments) // log error so we can debug/trace it
       throw Error('field onError is empty')
     }
 
@@ -931,21 +831,15 @@ export default class Compose {
   async recordImportProgress () {
     const {namespaceID, moduleID, sessionID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordImportProgress failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportProgress failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordImportProgress failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportProgress failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!sessionID) {
-      console.error('recordImportProgress failed, field sessionID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordImportProgress failed, field sessionID is empty', arguments) // log error so we can debug/trace it
       throw Error('field sessionID is empty')
     }
 
@@ -972,27 +866,19 @@ export default class Compose {
   async recordExport () {
     const {namespaceID, moduleID, filename, ext, filter, fields, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordExport failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordExport failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordExport failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordExport failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!ext) {
-      console.error('recordExport failed, field ext is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordExport failed, field ext is empty', arguments) // log error so we can debug/trace it
       throw Error('field ext is empty')
     }
     if (!fields) {
-      console.error('recordExport failed, field fields is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordExport failed, field fields is empty', arguments) // log error so we can debug/trace it
       throw Error('field fields is empty')
     }
 
@@ -1023,21 +909,15 @@ export default class Compose {
   async recordExec () {
     const {namespaceID, moduleID, procedure, args, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordExec failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordExec failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordExec failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordExec failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!procedure) {
-      console.error('recordExec failed, field procedure is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordExec failed, field procedure is empty', arguments) // log error so we can debug/trace it
       throw Error('field procedure is empty')
     }
 
@@ -1066,21 +946,15 @@ export default class Compose {
   async recordCreate () {
     const {namespaceID, moduleID, values, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordCreate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordCreate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordCreate failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordCreate failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!values) {
-      console.error('recordCreate failed, field values is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordCreate failed, field values is empty', arguments) // log error so we can debug/trace it
       throw Error('field values is empty')
     }
 
@@ -1108,21 +982,15 @@ export default class Compose {
   async recordRead () {
     const {namespaceID, moduleID, recordID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordRead failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordRead failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordRead failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordRead failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!recordID) {
-      console.error('recordRead failed, field recordID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordRead failed, field recordID is empty', arguments) // log error so we can debug/trace it
       throw Error('field recordID is empty')
     }
 
@@ -1149,27 +1017,19 @@ export default class Compose {
   async recordUpdate () {
     const {namespaceID, moduleID, recordID, values, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordUpdate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordUpdate failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordUpdate failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!recordID) {
-      console.error('recordUpdate failed, field recordID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordUpdate failed, field recordID is empty', arguments) // log error so we can debug/trace it
       throw Error('field recordID is empty')
     }
     if (!values) {
-      console.error('recordUpdate failed, field values is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordUpdate failed, field values is empty', arguments) // log error so we can debug/trace it
       throw Error('field values is empty')
     }
 
@@ -1198,21 +1058,15 @@ export default class Compose {
   async recordDelete () {
     const {namespaceID, moduleID, recordID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordDelete failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordDelete failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordDelete failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordDelete failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!recordID) {
-      console.error('recordDelete failed, field recordID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordDelete failed, field recordID is empty', arguments) // log error so we can debug/trace it
       throw Error('field recordID is empty')
     }
 
@@ -1239,27 +1093,19 @@ export default class Compose {
   async recordUpload () {
     const {namespaceID, moduleID, recordID, fieldName, upload, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('recordUpload failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordUpload failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!moduleID) {
-      console.error('recordUpload failed, field moduleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordUpload failed, field moduleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field moduleID is empty')
     }
     if (!fieldName) {
-      console.error('recordUpload failed, field fieldName is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordUpload failed, field fieldName is empty', arguments) // log error so we can debug/trace it
       throw Error('field fieldName is empty')
     }
     if (!upload) {
-      console.error('recordUpload failed, field upload is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('recordUpload failed, field upload is empty', arguments) // log error so we can debug/trace it
       throw Error('field upload is empty')
     }
 
@@ -1287,11 +1133,9 @@ export default class Compose {
 
   // List/read charts
   async chartList () {
-    const {namespaceID, query, page, perPage, } = arguments[0] || {}
+    const {namespaceID, query, handle, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('chartList failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -1303,6 +1147,7 @@ export default class Compose {
     }
     cfg.params = {
       query,
+      handle,
       page,
       perPage,
     }
@@ -1318,23 +1163,17 @@ export default class Compose {
 
   // List/read charts
   async chartCreate () {
-    const {namespaceID, config, name, } = arguments[0] || {}
+    const {namespaceID, config, name, handle, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('chartCreate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartCreate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!config) {
-      console.error('chartCreate failed, field config is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartCreate failed, field config is empty', arguments) // log error so we can debug/trace it
       throw Error('field config is empty')
     }
     if (!name) {
-      console.error('chartCreate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartCreate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
 
@@ -1348,6 +1187,7 @@ export default class Compose {
     cfg.data = {
       config,
       name,
+      handle,
     }
     return new Promise((resolve, reject) => {
       this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
@@ -1362,15 +1202,11 @@ export default class Compose {
   async chartRead () {
     const {namespaceID, chartID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('chartRead failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartRead failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!chartID) {
-      console.error('chartRead failed, field chartID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartRead failed, field chartID is empty', arguments) // log error so we can debug/trace it
       throw Error('field chartID is empty')
     }
 
@@ -1394,29 +1230,21 @@ export default class Compose {
 
   // Add/update charts
   async chartUpdate () {
-    const {namespaceID, chartID, config, name, updatedAt, } = arguments[0] || {}
+    const {namespaceID, chartID, config, name, handle, updatedAt, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('chartUpdate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!chartID) {
-      console.error('chartUpdate failed, field chartID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartUpdate failed, field chartID is empty', arguments) // log error so we can debug/trace it
       throw Error('field chartID is empty')
     }
     if (!config) {
-      console.error('chartUpdate failed, field config is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartUpdate failed, field config is empty', arguments) // log error so we can debug/trace it
       throw Error('field config is empty')
     }
     if (!name) {
-      console.error('chartUpdate failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartUpdate failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
 
@@ -1431,6 +1259,7 @@ export default class Compose {
     cfg.data = {
       config,
       name,
+      handle,
       updatedAt,
     }
     return new Promise((resolve, reject) => {
@@ -1446,15 +1275,11 @@ export default class Compose {
   async chartDelete () {
     const {namespaceID, chartID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('chartDelete failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartDelete failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!chartID) {
-      console.error('chartDelete failed, field chartID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('chartDelete failed, field chartID is empty', arguments) // log error so we can debug/trace it
       throw Error('field chartID is empty')
     }
 
@@ -1480,15 +1305,11 @@ export default class Compose {
   async notificationEmailSend () {
     const {to, cc, replyTo, subject, content, } = arguments[0] || {}
     if (!to) {
-      console.error('notificationEmailSend failed, field to is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('notificationEmailSend failed, field to is empty', arguments) // log error so we can debug/trace it
       throw Error('field to is empty')
     }
     if (!content) {
-      console.error('notificationEmailSend failed, field content is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('notificationEmailSend failed, field content is empty', arguments) // log error so we can debug/trace it
       throw Error('field content is empty')
     }
 
@@ -1517,15 +1338,11 @@ export default class Compose {
   async attachmentList () {
     const {kind, namespaceID, sign, userID, pageID, moduleID, recordID, fieldName, page, perPage, } = arguments[0] || {}
     if (!kind) {
-      console.error('attachmentList failed, field kind is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentList failed, field kind is empty', arguments) // log error so we can debug/trace it
       throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      console.error('attachmentList failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -1560,21 +1377,15 @@ export default class Compose {
   async attachmentRead () {
     const {kind, namespaceID, attachmentID, sign, userID, } = arguments[0] || {}
     if (!kind) {
-      console.error('attachmentRead failed, field kind is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentRead failed, field kind is empty', arguments) // log error so we can debug/trace it
       throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      console.error('attachmentRead failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentRead failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!attachmentID) {
-      console.error('attachmentRead failed, field attachmentID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentRead failed, field attachmentID is empty', arguments) // log error so we can debug/trace it
       throw Error('field attachmentID is empty')
     }
 
@@ -1604,21 +1415,15 @@ export default class Compose {
   async attachmentDelete () {
     const {kind, namespaceID, attachmentID, sign, userID, } = arguments[0] || {}
     if (!kind) {
-      console.error('attachmentDelete failed, field kind is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentDelete failed, field kind is empty', arguments) // log error so we can debug/trace it
       throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      console.error('attachmentDelete failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentDelete failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!attachmentID) {
-      console.error('attachmentDelete failed, field attachmentID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentDelete failed, field attachmentID is empty', arguments) // log error so we can debug/trace it
       throw Error('field attachmentID is empty')
     }
 
@@ -1648,27 +1453,19 @@ export default class Compose {
   async attachmentOriginal () {
     const {kind, namespaceID, attachmentID, name, sign, userID, download, } = arguments[0] || {}
     if (!kind) {
-      console.error('attachmentOriginal failed, field kind is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentOriginal failed, field kind is empty', arguments) // log error so we can debug/trace it
       throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      console.error('attachmentOriginal failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentOriginal failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!attachmentID) {
-      console.error('attachmentOriginal failed, field attachmentID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentOriginal failed, field attachmentID is empty', arguments) // log error so we can debug/trace it
       throw Error('field attachmentID is empty')
     }
     if (!name) {
-      console.error('attachmentOriginal failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentOriginal failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
 
@@ -1700,27 +1497,19 @@ export default class Compose {
   async attachmentPreview () {
     const {kind, namespaceID, attachmentID, ext, sign, userID, } = arguments[0] || {}
     if (!kind) {
-      console.error('attachmentPreview failed, field kind is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentPreview failed, field kind is empty', arguments) // log error so we can debug/trace it
       throw Error('field kind is empty')
     }
     if (!namespaceID) {
-      console.error('attachmentPreview failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentPreview failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!attachmentID) {
-      console.error('attachmentPreview failed, field attachmentID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentPreview failed, field attachmentID is empty', arguments) // log error so we can debug/trace it
       throw Error('field attachmentID is empty')
     }
     if (!ext) {
-      console.error('attachmentPreview failed, field ext is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentPreview failed, field ext is empty', arguments) // log error so we can debug/trace it
       throw Error('field ext is empty')
     }
 
@@ -1793,9 +1582,7 @@ export default class Compose {
   async permissionsRead () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('permissionsRead failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsRead failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -1820,9 +1607,7 @@ export default class Compose {
   async permissionsDelete () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('permissionsDelete failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsDelete failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -1847,15 +1632,11 @@ export default class Compose {
   async permissionsUpdate () {
     const {roleID, rules, } = arguments[0] || {}
     if (!roleID) {
-      console.error('permissionsUpdate failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsUpdate failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
     if (!rules) {
-      console.error('permissionsUpdate failed, field rules is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsUpdate failed, field rules is empty', arguments) // log error so we can debug/trace it
       throw Error('field rules is empty')
     }
 
@@ -1882,9 +1663,7 @@ export default class Compose {
   async automationScriptList () {
     const {namespaceID, query, resource, incDeleted, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationScriptList failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -1915,9 +1694,7 @@ export default class Compose {
   async automationScriptCreate () {
     const {namespaceID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationScriptCreate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptCreate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -1953,15 +1730,11 @@ export default class Compose {
   async automationScriptRead () {
     const {namespaceID, scriptID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationScriptRead failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptRead failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!scriptID) {
-      console.error('automationScriptRead failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptRead failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
 
@@ -1987,15 +1760,11 @@ export default class Compose {
   async automationScriptUpdate () {
     const {namespaceID, scriptID, name, sourceRef, source, runAs, runInUA, timeout, critical, async, enabled, triggers, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationScriptUpdate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!scriptID) {
-      console.error('automationScriptUpdate failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptUpdate failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
 
@@ -2032,15 +1801,11 @@ export default class Compose {
   async automationScriptDelete () {
     const {namespaceID, scriptID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationScriptDelete failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptDelete failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!scriptID) {
-      console.error('automationScriptDelete failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptDelete failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
 
@@ -2066,9 +1831,7 @@ export default class Compose {
   async automationScriptRunnable () {
     const {namespaceID, resource, condition, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationScriptRunnable failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptRunnable failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -2096,15 +1859,11 @@ export default class Compose {
   async automationScriptRun () {
     const {namespaceID, scriptID, moduleID, recordID, record, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationScriptRun failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptRun failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!scriptID) {
-      console.error('automationScriptRun failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptRun failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
 
@@ -2134,9 +1893,7 @@ export default class Compose {
   async automationScriptTest () {
     const {namespaceID, source, moduleID, record, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationScriptTest failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationScriptTest failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
 
@@ -2165,15 +1922,11 @@ export default class Compose {
   async automationTriggerList () {
     const {namespaceID, scriptID, resource, event, incDeleted, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationTriggerList failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!scriptID) {
-      console.error('automationTriggerList failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerList failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
 
@@ -2205,27 +1958,19 @@ export default class Compose {
   async automationTriggerCreate () {
     const {namespaceID, scriptID, resource, event, condition, enabled, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationTriggerCreate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerCreate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!scriptID) {
-      console.error('automationTriggerCreate failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerCreate failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
     if (!resource) {
-      console.error('automationTriggerCreate failed, field resource is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerCreate failed, field resource is empty', arguments) // log error so we can debug/trace it
       throw Error('field resource is empty')
     }
     if (!event) {
-      console.error('automationTriggerCreate failed, field event is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerCreate failed, field event is empty', arguments) // log error so we can debug/trace it
       throw Error('field event is empty')
     }
 
@@ -2256,21 +2001,15 @@ export default class Compose {
   async automationTriggerRead () {
     const {namespaceID, scriptID, triggerID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationTriggerRead failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerRead failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!scriptID) {
-      console.error('automationTriggerRead failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerRead failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
     if (!triggerID) {
-      console.error('automationTriggerRead failed, field triggerID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerRead failed, field triggerID is empty', arguments) // log error so we can debug/trace it
       throw Error('field triggerID is empty')
     }
 
@@ -2297,33 +2036,23 @@ export default class Compose {
   async automationTriggerUpdate () {
     const {namespaceID, scriptID, triggerID, resource, event, condition, enabled, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationTriggerUpdate failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!scriptID) {
-      console.error('automationTriggerUpdate failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerUpdate failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
     if (!triggerID) {
-      console.error('automationTriggerUpdate failed, field triggerID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerUpdate failed, field triggerID is empty', arguments) // log error so we can debug/trace it
       throw Error('field triggerID is empty')
     }
     if (!resource) {
-      console.error('automationTriggerUpdate failed, field resource is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerUpdate failed, field resource is empty', arguments) // log error so we can debug/trace it
       throw Error('field resource is empty')
     }
     if (!event) {
-      console.error('automationTriggerUpdate failed, field event is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerUpdate failed, field event is empty', arguments) // log error so we can debug/trace it
       throw Error('field event is empty')
     }
 
@@ -2355,21 +2084,15 @@ export default class Compose {
   async automationTriggerDelete () {
     const {namespaceID, scriptID, triggerID, } = arguments[0] || {}
     if (!namespaceID) {
-      console.error('automationTriggerDelete failed, field namespaceID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerDelete failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
     }
     if (!scriptID) {
-      console.error('automationTriggerDelete failed, field scriptID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerDelete failed, field scriptID is empty', arguments) // log error so we can debug/trace it
       throw Error('field scriptID is empty')
     }
     if (!triggerID) {
-      console.error('automationTriggerDelete failed, field triggerID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('automationTriggerDelete failed, field triggerID is empty', arguments) // log error so we can debug/trace it
       throw Error('field triggerID is empty')
     }
 

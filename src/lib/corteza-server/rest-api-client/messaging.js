@@ -158,9 +158,7 @@ export default class Messaging {
   async activitySend () {
     const {channelID, messageID, kind, } = arguments[0] || {}
     if (!kind) {
-      console.error('activitySend failed, field kind is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('activitySend failed, field kind is empty', arguments) // log error so we can debug/trace it
       throw Error('field kind is empty')
     }
 
@@ -235,9 +233,7 @@ export default class Messaging {
   async channelUpdate () {
     const {channelID, name, topic, membershipPolicy, type, organisationID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelUpdate failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelUpdate failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
 
@@ -268,15 +264,11 @@ export default class Messaging {
   async channelState () {
     const {channelID, state, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelState failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelState failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!state) {
-      console.error('channelState failed, field state is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelState failed, field state is empty', arguments) // log error so we can debug/trace it
       throw Error('field state is empty')
     }
 
@@ -303,15 +295,11 @@ export default class Messaging {
   async channelSetFlag () {
     const {channelID, flag, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelSetFlag failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelSetFlag failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!flag) {
-      console.error('channelSetFlag failed, field flag is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelSetFlag failed, field flag is empty', arguments) // log error so we can debug/trace it
       throw Error('field flag is empty')
     }
 
@@ -338,9 +326,7 @@ export default class Messaging {
   async channelRemoveFlag () {
     const {channelID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelRemoveFlag failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelRemoveFlag failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
 
@@ -365,9 +351,7 @@ export default class Messaging {
   async channelRead () {
     const {channelID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelRead failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelRead failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
 
@@ -392,9 +376,7 @@ export default class Messaging {
   async channelMembers () {
     const {channelID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelMembers failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelMembers failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
 
@@ -419,9 +401,7 @@ export default class Messaging {
   async channelJoin () {
     const {channelID, userID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelJoin failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelJoin failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
 
@@ -447,9 +427,7 @@ export default class Messaging {
   async channelPart () {
     const {channelID, userID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelPart failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelPart failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
 
@@ -475,9 +453,7 @@ export default class Messaging {
   async channelInvite () {
     const {channelID, userID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelInvite failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelInvite failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
 
@@ -504,15 +480,11 @@ export default class Messaging {
   async channelAttach () {
     const {channelID, replyTo, upload, } = arguments[0] || {}
     if (!channelID) {
-      console.error('channelAttach failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelAttach failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!upload) {
-      console.error('channelAttach failed, field upload is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('channelAttach failed, field upload is empty', arguments) // log error so we can debug/trace it
       throw Error('field upload is empty')
     }
 
@@ -540,15 +512,11 @@ export default class Messaging {
   async messageCreate () {
     const {channelID, message, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageCreate failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageCreate failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!message) {
-      console.error('messageCreate failed, field message is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageCreate failed, field message is empty', arguments) // log error so we can debug/trace it
       throw Error('field message is empty')
     }
 
@@ -575,15 +543,11 @@ export default class Messaging {
   async messageExecuteCommand () {
     const {channelID, command, input, params, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageExecuteCommand failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageExecuteCommand failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!command) {
-      console.error('messageExecuteCommand failed, field command is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageExecuteCommand failed, field command is empty', arguments) // log error so we can debug/trace it
       throw Error('field command is empty')
     }
 
@@ -612,9 +576,7 @@ export default class Messaging {
   async messageMarkAsRead () {
     const {channelID, threadID, lastReadMessageID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageMarkAsRead failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageMarkAsRead failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
 
@@ -642,21 +604,15 @@ export default class Messaging {
   async messageEdit () {
     const {channelID, messageID, message, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageEdit failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageEdit failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!messageID) {
-      console.error('messageEdit failed, field messageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageEdit failed, field messageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field messageID is empty')
     }
     if (!message) {
-      console.error('messageEdit failed, field message is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageEdit failed, field message is empty', arguments) // log error so we can debug/trace it
       throw Error('field message is empty')
     }
 
@@ -684,15 +640,11 @@ export default class Messaging {
   async messageDelete () {
     const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageDelete failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageDelete failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!messageID) {
-      console.error('messageDelete failed, field messageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageDelete failed, field messageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field messageID is empty')
     }
 
@@ -718,21 +670,15 @@ export default class Messaging {
   async messageReplyCreate () {
     const {channelID, messageID, message, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageReplyCreate failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageReplyCreate failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!messageID) {
-      console.error('messageReplyCreate failed, field messageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageReplyCreate failed, field messageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field messageID is empty')
     }
     if (!message) {
-      console.error('messageReplyCreate failed, field message is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageReplyCreate failed, field message is empty', arguments) // log error so we can debug/trace it
       throw Error('field message is empty')
     }
 
@@ -760,15 +706,11 @@ export default class Messaging {
   async messagePinCreate () {
     const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messagePinCreate failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messagePinCreate failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!messageID) {
-      console.error('messagePinCreate failed, field messageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messagePinCreate failed, field messageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field messageID is empty')
     }
 
@@ -794,15 +736,11 @@ export default class Messaging {
   async messagePinRemove () {
     const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messagePinRemove failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messagePinRemove failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!messageID) {
-      console.error('messagePinRemove failed, field messageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messagePinRemove failed, field messageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field messageID is empty')
     }
 
@@ -828,15 +766,11 @@ export default class Messaging {
   async messageBookmarkCreate () {
     const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageBookmarkCreate failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageBookmarkCreate failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!messageID) {
-      console.error('messageBookmarkCreate failed, field messageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageBookmarkCreate failed, field messageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field messageID is empty')
     }
 
@@ -862,15 +796,11 @@ export default class Messaging {
   async messageBookmarkRemove () {
     const {channelID, messageID, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageBookmarkRemove failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageBookmarkRemove failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!messageID) {
-      console.error('messageBookmarkRemove failed, field messageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageBookmarkRemove failed, field messageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field messageID is empty')
     }
 
@@ -896,21 +826,15 @@ export default class Messaging {
   async messageReactionCreate () {
     const {channelID, messageID, reaction, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageReactionCreate failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageReactionCreate failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!messageID) {
-      console.error('messageReactionCreate failed, field messageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageReactionCreate failed, field messageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field messageID is empty')
     }
     if (!reaction) {
-      console.error('messageReactionCreate failed, field reaction is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageReactionCreate failed, field reaction is empty', arguments) // log error so we can debug/trace it
       throw Error('field reaction is empty')
     }
 
@@ -937,21 +861,15 @@ export default class Messaging {
   async messageReactionRemove () {
     const {channelID, messageID, reaction, } = arguments[0] || {}
     if (!channelID) {
-      console.error('messageReactionRemove failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageReactionRemove failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!messageID) {
-      console.error('messageReactionRemove failed, field messageID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageReactionRemove failed, field messageID is empty', arguments) // log error so we can debug/trace it
       throw Error('field messageID is empty')
     }
     if (!reaction) {
-      console.error('messageReactionRemove failed, field reaction is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('messageReactionRemove failed, field reaction is empty', arguments) // log error so we can debug/trace it
       throw Error('field reaction is empty')
     }
 
@@ -978,27 +896,19 @@ export default class Messaging {
   async attachmentOriginal () {
     const {attachmentID, name, sign, userID, download, } = arguments[0] || {}
     if (!attachmentID) {
-      console.error('attachmentOriginal failed, field attachmentID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentOriginal failed, field attachmentID is empty', arguments) // log error so we can debug/trace it
       throw Error('field attachmentID is empty')
     }
     if (!name) {
-      console.error('attachmentOriginal failed, field name is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentOriginal failed, field name is empty', arguments) // log error so we can debug/trace it
       throw Error('field name is empty')
     }
     if (!sign) {
-      console.error('attachmentOriginal failed, field sign is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentOriginal failed, field sign is empty', arguments) // log error so we can debug/trace it
       throw Error('field sign is empty')
     }
     if (!userID) {
-      console.error('attachmentOriginal failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentOriginal failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1028,27 +938,19 @@ export default class Messaging {
   async attachmentPreview () {
     const {attachmentID, ext, sign, userID, } = arguments[0] || {}
     if (!attachmentID) {
-      console.error('attachmentPreview failed, field attachmentID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentPreview failed, field attachmentID is empty', arguments) // log error so we can debug/trace it
       throw Error('field attachmentID is empty')
     }
     if (!ext) {
-      console.error('attachmentPreview failed, field ext is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentPreview failed, field ext is empty', arguments) // log error so we can debug/trace it
       throw Error('field ext is empty')
     }
     if (!sign) {
-      console.error('attachmentPreview failed, field sign is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentPreview failed, field sign is empty', arguments) // log error so we can debug/trace it
       throw Error('field sign is empty')
     }
     if (!userID) {
-      console.error('attachmentPreview failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('attachmentPreview failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1157,21 +1059,15 @@ export default class Messaging {
   async webhooksCreate () {
     const {channelID, kind, userID, trigger, url, username, avatar, avatarURL, } = arguments[0] || {}
     if (!channelID) {
-      console.error('webhooksCreate failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksCreate failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!kind) {
-      console.error('webhooksCreate failed, field kind is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksCreate failed, field kind is empty', arguments) // log error so we can debug/trace it
       throw Error('field kind is empty')
     }
     if (!userID) {
-      console.error('webhooksCreate failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksCreate failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1203,27 +1099,19 @@ export default class Messaging {
   async webhooksUpdate () {
     const {webhookID, channelID, kind, userID, trigger, url, username, avatar, avatarURL, } = arguments[0] || {}
     if (!webhookID) {
-      console.error('webhooksUpdate failed, field webhookID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksUpdate failed, field webhookID is empty', arguments) // log error so we can debug/trace it
       throw Error('field webhookID is empty')
     }
     if (!channelID) {
-      console.error('webhooksUpdate failed, field channelID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksUpdate failed, field channelID is empty', arguments) // log error so we can debug/trace it
       throw Error('field channelID is empty')
     }
     if (!kind) {
-      console.error('webhooksUpdate failed, field kind is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksUpdate failed, field kind is empty', arguments) // log error so we can debug/trace it
       throw Error('field kind is empty')
     }
     if (!userID) {
-      console.error('webhooksUpdate failed, field userID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksUpdate failed, field userID is empty', arguments) // log error so we can debug/trace it
       throw Error('field userID is empty')
     }
 
@@ -1257,9 +1145,7 @@ export default class Messaging {
   async webhooksGet () {
     const {webhookID, } = arguments[0] || {}
     if (!webhookID) {
-      console.error('webhooksGet failed, field webhookID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksGet failed, field webhookID is empty', arguments) // log error so we can debug/trace it
       throw Error('field webhookID is empty')
     }
 
@@ -1284,9 +1170,7 @@ export default class Messaging {
   async webhooksDelete () {
     const {webhookID, } = arguments[0] || {}
     if (!webhookID) {
-      console.error('webhooksDelete failed, field webhookID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksDelete failed, field webhookID is empty', arguments) // log error so we can debug/trace it
       throw Error('field webhookID is empty')
     }
 
@@ -1311,15 +1195,11 @@ export default class Messaging {
   async webhooksPublicDelete () {
     const {webhookID, webhookToken, } = arguments[0] || {}
     if (!webhookID) {
-      console.error('webhooksPublicDelete failed, field webhookID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksPublicDelete failed, field webhookID is empty', arguments) // log error so we can debug/trace it
       throw Error('field webhookID is empty')
     }
     if (!webhookToken) {
-      console.error('webhooksPublicDelete failed, field webhookToken is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksPublicDelete failed, field webhookToken is empty', arguments) // log error so we can debug/trace it
       throw Error('field webhookToken is empty')
     }
 
@@ -1345,21 +1225,15 @@ export default class Messaging {
   async webhooksPublicCreate () {
     const {webhookID, webhookToken, username, avatarURL, content, } = arguments[0] || {}
     if (!webhookID) {
-      console.error('webhooksPublicCreate failed, field webhookID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksPublicCreate failed, field webhookID is empty', arguments) // log error so we can debug/trace it
       throw Error('field webhookID is empty')
     }
     if (!webhookToken) {
-      console.error('webhooksPublicCreate failed, field webhookToken is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksPublicCreate failed, field webhookToken is empty', arguments) // log error so we can debug/trace it
       throw Error('field webhookToken is empty')
     }
     if (!content) {
-      console.error('webhooksPublicCreate failed, field content is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('webhooksPublicCreate failed, field content is empty', arguments) // log error so we can debug/trace it
       throw Error('field content is empty')
     }
 
@@ -1431,9 +1305,7 @@ export default class Messaging {
   async permissionsRead () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('permissionsRead failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsRead failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -1458,9 +1330,7 @@ export default class Messaging {
   async permissionsDelete () {
     const {roleID, } = arguments[0] || {}
     if (!roleID) {
-      console.error('permissionsDelete failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsDelete failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
 
@@ -1485,15 +1355,11 @@ export default class Messaging {
   async permissionsUpdate () {
     const {roleID, rules, } = arguments[0] || {}
     if (!roleID) {
-      console.error('permissionsUpdate failed, field roleID is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsUpdate failed, field roleID is empty', arguments) // log error so we can debug/trace it
       throw Error('field roleID is empty')
     }
     if (!rules) {
-      console.error('permissionsUpdate failed, field rules is empty', {
-        args,
-      }) // log error so we can debug/trace it
+      console.error('permissionsUpdate failed, field rules is empty', arguments) // log error so we can debug/trace it
       throw Error('field rules is empty')
     }
 

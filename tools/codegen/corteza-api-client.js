@@ -107,7 +107,7 @@ export default class {{className}} {
     {{#if fargs}}const { {{#fargs}}{{.}},{{/fargs}} } = arguments[0] || {}{{/if}}
     {{#required}}
     if (!{{.}}) {
-      console.error('{{../fname}} failed, field {{.}} is empty', { args }) // log error so we can debug/trace it
+      console.error('{{../fname}} failed, field {{.}} is empty', arguments) // log error so we can debug/trace it
       throw Error('field {{.}} is empty')
     }{{/required}}
     
