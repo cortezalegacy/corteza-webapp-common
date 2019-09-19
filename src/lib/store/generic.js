@@ -131,7 +131,7 @@ export function genericActions ({ client, epm, Type, primaryKey } = {}) {
     async delete ({ commit }, item) {
       commit(types.pending)
       return client[epm['delete']](item).then(() => {
-        commit(types.removeFromSet, item)
+        commit(types.removeFromSet, [ item ])
         commit(types.completed)
         return true
       })
