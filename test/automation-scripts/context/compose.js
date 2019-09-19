@@ -232,7 +232,7 @@ describe('compose', () => {
       it('should cast retrieved objects to Module')
     })
 
-    describe.only('findModuleByID', () => {
+    describe('findModuleByID', () => {
       it('should find module on $namespace', async () => {
         const module = new Module({ moduleID: '555' })
         h.$namespace = new Namespace({ namespaceID: '444' })
