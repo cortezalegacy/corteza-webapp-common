@@ -35,48 +35,40 @@ export default {
     },
 
     // @todo add tests & refactor all below methods
-    enableByIndex (resource, event, condition, index) {
-      let t = this.triggers.filter(({ resource: r, event: e }) => r === resource && e === event)[index]
+    setByIndex (resource, event, condition, index, enabled = true) {
+      let t = this.triggers.filter(({ resource: r, event: e, enabled: en }) =>
+        en && r === resource && e === event)[index]
 
       if (!t) {
+        if (!enabled) {
+          return
+        }
         // Trigger not found, make new
         this.$emit('update:triggers', [...this.triggers, new AutomationTrigger({
           condition,
           event,
           resource,
-          enabled: true,
+          enabled,
         })])
-      } else {
-        t.merge({
-          condition,
-          event,
-          resource,
-          enabled: true,
-        })
-
-        this.$emit('update:triggers', this.triggers)
-      }
-    },
-
-    removeByIndex (resource, event, index) {
-      let ctr = -1
-      let rm = -1
-      this.triggers.forEach(({ resource: r, event: e }, i) => {
-        if (r === resource && e === event) {
-          ctr++
-          if (ctr === index) {
-            rm = i
-          }
-        }
-      })
-      if (rm <= -1) {
         return
       }
 
-      this.$emit('update:triggers', [
-        ...this.triggers.slice(0, rm),
-        ...this.triggers.slice(rm + 1),
-      ])
+      t.merge({
+        event,
+        resource,
+        enabled,
+        condition,
+      })
+
+      this.$emit('update:triggers', this.triggers)
+    },
+
+    enableByIndex (resource, event, condition, index) {
+      this.setByIndex(resource, event, condition, index, true)
+    },
+
+    disableByIndex (resource, event, index) {
+      this.setByIndex(resource, event, undefined, index, false)
     },
 
     enable (resource, event, condition) {

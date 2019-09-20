@@ -15,9 +15,13 @@ describe('/src/mixins/automationTriggersEditor.js', () => {
     $emit = sinon.spy()
   })
 
+  const bb = {
+    setByIndex: ate.methods.setByIndex,
+  }
+
   describe('enable by index', () => {
     it('add new trigger if not found', () => {
-      const fnc = ate.methods.enableByIndex.bind({ triggers, $emit })
+      const fnc = ate.methods.enableByIndex.bind({ ...bb, triggers, $emit })
       fnc('resource', 'event', 'condition', 0)
 
       sinon.assert.calledOnce($emit)
@@ -25,9 +29,9 @@ describe('/src/mixins/automationTriggersEditor.js', () => {
       expect(args).to.have.length(1)
     })
 
-    it('update trigger if not found', () => {
-      triggers.push(new AT({ resource: 'resource', event: 'event', condition: 'condition' }))
-      const fnc = ate.methods.enableByIndex.bind({ triggers, $emit })
+    it('update trigger if found', () => {
+      triggers.push(new AT({ enabled: true, resource: 'resource', event: 'event', condition: 'condition' }))
+      const fnc = ate.methods.enableByIndex.bind({ ...bb, triggers, $emit })
       fnc('resource', 'event', 'condition', 0)
 
       sinon.assert.calledOnce($emit)
@@ -37,22 +41,23 @@ describe('/src/mixins/automationTriggersEditor.js', () => {
     })
   })
 
-  describe('remove by index', () => {
+  describe('disable by index', () => {
     it('ignore if trigger not found', () => {
-      const fnc = ate.methods.removeByIndex.bind({ triggers, $emit })
+      const fnc = ate.methods.disableByIndex.bind({ ...bb, triggers, $emit })
       fnc('resource', 'event', 0)
 
       sinon.assert.notCalled($emit)
     })
 
-    it('remove if trigger found', () => {
-      triggers.push(new AT({ resource: 'resource', event: 'event', condition: 'condition' }))
-      const fnc = ate.methods.removeByIndex.bind({ triggers, $emit })
+    it('disable if trigger found', () => {
+      triggers.push(new AT({ enabled: true, resource: 'resource', event: 'event', condition: 'condition' }))
+      const fnc = ate.methods.disableByIndex.bind({ ...bb, triggers, $emit })
       fnc('resource', 'event', 0)
 
       sinon.assert.calledOnce($emit)
       const args = $emit.args.pop().pop()
-      expect(args).to.have.length(0)
+      expect(args).to.have.length(1)
+      expect(args[0]).to.include({ enabled: false })
     })
   })
 })

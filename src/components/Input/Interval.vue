@@ -33,7 +33,7 @@ export default {
     return {
       intervalOptions: [
         // @todo somehow add to i18
-        { text: 'Every Minute', value: '0 * * * * *' },
+        { text: 'Every Minute', value: '0 * * * * * *' },
       ],
     }
   },
