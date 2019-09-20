@@ -1,7 +1,8 @@
 <template>
   <b-form-group :label="label">
     <b-form-select v-model="cValue"
-                   class="d-inline w-50"
+                   class="d-inline"
+                   :class="{ 'w-50': !simple }"
                    :options="cOptions"></b-form-select>
 
     <b-form-input v-if="!simple"
