@@ -4,7 +4,7 @@ export default {
     label: {
       type: String,
     },
-
+    placeholder: { type: String },
     value: {},
   },
 }

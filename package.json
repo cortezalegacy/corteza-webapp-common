@@ -17,13 +17,17 @@
     "pdfjs-dist": "2.1.266",
     "qs": "^6.8.0",
     "v-photoswipe": "https://github.com/tjerman/v-photoswipe#master",
-    "vm2": "^3.8.2"
+    "vm2": "^3.8.2",
+    "quill": "^1.3.6",
+    "fuzzysort": "^1.1.4",
+    "quill-mention": "^2.0.5"
   },
   "peerDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "axios": "^0.18.0",
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "lodash": "^4.17.13"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
