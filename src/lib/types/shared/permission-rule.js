@@ -8,9 +8,9 @@ import { isFresh } from '../../automation-scripts/context/shared'
 const pResource = Symbol('resource')
 const pRole = Symbol('role')
 
-const INHERIT = -1
-const DENY = 0
-const ALLOW = 1
+const INHERIT = 'inherit'
+const DENY = 'deny'
+const ALLOW = 'allow'
 
 export default class PermissionRule {
   set resource (resource) {
