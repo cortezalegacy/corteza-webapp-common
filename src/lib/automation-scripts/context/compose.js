@@ -684,8 +684,8 @@ class ComposeHelper {
   recordToPlainText (fwl = null, record = this.$record) {
     return this.walkFields(fwl, record, f => {
       const v = record.values[f.name]
-      return `${f.label || f.name}: ${(Array.isArray(v) ? v : [v]).join(', ') || '/'}\n`
-    }).join('')
+      return `${f.label || f.name}:\n${(Array.isArray(v) ? v : [v]).join(', ') || '/'}\n\n`
+    }).join('').trim('\n')
   }
 
   /**
