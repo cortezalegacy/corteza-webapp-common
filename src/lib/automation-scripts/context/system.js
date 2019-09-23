@@ -276,7 +276,7 @@ class SystemHelper {
       return this.resolveRole(role, this.$role)
     }).then(role => {
       roleID = extractID(role, 'roleID')
-      return this.SystemAPI.roleMemberAddEndpoint({ roleID, userID })
+      return this.SystemAPI.roleMemberAdd({ roleID, userID })
     })
   }
 
@@ -298,7 +298,7 @@ class SystemHelper {
       return this.resolveRole(role, this.$role)
     }).then(role => {
       roleID = extractID(role, 'roleID')
-      return this.SystemAPI.roleMemberAddEndpoint({ roleID, userID })
+      return this.SystemAPI.roleMemberRemove({ roleID, userID })
     })
   }
 

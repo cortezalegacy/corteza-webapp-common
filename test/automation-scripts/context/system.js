@@ -167,5 +167,29 @@ describe('system', () => {
         sinon.assert.notCalled(h.SystemAPI.roleDelete)
       })
     })
+
+    describe('addUserToRole', () => {
+      it('should add user to given role', async () => {
+        const role = new Role({ roleID: '222' })
+        const user = new User({ userID: '444' })
+        h.SystemAPI.roleMemberAdd = sinon.fake.resolves()
+
+        await h.addUserToRole(user, role)
+        sinon.assert.calledOnce(h.SystemAPI.roleMemberAdd)
+        sinon.assert.calledWith(h.SystemAPI.roleMemberAdd, { roleID: '222', userID: '444' })
+      })
+    })
+
+    describe('removeUserFromRole', () => {
+      it('should remove user from given role', async () => {
+        const role = new Role({ roleID: '222' })
+        const user = new User({ userID: '444' })
+        h.SystemAPI.roleMemberRemove = sinon.fake.resolves()
+
+        await h.removeUserFromRole(user, role)
+        sinon.assert.calledOnce(h.SystemAPI.roleMemberRemove)
+        sinon.assert.calledWith(h.SystemAPI.roleMemberRemove, { roleID: '222', userID: '444' })
+      })
+    })
   })
 })
