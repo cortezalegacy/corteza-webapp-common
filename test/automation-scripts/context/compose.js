@@ -12,10 +12,16 @@ import sinon from 'sinon'
 chai.use(chaiAsPromised)
 
 describe('compose', () => {
-  let DummyModule
+  let DummyModule, DummyPage
+  const pagePayload = {
+    title: 'My Amazing Page'
+  }
   let h
   beforeEach(() => {
     DummyModule = new Module({ fields: [{ name: 'dummy' }] })
+    // @todo Page type
+    DummyPage = pagePayload
+
     h = new ComposeHelper()
     h.ComposeAPI = {}
     sinon.restore()
@@ -179,8 +185,6 @@ describe('compose', () => {
         await h.deleteRecord(record)
         sinon.assert.notCalled(h.ComposeAPI.recordDelete)
       })
-
-      it('should delete record')
     })
 
     describe('findRecords', () => {
@@ -196,6 +200,134 @@ describe('compose', () => {
       it('should find record on a different module')
       it('should find by ID when given a Record object')
       it('should cast retrieved objects to Record')
+    })
+
+    describe('makePage', () => {
+      beforeEach(() => {
+        h.$namespace = new Namespace()
+      })
+
+      it('should make a page', async () => {
+        // @todo check type
+        // expect(await h.makeRecord({}, $module)).to.instanceof(Record)
+        expect((await h.makePage({ title: 'foo' })).title).to.equal('foo')
+      })
+    })
+
+    describe('savePage', () => {
+      beforeEach(() => {
+        h.$namespace = new Namespace()
+      })
+
+      it('should create new', async () => {
+        const page = await h.makePage(pagePayload)
+        h.ComposeAPI.pageCreate = sinon.fake.resolves(pagePayload)
+
+        const r = await h.savePage(page)
+        // @todo check type
+        sinon.assert.calledWith(h.ComposeAPI.pageCreate, page)
+      })
+
+      it('should update existing', async () => {
+        // @todo type
+        const page = await h.makePage({ ...pagePayload, pageID: '123' })
+        h.ComposeAPI.pageUpdate = sinon.fake.resolves(pagePayload)
+
+        const r = await h.savePage(page)
+        // @todo check type
+        sinon.assert.calledWith(h.ComposeAPI.pageUpdate, page)
+      })
+    })
+
+    describe('deletePage', () => {
+      beforeEach(() => {
+        h.$namespace = new Namespace()
+      })
+
+      it('should delete existing page', async () => {
+        const page = await h.makePage({ ...pagePayload, pageID: '123' })
+        h.ComposeAPI.pageDelete = sinon.fake.resolves(page)
+
+        await h.deletePage(page)
+        sinon.assert.calledWith(h.ComposeAPI.pageDelete, page)
+      })
+
+      it('should not delete fresh page', async () => {
+        const page = await h.makePage({ ...pagePayload })
+        h.ComposeAPI.pageDelete = sinon.fake.resolves(page)
+
+        await h.deletePage(page)
+        sinon.assert.notCalled(h.ComposeAPI.pageDelete)
+      })
+    })
+
+    describe('findPages', () => {
+      beforeEach(() => {
+        h.$namespace = new Namespace({ namespaceID: '1' })
+      })
+
+      it('should find pages on current namespace', async () => {
+        h.ComposeAPI.pageList = sinon.fake.resolves({ filter: {}, set: [ pagePayload ] })
+
+        await h.findPages()
+        sinon.assert.calledWith(h.ComposeAPI.pageList, { namespaceID: '1' })
+        // @todo type check
+      })
+
+      it('should find pages on given namespace', async () => {
+        h.ComposeAPI.pageList = sinon.fake.resolves({ filter: {}, set: [ pagePayload ] })
+
+        await h.findPages(null, new Namespace({ namespaceID: '2' }))
+        sinon.assert.calledWith(h.ComposeAPI.pageList, { namespaceID: '2' })
+        // @todo type check
+      })
+
+      it('should filter (as string) pages on given namespace', async () => {
+        h.ComposeAPI.pageList = sinon.fake.resolves({ filter: {}, set: [ pagePayload ] })
+
+        await h.findPages('filter')
+        sinon.assert.calledWith(h.ComposeAPI.pageList, { namespaceID: '1', query: 'filter' })
+        // @todo type check
+      })
+
+      it('should filter (as object) pages on given namespace', async () => {
+        h.ComposeAPI.pageList = sinon.fake.resolves({ filter: {}, set: [ pagePayload ] })
+
+        await h.findPages({ query: 'filter', limit: 10 })
+        sinon.assert.calledWith(h.ComposeAPI.pageList, { namespaceID: '1', query: 'filter', limit: 10 })
+        // @todo type check
+      })
+    })
+
+    describe('findPageByID', () => {
+      beforeEach(() => {
+        h.$namespace = new Namespace({ namespaceID: '1' })
+      })
+
+      it('should find page on current namespace', async () => {
+        h.ComposeAPI.pageRead = sinon.fake.resolves(pagePayload)
+
+        await h.findPageByID('1000')
+        sinon.assert.calledWith(h.ComposeAPI.pageRead, { namespaceID: '1', pageID: '1000' })
+        // @todo type check
+      })
+
+      it('should find page on given namespace', async () => {
+        h.ComposeAPI.pageRead = sinon.fake.resolves(pagePayload)
+
+        await h.findPageByID('1000', new Namespace({ namespaceID: '2' }))
+        sinon.assert.calledWith(h.ComposeAPI.pageRead, { namespaceID: '2', pageID: '1000' })
+        // @todo type check
+      })
+
+      it('should find page from Object', async () => {
+        h.ComposeAPI.pageRead = sinon.fake.resolves(pagePayload)
+        const page = await h.makePage({ ...pagePayload, pageID: '1001' })
+
+        await h.findPageByID(page, new Namespace({ namespaceID: '2' }))
+        sinon.assert.calledWith(h.ComposeAPI.pageRead, { namespaceID: '2', pageID: '1001' })
+        // @todo type check
+      })
     })
 
     describe('makeModule', () => {

@@ -36,6 +36,121 @@ class ComposeHelper {
   }
 
   /**
+   * Creates new Page object
+   *
+   * <p>
+   *   Created page is "in-memory" only. To store it, use savePage() method
+   * </p>
+   *
+   * @example
+   * // Simple page creation new page on current namespace
+   * let myPage = await Compose.makePage({ title: 'My Amazing Page!' })
+   *
+   * @param {Object} values
+   * @param {Namespace} ns - defaults to current $namespace
+   * @return {Promise<Page>}
+   */
+  async makePage (values = {}, ns = this.$namespace) {
+    return this.resolveNamespace(ns).then((ns) => {
+      // @todo cast to Page
+      return { ...values, namespaceID: ns.namespaceID }
+      // return new Page({ ...values, namespaceID: ns.namespaceID })
+    })
+  }
+
+  /**
+   * Creates/updates Page
+   *
+   * @param {Promise<*>|Page} page
+   * @returns {Promise<Page>}
+   */
+  async savePage (page) {
+    return Promise.resolve(page).then(page => {
+      // @todo cast to Page
+      // if (!(page instanceof Page)) {
+      //   throw Error('expecting Page type')
+      // }
+  
+      if (isFresh(page.pageID)) {
+        return this.ComposeAPI.pageCreate(page)
+      } else {
+        return this.ComposeAPI.pageUpdate(page)
+      }
+    })
+  }
+
+  /**
+   * Deletes a page
+   *
+   * @example
+   * Compose.deletePage(myPage)
+   *
+   * @param {Page} page
+   * @returns {Promise<void>}
+   */
+  async deletePage (page) {
+    return Promise.resolve(page).then(page => {
+      // if (!(page instanceof Page)) {
+      //   throw Error('expecting Page type')
+      // }
+
+      if (!isFresh(page.pageID)) {
+        return this.ComposeAPI.pageDelete(page)
+      }
+    })
+  }
+
+  /**
+   * Searches for pages
+   *
+   * @private
+   * @param {string|Object} filter
+   * @param {Promise<*>|string|Namespace|Object} ns
+   * @returns {Promise<{filter: Object, set: Page[]}>}
+   */
+  async findPages (filter = null, ns = this.$namespace) {
+    if (typeof filter === 'string') {
+      filter = { query: filter }
+    }
+  
+    return this.resolveNamespace(ns).then((ns) => {
+      const namespaceID = extractID(ns, 'namespaceID')
+      return this.ComposeAPI.pageList({ namespaceID, ...filter }).then(rval => {
+        // @todo cast to Page
+        // Casting all we got to to Page
+        // rval.set = rval.set.map(m => new Page(m))
+        return rval
+      })
+    })
+  }
+
+  /**
+   * Finds page by ID
+   *
+   * @example
+   * // Explicitly load page and do something with it
+   * Compose.finePageByID('2039248239042').then(myPage => {
+   *   // do something with myPage
+   *   myPage.title = 'My More Amazing Page!'
+   *   return myPage
+   * }).then(Compose.savePage)
+   *
+   * @param {string|Page} page - accepts Page, pageID (when string string)
+   * @param {string|Namespace|Object} ns - namespace, defaults to current $namespace
+   * @returns {Promise<Page>}
+   */
+  async findPageByID (page, ns = this.$namespace) {
+    return this.resolveNamespace(ns).then((ns) => {
+      const pageID = extractID(page, 'pageID')
+      const namespaceID = extractID(ns, 'namespaceID')
+  
+      return this.ComposeAPI.pageRead({ namespaceID, pageID })
+        //@todo cast to Page
+        .then(p => p)
+    })
+  }
+
+  /**
    * Creates new Record object
    *
    * <p>
