@@ -285,6 +285,38 @@ describe('compose', () => {
       it('should write some tests')
     })
 
+    describe('recordToPlainText', () => {
+      const m = new Module({
+        fields: [
+          { name: 'dummy' },
+          { name: 'multi', isMulti: true },
+          { name: 'empty' },
+        ],
+      })
+
+      it('should convert a given record to plain text', () => {
+        const record = new Record(m, {
+          values: [
+            { name: 'dummy', value: 'value' },
+            { name: 'multi', value: 'v1' },
+            { name: 'multi', value: 'v2' },
+          ],
+        })
+        expect(h.recordToPlainText(null, record)).to.eq('dummy:\nvalue\n\nmulti:\nv1, v2\n\nempty:\n/')
+      })
+
+      it('should convert white-listed fields of a given record to plain text', () => {
+        const record = new Record(m, {
+          values: [
+            { name: 'dummy', value: 'value' },
+            { name: 'multi', value: 'v1' },
+            { name: 'multi', value: 'v2' },
+          ],
+        })
+        expect(h.recordToPlainText(['dummy', 'multi'], record)).to.eq('dummy:\nvalue\n\nmulti:\nv1, v2')
+      })
+    })
+
     describe('sendMessageToChannel', () => {
       // @todo move to messaging.js
       it('should write some tests')
