@@ -20,6 +20,12 @@
           {{ t.payload.notes }}
         </b-card-text>
 
+        <b-card-text v-if="t.payload.link">
+          <t-link :link="t.payload.link"
+                :resource="t.resource" />
+
+        </b-card-text>
+
         <component v-for="([name, act]) in extraActions(t)"
                   :key="name"
                    :is="actComponent(act)"
@@ -34,12 +40,18 @@
 
 <script>
 import { TButton, TDropdown } from './actions'
+import { TLink } from './display'
+
 const actions = {
   Button: TButton,
   Dropdown: TDropdown,
 }
 
 export default {
+  components: {
+    TLink,
+  },
+
   props: {
     toasts: {
       type: Array,
