@@ -6,7 +6,8 @@
              v-bind="t.options || {}"
              :title="t.payload.title"
              :no-close-button="!t.actions.hide"
-             @hide="t.actions.hide ? t.actions.hide.cb(t) : evtSink">
+             @hide="t.actions.hide ? t.actions.hide.cb(t) : evtSink"
+             toast-class="overflow-unset">
 
       <b-card header-bg-variant="transparent"
               bg-variant="transparent"
@@ -27,9 +28,9 @@
         </b-card-text>
 
         <component v-for="([name, act]) in extraActions(t)"
-                  :key="name"
+                   :key="name"
                    :is="actComponent(act)"
-                  class="mr-1"
+                   class="mr-1"
                    v-bind="act"
                    @action="act.cb ? act.cb(t, $event) : evtSink" />
 
@@ -83,5 +84,12 @@ export default {
 // @note Couldn't get this bootstrap prop to work, so here it is for now.
 .border-transparent {
   border-color: transparent!important;
+}
+</style>
+
+<style lang="scss">
+// BS only provides overflow-[auto, hidden]
+.toast.overflow-unset {
+  overflow: unset!important;
 }
 </style>
