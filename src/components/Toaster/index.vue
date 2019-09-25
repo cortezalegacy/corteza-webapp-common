@@ -20,20 +20,25 @@
           {{ t.payload.notes }}
         </b-card-text>
 
-        <b-button v-for="([name, act]) in extraActions(t)"
+        <component v-for="([name, act]) in extraActions(t)"
                   :key="name"
+                   :is="actComponent(act)"
                   class="mr-1"
-                  v-bind="act.options || {}"
-                  @click="act.cb || evtSink">
+                   v-bind="act"
+                   @action="act.cb ? act.cb(t, $event) : evtSink" />
 
-          {{ act.label }}
-        </b-button>
       </b-card>
     </b-toast>
   </div>
 </template>
 
 <script>
+import { TButton, TDropdown } from './actions'
+const actions = {
+  Button: TButton,
+  Dropdown: TDropdown,
+}
+
 export default {
   props: {
     toasts: {
@@ -47,6 +52,14 @@ export default {
     extraActions ({ actions = {} }) {
       const { hide, ...act } = actions
       return Object.entries(act)
+    },
+
+    actComponent ({ kind }) {
+      const act = actions[kind]
+      if (!act) {
+        throw new Error('toast.actionKind.unknown')
+      }
+      return act
     },
 
     evtSink () {},
