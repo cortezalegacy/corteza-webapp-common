@@ -48,7 +48,7 @@ export default {
       default: 200,
     },
 
-    startVisible: {
+    visible: {
       type: Boolean,
       required: false,
       default: false,
@@ -60,11 +60,7 @@ export default {
       default: false,
     },
   },
-  data () {
-    return {
-      visible: this.startVisible,
-    }
-  },
+
   computed: {
     getStyle () {
       return {
@@ -77,7 +73,7 @@ export default {
   methods: {
     toggle () {
       if (!this.disableToggle) {
-        this.visible = !this.visible
+        this.$emit('update:visible', !this.visible)
       }
     },
   },
