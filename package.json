@@ -23,13 +23,14 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "axios": "^0.18.0",
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "portal-vue": "^2.1.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "axios": "^0.18.0",
     "@vue/test-utils": "1.0.0-beta.29",
+    "axios": "^0.18.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "esdoc": "^1.1.0",
@@ -44,6 +45,7 @@
     "lodash": "^4.17.13",
     "mocha": "^6.2.0",
     "moment": "^2.22.2",
+    "portal-vue": "^2.1.0",
     "sinon": "7.4.1"
   }
 }
