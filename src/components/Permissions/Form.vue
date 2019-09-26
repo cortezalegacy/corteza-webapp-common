@@ -4,11 +4,10 @@
       <b-col class="role-list" cols="3">
         <b-list-group>
           <b-list-group-item
-            button
             v-for="r in roles" :key="r.roleID"
             :active="r.roleID === currentRoleID"
-            active-class="info"
-            variant="outline-info"
+            active-class="primary"
+            variant="outline-primary"
             @click="onRoleChange(r)" >
 
             {{ r.name || r.handle || r.roleID || $t('role.unnamed') }}

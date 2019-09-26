@@ -41,7 +41,7 @@ export default {
     },
 
     variant () {
-      return this.isChanged ? 'outline-warning' : 'outline-info'
+      return this.isChanged ? 'outline-warning' : 'outline-primary'
     },
 
     selected: {

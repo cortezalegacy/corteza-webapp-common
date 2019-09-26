@@ -25,7 +25,6 @@
   right: 0;
   bottom: 0;
 
-  /* $mainbgcolor: #EEF1F3; */
   background-color: #EEF1F3;
   z-index: 2000;
 }
@@ -33,9 +32,7 @@
 .lightbox header {
   display: flex;
   justify-content: space-between;
-  /* $appcream: #F3F3F5; */
   background-color: #FFFFFF;
-  box-shadow: 0 0px 5px #FFFFFF;
   position: absolute;
   left: 0;
   top: 0;
