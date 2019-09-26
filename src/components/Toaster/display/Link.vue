@@ -26,15 +26,6 @@ export default {
     },
   },
 
-  methods: {
-    fallbackLabel (resource) {
-      if (resource.toLowerCase().startsWith('compose:record')) {
-        return 'Record View'
-      }
-      return 'Link'
-    }
-  },
-
   computed: {
     routerLink () {
       if (this.resource.toLowerCase().startsWith('compose:record:')) {
@@ -56,7 +47,16 @@ export default {
 
     linkLabel () {
       return this.link.label || this.link.href || this.fallbackLabel(this.resource)
-    }
+    },
+  },
+
+  methods: {
+    fallbackLabel (resource) {
+      if (resource.toLowerCase().startsWith('compose:record')) {
+        return 'Record View'
+      }
+      return 'Link'
+    },
   },
 }
 </script>

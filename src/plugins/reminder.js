@@ -156,9 +156,9 @@ export class ReminderService {
     if (this.nextRemindAt === null) {
       this.tHandle = null
     } else {
-    this.scheduleReminderProcess(this.nextRemindAt)
+      this.scheduleReminderProcess(this.nextRemindAt)
+    }
   }
-}
 }
 
 export default {
