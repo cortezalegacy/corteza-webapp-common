@@ -23,7 +23,7 @@
 
         <b-card-text v-if="t.payload.link">
           <t-link :link="t.payload.link"
-                :resource="t.resource" />
+                  :resource="t.resource" />
 
         </b-card-text>
 

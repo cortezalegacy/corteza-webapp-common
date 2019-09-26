@@ -22,12 +22,15 @@ export default {
     },
     resource: {
       type: String,
-      required: true,
     },
   },
 
   computed: {
     routerLink () {
+      if (!this.resource) {
+        return
+      }
+
       if (this.resource.toLowerCase().startsWith('compose:record:')) {
         const recordID = this.resource.split(':')[2]
         if (!recordID) {
@@ -51,7 +54,7 @@ export default {
   },
 
   methods: {
-    fallbackLabel (resource) {
+    fallbackLabel (resource = '') {
       if (resource.toLowerCase().startsWith('compose:record')) {
         return 'Record View'
       }
