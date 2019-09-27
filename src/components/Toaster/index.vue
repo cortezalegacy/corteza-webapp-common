@@ -80,13 +80,6 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-// @note Couldn't get this bootstrap prop to work, so here it is for now.
-.border-transparent {
-  border-color: transparent!important;
-}
-</style>
-
 <style lang="scss">
 // BS only provides overflow-[auto, hidden]
 .toast.overflow-unset {
