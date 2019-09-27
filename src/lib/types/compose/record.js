@@ -37,15 +37,10 @@ export default class Record extends ComposeObject {
     this.moduleID = PropCast(ID, this.module.moduleID)
     this.namespaceID = PropCast(ID, this.module.namespaceID)
 
-    let defaults = []
     this[fields] = {}
     this.module.fields.forEach(({ name, isMulti, kind, defaultValue }) => {
       if (reservedFieldNames.includes(name)) {
         throw new Error('can not use reserved field name ' + name)
-      }
-
-      if (defaultValue) {
-        defaults = defaults.concat(defaultValue)
       }
 
       this[fields][name] = { isMulti, kind }
@@ -65,10 +60,6 @@ export default class Record extends ComposeObject {
     this.createdAt = PropCast(ISO8601, r.createdAt)
     this.updatedAt = PropCast(ISO8601, r.updatedAt)
     this.deletedAt = PropCast(ISO8601, r.deletedAt)
-
-    if (defaults) {
-      this.setValues(defaults)
-    }
 
     if (r.values !== undefined) {
       this.setValues(r.values)
