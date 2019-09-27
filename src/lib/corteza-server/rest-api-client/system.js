@@ -1818,7 +1818,7 @@ export default class System {
 
   // List/read reminders
   async reminderList () {
-    const {resource, assignedTo, scheduledFrom, scheduledBefore, scheduledOnly, excludeDismissed, page, perPage, } = arguments[0] || {}
+    const {resource, assignedTo, scheduledFrom, scheduledUntil, scheduledOnly, excludeDismissed, page, perPage, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1829,7 +1829,7 @@ export default class System {
       resource,
       assignedTo,
       scheduledFrom,
-      scheduledBefore,
+      scheduledUntil,
       scheduledOnly,
       excludeDismissed,
       page,
