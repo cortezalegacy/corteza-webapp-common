@@ -1,9 +1,7 @@
 import Record from '../../types/compose/record'
 import Module from '../../types/compose/module'
 import Namespace from '../../types/compose/namespace'
-import AutomationScript from '../../types/shared/automation-script'
 import { extractID, genericPermissionUpdater, isFresh } from './shared'
-import AutomationTrigger from '../../types/shared/automation-trigger'
 
 const emailStyle = `
 body { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #3A393C; font-family: Verdana,Arial,sans-serif; font-size: 14px; height: 100%; margin: 0; padding: 0; width: 100% !important; }
@@ -72,7 +70,7 @@ class ComposeHelper {
       // if (!(page instanceof Page)) {
       //   throw Error('expecting Page type')
       // }
-  
+
       if (isFresh(page.pageID)) {
         return this.ComposeAPI.pageCreate(page)
       } else {
@@ -114,7 +112,7 @@ class ComposeHelper {
     if (typeof filter === 'string') {
       filter = { query: filter }
     }
-  
+
     return this.resolveNamespace(ns).then((ns) => {
       const namespaceID = extractID(ns, 'namespaceID')
       return this.ComposeAPI.pageList({ namespaceID, ...filter }).then(rval => {
@@ -145,9 +143,9 @@ class ComposeHelper {
     return this.resolveNamespace(ns).then((ns) => {
       const pageID = extractID(page, 'pageID')
       const namespaceID = extractID(ns, 'namespaceID')
-  
+
       return this.ComposeAPI.pageRead({ namespaceID, pageID })
-        //@todo cast to Page
+        // @todo cast to Page
         .then(p => p)
     })
   }
@@ -160,7 +158,7 @@ class ComposeHelper {
    * @private
    */
   makeRecordPageTitle ({ name }) {
-    return `Record page for module \"${name}\"`
+    return `Record page for module "${name}"`
   }
 
   /**
@@ -257,7 +255,7 @@ class ComposeHelper {
     return this.resolveNamespace(ns).then((ns) => {
       let params = {
         namespaceID: ns.namespaceID,
-        ...(filter || {})
+        ...(filter || {}),
       }
 
       return this.ComposeAPI.automationScriptList(params).then(rval => {
