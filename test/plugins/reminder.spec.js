@@ -20,7 +20,6 @@ describe('/src/plugins/reminder.js', () => {
     $emit = sinon.stub()
   })
 
-  console.log(ReminderService)
   describe('init', () => {
     it('throw if invalid params provided', () => {
       assert.throws(() => new ReminderService(), 'reminderService.invalidParams')
