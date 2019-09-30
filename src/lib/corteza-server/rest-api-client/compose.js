@@ -218,7 +218,7 @@ export default class Compose {
 
   // List available pages
   async pageList () {
-    const {namespaceID, selfID, query, page, perPage, } = arguments[0] || {}
+    const {namespaceID, selfID, query, handle, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -233,6 +233,7 @@ export default class Compose {
     cfg.params = {
       selfID,
       query,
+      handle,
       page,
       perPage,
     }
@@ -248,7 +249,7 @@ export default class Compose {
 
   // Create page
   async pageCreate () {
-    const {namespaceID, selfID, moduleID, title, description, visible, blocks, } = arguments[0] || {}
+    const {namespaceID, selfID, moduleID, title, handle, description, visible, blocks, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageCreate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -273,6 +274,7 @@ export default class Compose {
       selfID,
       moduleID,
       title,
+      handle,
       description,
       visible,
       blocks,
@@ -343,7 +345,7 @@ export default class Compose {
 
   // Update page
   async pageUpdate () {
-    const {namespaceID, pageID, selfID, moduleID, title, description, visible, blocks, } = arguments[0] || {}
+    const {namespaceID, pageID, selfID, moduleID, title, handle, description, visible, blocks, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -373,6 +375,7 @@ export default class Compose {
       selfID,
       moduleID,
       title,
+      handle,
       description,
       visible,
       blocks,
@@ -490,7 +493,7 @@ export default class Compose {
 
   // List modules
   async moduleList () {
-    const {namespaceID, query, name, page, perPage, } = arguments[0] || {}
+    const {namespaceID, query, name, handle, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('moduleList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -505,6 +508,7 @@ export default class Compose {
     cfg.params = {
       query,
       name,
+      handle,
       page,
       perPage,
     }
@@ -520,7 +524,7 @@ export default class Compose {
 
   // Create module
   async moduleCreate () {
-    const {namespaceID, name, fields, meta, } = arguments[0] || {}
+    const {namespaceID, name, handle, fields, meta, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('moduleCreate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -547,6 +551,7 @@ export default class Compose {
 
     cfg.data = {
       name,
+      handle,
       fields,
       meta,
     }
@@ -591,7 +596,7 @@ export default class Compose {
 
   // Update module
   async moduleUpdate () {
-    const {namespaceID, moduleID, name, fields, meta, updatedAt, } = arguments[0] || {}
+    const {namespaceID, moduleID, name, handle, fields, meta, updatedAt, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('moduleUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -623,6 +628,7 @@ export default class Compose {
 
     cfg.data = {
       name,
+      handle,
       fields,
       meta,
       updatedAt,
@@ -1127,7 +1133,7 @@ export default class Compose {
 
   // List/read charts
   async chartList () {
-    const {namespaceID, query, page, perPage, } = arguments[0] || {}
+    const {namespaceID, query, handle, page, perPage, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('chartList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -1141,6 +1147,7 @@ export default class Compose {
     }
     cfg.params = {
       query,
+      handle,
       page,
       perPage,
     }
@@ -1156,7 +1163,7 @@ export default class Compose {
 
   // List/read charts
   async chartCreate () {
-    const {namespaceID, config, name, } = arguments[0] || {}
+    const {namespaceID, config, name, handle, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('chartCreate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -1180,6 +1187,7 @@ export default class Compose {
     cfg.data = {
       config,
       name,
+      handle,
     }
     return new Promise((resolve, reject) => {
       this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
@@ -1222,7 +1230,7 @@ export default class Compose {
 
   // Add/update charts
   async chartUpdate () {
-    const {namespaceID, chartID, config, name, updatedAt, } = arguments[0] || {}
+    const {namespaceID, chartID, config, name, handle, updatedAt, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('chartUpdate failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -1251,6 +1259,7 @@ export default class Compose {
     cfg.data = {
       config,
       name,
+      handle,
       updatedAt,
     }
     return new Promise((resolve, reject) => {
