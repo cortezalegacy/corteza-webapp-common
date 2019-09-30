@@ -1,7 +1,9 @@
 import Record from '../../types/compose/record'
 import Module from '../../types/compose/module'
 import Namespace from '../../types/compose/namespace'
+import AutomationScript from '../../types/shared/automation-script'
 import { extractID, genericPermissionUpdater, isFresh } from './shared'
+import AutomationTrigger from '../../types/shared/automation-trigger'
 
 const emailStyle = `
 body { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #3A393C; font-family: Verdana,Arial,sans-serif; font-size: 14px; height: 100%; margin: 0; padding: 0; width: 100% !important; }
@@ -147,6 +149,122 @@ class ComposeHelper {
       return this.ComposeAPI.pageRead({ namespaceID, pageID })
         //@todo cast to Page
         .then(p => p)
+    })
+  }
+
+  /**
+   * Creates new AutomationScript object
+   *
+   * <p>
+   *   Created script is "in-memory" only. To store it, use saveAutomationScript() method
+   * </p>
+   *
+   * @example
+   * // Simple script creation on current namespace
+   * let myScript = await Compose.makeAutomationScript({ name: 'SuperScript' })
+   *
+   * @param {Object} script
+   * @param {Namespace} ns - defaults to current $namespace
+   * @return {Promise<AutomationScript>}
+   */
+  async makeAutomationScript (script = {}, ns = this.$namespace) {
+    return this.resolveNamespace(ns).then((ns) => {
+      // @todo
+      // return new AutomationScript({ ...script, namespaceID: ns.namespaceID })
+      return { ...script, namespaceID: ns.namespaceID }
+    })
+  }
+
+  /**
+   * Creates/updates AutomationScript
+   *
+   * @param {Promise<*>|AutomationScript} script
+   * @returns {Promise<AutomationScript>}
+   */
+  async saveAutomationScript (script) {
+    return Promise.resolve(script).then(script => {
+      // @todo
+      // if (!(script instanceof AutomationScript)) {
+      //   throw Error('expecting Script type')
+      // }
+
+      if (isFresh(script.scriptID)) {
+        return this.ComposeAPI.automationScriptCreate(script)
+      } else {
+        return this.ComposeAPI.automationScriptUpdate(script)
+      }
+    })
+  }
+
+  /**
+   * Searches for automation scripts
+   *
+   * @private
+   * @param {string|Object} filter
+   * @param {Promise<*>|string|Namespace|Object} ns
+   * @returns {Promise<{filter: Object, set: AutomationScript[]}>}
+   */
+  async findScripts (filter = null, ns = this.$namespace) {
+    if (typeof filter === 'string') {
+      filter = { query: filter }
+    }
+
+    return this.resolveNamespace(ns).then((ns) => {
+      let params = {
+        namespaceID: ns.namespaceID,
+        ...(filter || {})
+      }
+
+      return this.ComposeAPI.automationScriptList(params).then(rval => {
+        // Casting all we got to to AutomationScript
+        // @todo
+        // rval.set = rval.set.map(m => new AutomationScript(m))
+        return rval
+      })
+    })
+  }
+
+  /**
+   * Creates new AutomationTrigger object
+   *
+   * <p>
+   *   Created trigger is "in-memory" only. To store it, use saveAutomationTrigger() method
+   * </p>
+   *
+   * @example
+   * // Simple trigger creation on current namespace
+   * let myTrigger = await Compose.makeAutomationTrigger({ resource: 'module:record', condition: $record.recordID })
+   *
+   * @param {Object} trigger
+   * @param {Namespace} ns - defaults to current $namespace
+   * @return {Promise<AutomationTrigger>}
+   */
+  async makeAutomationTrigger (trigger = {}, ns = this.$namespace) {
+    return this.resolveNamespace(ns).then((ns) => {
+      // @todo
+      // return new AutomationTrigger(trigger)
+      return { ...trigger, namespaceID: ns.namespaceID }
+    })
+  }
+
+  /**
+   * Creates/updates AutomationTrigger
+   *
+   * @param {Promise<*>|AutomationTrigger} trigger
+   * @returns {Promise<AutomationTrigger>}
+   */
+  async saveAutomationTrigger (trigger) {
+    return Promise.resolve(trigger).then(trigger => {
+      // @todo
+      // if (!(trigger instanceof AutomationTrigger)) {
+      //   throw Error('expecting AutomationTrigger type')
+      // }
+
+      if (isFresh(trigger.triggerID)) {
+        return this.ComposeAPI.automationTriggerCreate(trigger)
+      } else {
+        return this.ComposeAPI.automationTriggerUpdate(trigger)
+      }
     })
   }
 
