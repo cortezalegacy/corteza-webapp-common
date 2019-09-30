@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span class="text-center">
     <span v-if="!inConfirmation">
       <b-button pill
                 :variant="variant"
