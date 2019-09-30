@@ -153,6 +153,51 @@ class ComposeHelper {
   }
 
   /**
+   * Helper to construct record page titles
+   *
+   * @param {String} name
+   * @returns {String}
+   * @private
+   */
+  makeRecordPageTitle ({ name }) {
+    return `Record page for module \"${name}\"`
+  }
+
+  /**
+   * Helper to construct page blocks
+   *
+   * @returns {Object}
+   * @private
+   */
+  makePageBlock ({
+    module,
+    index = 0,
+    x = 0,
+    y = 0,
+    height = 13,
+    width = 13,
+    kind = 'Record',
+    options = {},
+    title = null,
+    style = {},
+    fields,
+  }) {
+    return {
+      height,
+      width,
+      kind,
+      title,
+      x,
+      y: y + height * index,
+      style,
+      options: {
+        ...options,
+        fields: fields || module.fields,
+      },
+    }
+  }
+
+  /**
    * Creates new AutomationScript object
    *
    * <p>
@@ -513,6 +558,23 @@ class ComposeHelper {
 
         recordID: extractID(record, 'recordID'),
       }).then(r => new Record(module, r))
+    })
+  }
+
+  /**
+   * Finds a single attachment
+   *
+   * @param {string|Object|Attachment} attachment Attachment to find
+   * @param {Namespace} ns
+   */
+  async findAttachmentByID (attachment, ns = this.$namespace) {
+    return this.resolveNamespace(ns).then(namespace => {
+      const { namespaceID } = namespace
+      return this.ComposeAPI.attachmentRead({
+        kind: 'original',
+        attachmentID: extractID(attachment, 'attachmentID'),
+        namespaceID,
+      }).then(att => att)
     })
   }
 
