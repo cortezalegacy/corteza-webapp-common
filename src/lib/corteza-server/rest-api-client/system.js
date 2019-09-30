@@ -1816,4 +1816,217 @@ export default class System {
     return `/automation/script/${scriptID}/trigger/${triggerID}`
   }
 
+  // List/read reminders
+  async reminderList () {
+    const {resource, assignedTo, scheduledFrom, scheduledUntil, scheduledOnly, excludeDismissed, page, perPage, } = arguments[0] || {}
+
+
+    let cfg = {
+      method: 'get',
+      url: this.reminderListEndpoint({  }),
+    }
+    cfg.params = {
+      resource,
+      assignedTo,
+      scheduledFrom,
+      scheduledUntil,
+      scheduledOnly,
+      excludeDismissed,
+      page,
+      perPage,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  reminderListEndpoint () {
+    return `/reminder/`
+  }
+
+  // Add new reminder
+  async reminderCreate () {
+    const {resource, assignedTo, payload, remindAt, } = arguments[0] || {}
+    if (!resource) {
+      console.error('reminderCreate failed, field resource is empty', arguments) // log error so we can debug/trace it
+      throw Error('field resource is empty')
+    }
+    if (!assignedTo) {
+      console.error('reminderCreate failed, field assignedTo is empty', arguments) // log error so we can debug/trace it
+      throw Error('field assignedTo is empty')
+    }
+    if (!payload) {
+      console.error('reminderCreate failed, field payload is empty', arguments) // log error so we can debug/trace it
+      throw Error('field payload is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.reminderCreateEndpoint({  }),
+    }
+
+    cfg.data = {
+      resource,
+      assignedTo,
+      payload,
+      remindAt,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  reminderCreateEndpoint () {
+    return `/reminder/`
+  }
+
+  // Update reminder
+  async reminderUpdate () {
+    const {reminderID, resource, assignedTo, payload, remindAt, } = arguments[0] || {}
+    if (!reminderID) {
+      console.error('reminderUpdate failed, field reminderID is empty', arguments) // log error so we can debug/trace it
+      throw Error('field reminderID is empty')
+    }
+    if (!resource) {
+      console.error('reminderUpdate failed, field resource is empty', arguments) // log error so we can debug/trace it
+      throw Error('field resource is empty')
+    }
+    if (!assignedTo) {
+      console.error('reminderUpdate failed, field assignedTo is empty', arguments) // log error so we can debug/trace it
+      throw Error('field assignedTo is empty')
+    }
+    if (!payload) {
+      console.error('reminderUpdate failed, field payload is empty', arguments) // log error so we can debug/trace it
+      throw Error('field payload is empty')
+    }
+
+    let cfg = {
+      method: 'put',
+      url: this.reminderUpdateEndpoint({
+        reminderID,
+      }),
+    }
+
+    cfg.data = {
+      resource,
+      assignedTo,
+      payload,
+      remindAt,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  reminderUpdateEndpoint ({reminderID, } = {}) {
+    return `/reminder/${reminderID}`
+  }
+
+  // Read reminder by ID
+  async reminderRead () {
+    const {reminderID, } = arguments[0] || {}
+    if (!reminderID) {
+      console.error('reminderRead failed, field reminderID is empty', arguments) // log error so we can debug/trace it
+      throw Error('field reminderID is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.reminderReadEndpoint({
+        reminderID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  reminderReadEndpoint ({reminderID, } = {}) {
+    return `/reminder/${reminderID}`
+  }
+
+  // Delete reminder
+  async reminderDelete () {
+    const {reminderID, } = arguments[0] || {}
+    if (!reminderID) {
+      console.error('reminderDelete failed, field reminderID is empty', arguments) // log error so we can debug/trace it
+      throw Error('field reminderID is empty')
+    }
+
+    let cfg = {
+      method: 'delete',
+      url: this.reminderDeleteEndpoint({
+        reminderID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  reminderDeleteEndpoint ({reminderID, } = {}) {
+    return `/reminder/${reminderID}`
+  }
+
+  // Dismiss reminder
+  async reminderDismiss () {
+    const {reminderID, } = arguments[0] || {}
+    if (!reminderID) {
+      console.error('reminderDismiss failed, field reminderID is empty', arguments) // log error so we can debug/trace it
+      throw Error('field reminderID is empty')
+    }
+
+    let cfg = {
+      method: 'patch',
+      url: this.reminderDismissEndpoint({
+        reminderID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  reminderDismissEndpoint ({reminderID, } = {}) {
+    return `/reminder/${reminderID}/dismiss`
+  }
+
+  // Snooze reminder
+  async reminderSnooze () {
+    const {reminderID, remindAt, } = arguments[0] || {}
+    if (!reminderID) {
+      console.error('reminderSnooze failed, field reminderID is empty', arguments) // log error so we can debug/trace it
+      throw Error('field reminderID is empty')
+    }
+    if (!remindAt) {
+      console.error('reminderSnooze failed, field remindAt is empty', arguments) // log error so we can debug/trace it
+      throw Error('field remindAt is empty')
+    }
+
+    let cfg = {
+      method: 'patch',
+      url: this.reminderSnoozeEndpoint({
+        reminderID,
+      }),
+    }
+
+    cfg.data = {
+      remindAt,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  reminderSnoozeEndpoint ({reminderID, } = {}) {
+    return `/reminder/${reminderID}/snooze`
+  }
+
 }
