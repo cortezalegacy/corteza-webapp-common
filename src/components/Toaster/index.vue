@@ -19,8 +19,7 @@
         </b-card-text>
 
         <b-card-text v-if="t.payload.link">
-          <t-link :link="t.payload.link"
-                  :resource="t.resource" />
+          <t-link :toast="t" />
 
         </b-card-text>
 

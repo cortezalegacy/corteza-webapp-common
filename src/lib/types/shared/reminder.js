@@ -88,6 +88,66 @@ export default class Reminder {
     return this.reminderID
   }
 
+  get link () {
+    const link = this.payload.link
+    if (!link) {
+      return
+    }
+
+    return link.href
+  }
+
+  get routerLink () {
+    const link = this.payload.link
+    if (!link || !this.resource) {
+      return
+    }
+
+    // @todo expand when needed
+    if (this.resource.toLowerCase().startsWith('compose:record:')) {
+      const recordID = this.resource.split(':')[2]
+      if (!recordID) {
+        return
+      }
+
+      return {
+        name: 'page.record',
+        params: {
+          slug: link.namespaceSlug,
+          pageID: link.pageID,
+          recordID,
+        },
+      }
+    }
+  }
+
+  get linkLabel () {
+    const link = this.payload.link
+    if (!link || !this.resource) {
+      return
+    }
+
+    return link.label || link.href || this.fallbackLabel(this.resource)
+  }
+
+  get linkOpts () {
+    return this.payload.link || {}
+  }
+
+  /**
+   * @private
+   * @param {String} resource
+   * @returns {String}
+   */
+  fallbackLabel (resource = '') {
+    const recordID = this.resource.split(':')[2]
+    if (recordID && resource.toLowerCase().startsWith('compose:record:')) {
+      return `View Record ${recordID}`
+    }
+
+    return 'Link'
+  }
+
   addAction (k, v) {
     this.actions[k] = v
   }

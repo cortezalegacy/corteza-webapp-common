@@ -1,14 +1,14 @@
 <template>
   <div>
-    <a v-if="link.href"
-       v-bind="link"
-       v-html="linkLabel" />
+    <a v-if="toast.link"
+       v-bind="toast.linkOpts"
+       v-html="toast.linkLabel" />
 
-    <router-link v-else-if="routerLink"
-                 v-bind="link"
-                 :to="routerLink">
+    <router-link v-else-if="toast.routerLink"
+                 v-bind="toast.linkOpts"
+                 :to="toast.routerLink">
 
-      <span v-html="linkLabel" />
+      <span v-html="toast.linkLabel" />
     </router-link>
   </div>
 </template>
@@ -16,40 +16,10 @@
 <script>
 export default {
   props: {
-    link: {
+    toast: {
       type: Object,
-      default: null,
-    },
-    resource: {
-      type: String,
-    },
-  },
-
-  computed: {
-    routerLink () {
-      if (!this.resource) {
-        return
-      }
-
-      if (this.resource.toLowerCase().startsWith('compose:record:')) {
-        const recordID = this.resource.split(':')[2]
-        if (!recordID) {
-          return
-        }
-
-        return {
-          name: 'page.record',
-          params: {
-            slug: this.link.namespaceSlug,
-            pageID: this.link.pageID,
-            recordID,
-          },
-        }
-      }
-    },
-
-    linkLabel () {
-      return this.link.label || this.link.href || this.fallbackLabel(this.resource)
+      required: true,
+      default: () => ({}),
     },
   },
 
