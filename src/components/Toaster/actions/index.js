@@ -1,2 +1,3 @@
-export { default as TButton } from './Button'
-export { default as TDropdown } from './Dropdown'
+export { default as Button } from './Button'
+export { default as Dropdown } from './Dropdown'
+export { default as Select } from './Select'

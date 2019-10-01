@@ -37,13 +37,8 @@
 </template>
 
 <script>
-import { TButton, TDropdown } from './actions'
+import * as actions from './actions'
 import { TLink } from './display'
-
-const actions = {
-  Button: TButton,
-  Dropdown: TDropdown,
-}
 
 export default {
   components: {
