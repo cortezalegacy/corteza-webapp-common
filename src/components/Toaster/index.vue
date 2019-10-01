@@ -15,7 +15,8 @@
               header-border-variant="transparent"
               footer-border-variant="transparent"
               body-border-variant="transparent"
-              body-class="p-0">
+              body-class="p-0"
+              class="border-0">
 
         <b-card-text>
           {{ t.payload.notes }}
