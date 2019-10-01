@@ -29,7 +29,7 @@ describe('/src/plugins/reminder.js', () => {
   describe('enqueue', () => {
     let rs
     beforeEach(() => {
-      rs = new ReminderService({ api, $emit })
+      rs = new ReminderService({ api, emitter: { $emit } })
     })
     
     const mock = () => {
@@ -74,7 +74,7 @@ describe('/src/plugins/reminder.js', () => {
   describe('dequeue', () => {
     let rs
     beforeEach(() => {
-      rs = new ReminderService({ api, $emit })
+      rs = new ReminderService({ api, emitter: { $emit } })
     })
 
     const mock = () => {
@@ -124,7 +124,7 @@ describe('/src/plugins/reminder.js', () => {
   describe('scheduleReminderProcess', () => {
     let rs
     beforeEach(() => {
-      rs = new ReminderService({ api, $emit })
+      rs = new ReminderService({ api, emitter: { $emit } })
     })
 
     const mock = () => {
@@ -155,7 +155,7 @@ describe('/src/plugins/reminder.js', () => {
   describe('processQueue', () => {
     let rs
     beforeEach(() => {
-      rs = new ReminderService({ api, $emit })
+      rs = new ReminderService({ api, emitter: { $emit } })
     })
 
     const mock = () => {

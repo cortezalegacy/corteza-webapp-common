@@ -70,21 +70,6 @@ describe('record.js', () => {
     expect(record.values.multi).to.deep.equal(['a', 'b', 'c'])
   })
 
-  describe('default values', () => {
-    it('properly handles default values', () => {
-      const record = new Record(DM, { values: {} })
-
-      expect(record.values.str).to.equal('Default')
-      expect(record.values.num).to.equal(123)
-    })
-
-    it('properly overwrites default value with provided value', () => {
-      const record = new Record(DM, { values: { str: 'Overwrite' } })
-      expect(record.values.str).to.equal('Overwrite')
-      expect(record.values.num).to.equal(123)
-    })
-  })
-
   it('should properly append values to multi value fields', function () {
     const record = make({ multi: ['a', 'b', 'c'] })
 

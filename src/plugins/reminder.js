@@ -3,11 +3,12 @@ import moment from 'moment'
 import Reminder from '../lib/types/shared/reminder'
 
 export class ReminderService {
-  constructor ({ api, poolInterval = 1000 * 60 * 5, resource = null } = {}) {
+  constructor ({ api, poolInterval = 1000 * 60 * 5, resource = null, emitter } = {}) {
     if (!api) {
       throw new Error('reminderService.invalidParams')
     }
 
+    this.emitter = emitter
     this.api = api
     this.poolInterval = poolInterval
     this.running = false
@@ -19,7 +20,9 @@ export class ReminderService {
   }
 
   init ({ emitter, filter = {} }) {
-    this.emitter = emitter
+    if (emitter) {
+      this.emitter = emitter
+    }
     this.filter = filter
     if (!this.emitter) {
       throw new Error('pool.noEmitter')
