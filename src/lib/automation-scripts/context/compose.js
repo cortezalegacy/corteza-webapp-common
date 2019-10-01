@@ -181,12 +181,9 @@ class ComposeHelper {
     fields,
   }) {
     return {
-      height,
-      width,
       kind,
       title,
-      x,
-      y: y + height * index,
+      xywh: [ x, y + height * index, width, height ],
       style,
       options: {
         ...options,
