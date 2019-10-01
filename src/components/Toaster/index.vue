@@ -11,10 +11,6 @@
 
       <b-card header-bg-variant="transparent"
               bg-variant="transparent"
-              border-variant="transparent"
-              header-border-variant="transparent"
-              footer-border-variant="transparent"
-              body-border-variant="transparent"
               body-class="p-0"
               class="border-0">
 
