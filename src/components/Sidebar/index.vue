@@ -3,7 +3,9 @@
          :class="[ position, visible ? 'visible' : null ]"
          :style="getStyle">
 
-    <portal :to="`name-${name}`">
+    <portal v-if="!disableToggle"
+            :to="`name-${name}`">
+
       <b-button variant="link"
                 class="p-0 text-dark"
                 @click="toggle">
