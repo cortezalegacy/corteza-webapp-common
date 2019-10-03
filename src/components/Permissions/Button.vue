@@ -1,5 +1,5 @@
 <template>
-    <a v-if="link" class="action" @click="onClick">
+    <a v-if="link" class="pointer" @click="onClick">
       <font-awesome-icon :icon="['fas', 'lock']"></font-awesome-icon>
     </a>
     <b-button v-else @click="onClick" :variant="buttonVariant">
@@ -48,3 +48,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.pointer {
+  cursor: pointer;
+}
+</style>
