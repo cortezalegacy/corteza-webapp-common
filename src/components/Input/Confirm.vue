@@ -1,8 +1,7 @@
 <template>
   <span class="text-center">
     <span v-if="!inConfirmation">
-      <b-button pill
-                :variant="variant"
+      <b-button :variant="variant"
                 :size="size"
                 @click.prevent="onPrompt"
                 :disabled="disabled"
@@ -13,8 +12,7 @@
 
     </span>
     <span v-else>
-      <b-button pill
-                :variant="variantOk"
+      <b-button :variant="variantOk"
                 :size="sizeConfirm"
                 class="mr-1"
                 :class="[ borderless && 'border-0' ]"
@@ -22,8 +20,7 @@
 
         <slot name="yes" />
       </b-button>
-      <b-button pill
-                :variant="variantCancel"
+      <b-button :variant="variantCancel"
                 :size="sizeConfirm"
                 :class="[ borderless && 'border-0' ]"
                 @click.prevent="inConfirmation=false">
