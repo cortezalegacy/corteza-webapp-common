@@ -6,7 +6,7 @@ export function nameValid () {
 }
 
 export function labelValid () {
-  return !!(this.label && this.label.length > 1)
+  return !!(this.label && this.label.length > 0)
 }
 
 export function fieldValid () {
