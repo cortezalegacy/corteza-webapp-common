@@ -1,5 +1,18 @@
 import { ID, PropCast } from '../common'
 
+// @todo improve this when refactored to a single module field class
+export function nameValid () {
+  return !!(this.name && this.name.length > 1 && /^\w{1,}$/.test(this.name))
+}
+
+export function labelValid () {
+  return !!(this.label && this.label.length > 1)
+}
+
+export function fieldValid () {
+  return !!(this.nameValid() && this.labelValid())
+}
+
 export default class ModuleField {
   constructor (m = {}) {
     this.fieldID = PropCast(ID, m.fieldID)
@@ -26,5 +39,17 @@ export default class ModuleField {
 
     this.kind = m.kind
     this.options = m.options
+  }
+
+  get nameValid () {
+    return nameValid
+  }
+
+  get labelValid () {
+    return labelValid
+  }
+
+  get fieldValid () {
+    return fieldValid
   }
 }
