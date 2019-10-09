@@ -5,12 +5,8 @@ export function nameValid () {
   return !!(this.name && this.name.length > 1 && /^\w{1,}$/.test(this.name))
 }
 
-export function labelValid () {
-  return !!(this.label && this.label.length > 0)
-}
-
 export function fieldValid () {
-  return !!(this.nameValid() && this.labelValid())
+  return this.nameValid()
 }
 
 export default class ModuleField {
@@ -43,10 +39,6 @@ export default class ModuleField {
 
   get nameValid () {
     return nameValid
-  }
-
-  get labelValid () {
-    return labelValid
   }
 
   get fieldValid () {
