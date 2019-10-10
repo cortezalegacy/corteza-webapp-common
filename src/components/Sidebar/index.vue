@@ -14,25 +14,21 @@
       </b-button>
     </portal>
 
-    <!-- This is temporary; figure out a better way.
-    @note tabindex="-1" doesn't work good enough -->
-    <template v-if="visible">
-      <header v-if="$slots.header"
-              class="p-0 border-0 border-bottom-primary">
+    <header v-if="$slots.header"
+            class="p-0 border-0 border-bottom-primary">
 
-        <slot name="header" />
-      </header>
+      <slot name="header" />
+    </header>
 
-      <div class="bg-white overflow-auto flex-grow-1 overflow-auto">
-        <slot />
-      </div>
+    <div class="bg-white overflow-auto flex-grow-1 overflow-auto">
+      <slot />
+    </div>
 
-      <footer v-if="$slots.footer"
-                        class="p-0 border-0 border-bottom-primary">
+    <footer v-if="$slots.footer"
+                      class="p-0 border-0 border-bottom-primary">
 
-        <slot name="footer" />
-      </footer>
-    </template>
+      <slot name="footer" />
+    </footer>
   </aside>
 </template>
 
