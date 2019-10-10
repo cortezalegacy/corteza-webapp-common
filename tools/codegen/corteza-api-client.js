@@ -7,15 +7,7 @@ let path
 if (process.argv.length >= 3) {
   path = process.argv[2]
 } else {
-  const pkg = 'github.com/cortezaproject/corteza-server'
-
-  if (process.env.GOPATH === '') {
-    console.error('could not autodetect path to "' + pkg + '", GOPATH env variable not set. ' +
-      'Provide direct path as an extra argument or set GOPATH env variable')
-    process.exit(1)
-  }
-
-  path = process.env.GOPATH + '/src/' + pkg
+  path = '../corteza-server'
 }
 
 const namespaces = [
