@@ -330,6 +330,15 @@ describe('compose', () => {
       })
     })
 
+    describe('fieldNameFromLabel', () => {
+      it('should clean it up and present in camelcase', () => {
+        const test = 'so.me;me:sa,ge+he_ok ok'
+        const exp = 'SoMeMeSaGeHe_okOk'
+
+        expect(h.moduleFieldNameFromLabel(test)).to.eq(exp)
+      })
+    })
+
     describe('makeModule', () => {
       it('should make new', async () => {
         h.$namespace = new Namespace()

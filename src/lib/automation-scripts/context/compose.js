@@ -574,6 +574,18 @@ class ComposeHelper {
   }
 
   /**
+   * Helper to determine field's name from it's label
+   * @param {String} label Field's label
+   * @returns {String}
+   */
+  moduleFieldNameFromLabel (label) {
+    return label.split(/[^a-zA-Z0-9_]/g)
+      .filter(p => !!p)
+      .map(p => `${p[0].toUpperCase()}${p.slice(1)}`)
+      .join('')
+  }
+
+  /**
    * Creates new Module object
    *
    * @param {Promise<*>|Module} module
