@@ -7,6 +7,7 @@ export const allowedExternalModules = Object.freeze([
   'axios',
   'request',
   'lodash',
+  'papaparse',
 ])
 
 export default async (code, ctx = {}, opt = {}) => {
