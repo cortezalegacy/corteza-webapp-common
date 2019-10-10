@@ -914,7 +914,7 @@ export default class System {
 
   // Search users (Directory)
   async userList () {
-    const {query, username, email, handle, kind, incDeleted, incSuspended, sort, page, perPage, } = arguments[0] || {}
+    const {userID, roleID, query, username, email, handle, kind, incDeleted, incSuspended, sort, page, perPage, } = arguments[0] || {}
 
 
     let cfg = {
@@ -922,6 +922,8 @@ export default class System {
       url: this.userListEndpoint({  }),
     }
     cfg.params = {
+      userID,
+      roleID,
       query,
       username,
       email,
