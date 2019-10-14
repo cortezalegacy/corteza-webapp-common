@@ -111,7 +111,7 @@ export default class Record extends ComposeObject {
 
   setValues (input = []) {
     if (Array.isArray(input)) {
-      input.filter(({ name }) => this[fields][name] !== undefined).forEach(({ name, value }) => {
+      input.filter(({ name }) => this[fields][name] !== undefined && !reservedFieldNames.includes(name)).forEach(({ name, value }) => {
         const { isMulti = false } = this[fields][name]
         if (isMulti) {
           this.values[name].push(value)
@@ -123,7 +123,9 @@ export default class Record extends ComposeObject {
       const values = (input instanceof Record) ? input.values : input
 
       for (let p in input) {
-        this.values[p] = values[p]
+        if (!reservedFieldNames.includes(p)) {
+          this.values[p] = values[p]
+        }
       }
     } else {
       throw Error('expecting array of values')
