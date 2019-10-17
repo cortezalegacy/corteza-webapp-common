@@ -14,6 +14,7 @@
     <span v-else>
       <b-button :variant="variantOk"
                 :size="sizeConfirm"
+                :disabled="okDisabled"
                 class="mr-1"
                 :class="[ borderless && 'border-0' ]"
                 @click.prevent="onConfirmation()">
@@ -22,6 +23,7 @@
       </b-button>
       <b-button :variant="variantCancel"
                 :size="sizeConfirm"
+                :disabled="cancelDisabled"
                 :class="[ borderless && 'border-0' ]"
                 @click.prevent="onCancel()">
 
@@ -35,6 +37,8 @@ export default {
   props: {
     ctaClass: { type: String, default: 'btn-danger' },
     disabled: Boolean,
+    okDisabled: Boolean,
+    cancelDisabled: Boolean,
     noPrompt: Boolean,
 
     borderless: {
@@ -94,7 +98,7 @@ export default {
     },
     
     onCancel () {
-       this.inConfirmation = false
+      this.inConfirmation = false
       this.$emit('canceled')
     }
   },
