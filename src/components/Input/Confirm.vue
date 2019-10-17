@@ -23,7 +23,7 @@
       <b-button :variant="variantCancel"
                 :size="sizeConfirm"
                 :class="[ borderless && 'border-0' ]"
-                @click.prevent="inConfirmation=false">
+                @click.prevent="onCancel()">
 
         <slot name="no" />
       </b-button>
@@ -92,6 +92,11 @@ export default {
       this.inConfirmation = false
       this.$emit('confirmed')
     },
+    
+    onCancel () {
+       this.inConfirmation = false
+      this.$emit('canceled')
+    }
   },
 }
 </script>
