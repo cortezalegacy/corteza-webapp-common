@@ -1382,4 +1382,50 @@ export default class Messaging {
     return `/permissions/${roleID}/rules`
   }
 
+  async settingsList () {
+    const {prefix, } = arguments[0] || {}
+
+
+    let cfg = {
+      method: 'get',
+      url: this.settingsListEndpoint({  }),
+    }
+    cfg.params = {
+      prefix,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  settingsListEndpoint () {
+    return `/settings/`
+  }
+
+  // Update settings
+  async settingsUpdate () {
+    const {values, } = arguments[0] || {}
+    if (!values) {
+      console.error('settingsUpdate failed, field values is empty', arguments) // log error so we can debug/trace it
+      throw Error('field values is empty')
+    }
+
+    let cfg = {
+      method: 'patch',
+      url: this.settingsUpdateEndpoint({  }),
+    }
+
+    cfg.data = {
+      values,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  settingsUpdateEndpoint () {
+    return `/settings/`
+  }
+
 }
