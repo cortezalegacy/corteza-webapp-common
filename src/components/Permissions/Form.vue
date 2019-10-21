@@ -134,11 +134,11 @@ export default {
     async fetchRoles () {
       this.processing = true
       // Roles are always fetched from $SystemAPI.
-      return this.$SystemAPI.roleList().then(rr => {
-        this.roles = rr.sort((a, b) => a.roleID.localeCompare(b.roleID))
+      return this.$SystemAPI.roleList().then(({ set }) => {
+        this.roles = set.sort((a, b) => a.roleID.localeCompare(b.roleID))
 
-        if (rr.length > 0) {
-          this.onRoleChange(rr[0])
+        if (this.roles.length > 0) {
+          this.onRoleChange(this.roles[0])
         }
         this.processing = false
       })
