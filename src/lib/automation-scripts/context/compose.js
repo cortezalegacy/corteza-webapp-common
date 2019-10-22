@@ -704,6 +704,39 @@ class ComposeHelper {
   }
 
   /**
+   * Finds module by handle
+   *
+   * @example
+   * // Explicitly load module and do something with it
+   * Compose.findModuleByHandle('SomeModule').then(myModule => {
+   *   // do something with myModule
+   *   return Compose.findLastRecord(myModule)
+   * }).then((lastRecord) => {})
+   *
+   * // or
+   * Compose.findLastRecord(Compose.findModuleByHandle('SomeModule')).then(....)
+   *
+   * // even shorter
+   * Compose.findLastRecord('SomeModule').then(....)
+   *
+   * @param {string} name - handle of the module
+   * @param {null|string|Namespace|Object} ns - defaults to current $namespace
+   * @returns {Promise<Module>}
+   */
+  async findModuleByHandle (handle, ns = this.$namespace) {
+    return this.resolveNamespace(ns).then((ns) => {
+      const namespaceID = extractID(ns, 'namespaceID')
+      return this.ComposeAPI.moduleList({ namespaceID, handle }).then(({ set, filter }) => {
+        if (filter && filter.count === 0) {
+          return null
+        }
+
+        return new Module(set[0])
+      })
+    })
+  }
+
+  /**
    * Creates new Namespace object
    *
    * @example
@@ -997,6 +1030,16 @@ class ComposeHelper {
    * @returns {Promise}
    */
   async resolveModule () {
+    const strResolve = async (module) => {
+      return this.findModuleByHandle(module)
+        .then(m => {
+          if (!m) {
+            throw new Error('ModuleNotFound')
+          }
+          return m
+        })
+        .catch(() => this.findModuleByName(module))
+    }
     for (let module of arguments) {
       if (!module) {
         continue
@@ -1008,7 +1051,7 @@ class ComposeHelper {
           return this.findModuleByID(module).catch((err = {}) => {
             if (err.message && err.message.indexOf('ModuleNotFound') >= 0) {
               // Not found, let's try if we can find it by slug
-              return this.findModuleByName(module)
+              return strResolve(module)
             }
 
             return Promise.reject(err)
@@ -1016,7 +1059,7 @@ class ComposeHelper {
         }
 
         // Assume name
-        return this.findModuleByName(module)
+        return strResolve(module)
       }
 
       if (typeof module !== 'object') {

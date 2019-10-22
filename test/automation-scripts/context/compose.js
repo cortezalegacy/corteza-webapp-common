@@ -44,10 +44,21 @@ describe('compose', () => {
         sinon.assert.calledWith(h.findModuleByID, m.moduleID)
       })
 
+      it('should resolve handle', async () => {
+        const m = new Module({ handle: 'm-handle' })
+
+        h.findModuleByHandle = sinon.fake.resolves(m)
+        expect(await h.resolveModule(m.handle)).to.deep.equal(m)
+
+        sinon.assert.calledOnce(h.findModuleByHandle)
+        sinon.assert.calledWith(h.findModuleByHandle, m.handle)
+      })
+
       it('should resolve name', async () => {
         const m = new Module({ name: 'm-name' })
 
         h.findModuleByName = sinon.fake.resolves(m)
+        h.findModuleByHandle = sinon.fake.resolves(null)
         expect(await h.resolveModule(m.name)).to.deep.equal(m)
 
         sinon.assert.calledOnce(h.findModuleByName)
@@ -59,12 +70,25 @@ describe('compose', () => {
 
         h.findModuleByID = sinon.fake.rejects(Error('compose.repository.ModuleNotFound'))
         h.findModuleByName = sinon.fake.resolves(m)
+        h.findModuleByHandle = sinon.fake.resolves(null)
 
         expect(await h.resolveModule(m.name)).to.deep.equal(m)
 
         sinon.assert.calledOnce(h.findModuleByID)
         sinon.assert.calledWith(h.findModuleByID, m.name)
 
+        sinon.assert.calledOnce(h.findModuleByName)
+        sinon.assert.calledWith(h.findModuleByName, m.name)
+      })
+
+      it('should resolve name if handle can\'t resolve', async () => {
+        const m = new Module({ name: 'm-name' })
+
+        h.findModuleByHandle = sinon.fake.resolves(null)
+        h.findModuleByName = sinon.fake.resolves(m)
+        expect(await h.resolveModule(m.name)).to.deep.equal(m)
+
+        sinon.assert.calledOnce(h.findModuleByHandle)
         sinon.assert.calledOnce(h.findModuleByName)
         sinon.assert.calledWith(h.findModuleByName, m.name)
       })
@@ -380,6 +404,16 @@ describe('compose', () => {
         h.ComposeAPI.moduleRead = sinon.fake.resolves({ ...module })
         expect(await h.findModuleByID('555')).to.be.instanceOf(Module)
         sinon.assert.calledWith(h.ComposeAPI.moduleRead, { moduleID: '555', namespaceID: h.$namespace.namespaceID })
+      })
+    })
+
+    describe('findModuleByHandle', () => {
+      it('should find module on $namespace', async () => {
+        const module = new Module({ moduleID: '555' })
+        h.$namespace = new Namespace({ namespaceID: '444' })
+        h.ComposeAPI.moduleList = sinon.fake.resolves({ filter: { count: 1 }, set: [module] })
+        expect(await h.findModuleByHandle('some-module')).to.be.instanceOf(Module)
+        sinon.assert.calledWith(h.ComposeAPI.moduleList, { handle: 'some-module', namespaceID: h.$namespace.namespaceID })
       })
     })
 
