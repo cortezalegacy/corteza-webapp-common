@@ -29,4 +29,8 @@ export default class AutomationTrigger extends CortezaObject {
   isValid () {
     return this.enabled && !this.deletedAt
   }
+
+  isDeferred () {
+    return this.event === 'interval' || this.event === 'deferred'
+  }
 }
