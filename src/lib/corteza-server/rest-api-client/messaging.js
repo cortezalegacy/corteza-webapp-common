@@ -1382,6 +1382,7 @@ export default class Messaging {
     return `/permissions/${roleID}/rules`
   }
 
+  // List settings
   async settingsList () {
     const {prefix, } = arguments[0] || {}
 
@@ -1426,6 +1427,65 @@ export default class Messaging {
 
   settingsUpdateEndpoint () {
     return `/settings/`
+  }
+
+  // Get a value for a key
+  async settingsGet () {
+    const {key, ownerID, } = arguments[0] || {}
+    if (!key) {
+      console.error('settingsGet failed, field key is empty', arguments) // log error so we can debug/trace it
+      throw Error('field key is empty')
+    }
+
+    let cfg = {
+      method: 'get',
+      url: this.settingsGetEndpoint({
+        key,
+      }),
+    }
+    cfg.params = {
+      ownerID,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  settingsGetEndpoint ({key, } = {}) {
+    return `/settings/${key}`
+  }
+
+  // Set a value for a key
+  async settingsSet () {
+    const {key, ownerID, value, } = arguments[0] || {}
+    if (!key) {
+      console.error('settingsSet failed, field key is empty', arguments) // log error so we can debug/trace it
+      throw Error('field key is empty')
+    }
+    if (!value) {
+      console.error('settingsSet failed, field value is empty', arguments) // log error so we can debug/trace it
+      throw Error('field value is empty')
+    }
+
+    let cfg = {
+      method: 'put',
+      url: this.settingsSetEndpoint({
+        key,
+      }),
+    }
+
+    cfg.data = {
+      ownerID,
+      value,
+    }
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  settingsSetEndpoint ({key, } = {}) {
+    return `/settings/${key}`
   }
 
 }
