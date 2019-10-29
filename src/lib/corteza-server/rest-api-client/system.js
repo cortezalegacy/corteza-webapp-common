@@ -459,6 +459,26 @@ export default class System {
     return `/settings/${key}`
   }
 
+  // Returns current subscription status
+  async subscriptionCurrent () {
+
+
+
+    let cfg = {
+      method: 'get',
+      url: this.subscriptionCurrentEndpoint({  }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  subscriptionCurrentEndpoint () {
+    return `/subscription/`
+  }
+
   // List organisations
   async organisationList () {
     const {query, } = arguments[0] || {}
