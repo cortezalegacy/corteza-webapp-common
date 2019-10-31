@@ -2,7 +2,7 @@
   "name": "corteza-webapp-common",
   "description": "Corteza common plugins, libs, components and API client",
   "author": "Denis Arh <denis.arh@crust.tech>",
-  "version": "2019.9.0-rc.43",
+  "version": "2019.9.0-rc.44",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {

@@ -400,7 +400,7 @@ export default class System {
     return `/settings/`
   }
 
-  // Check JWT token
+  // Get a value for a key
   async settingsGet () {
     const {key, ownerID, } = arguments[0] || {}
     if (!key) {
@@ -427,36 +427,24 @@ export default class System {
     return `/settings/${key}`
   }
 
-  // Set a value for a key
-  async settingsSet () {
-    const {key, ownerID, value, } = arguments[0] || {}
-    if (!key) {
-      console.error('settingsSet failed, field key is empty', arguments) // log error so we can debug/trace it
-      throw Error('field key is empty')
-    }
-    if (!value) {
-      console.error('settingsSet failed, field value is empty', arguments) // log error so we can debug/trace it
-      throw Error('field value is empty')
-    }
+  // Current compose settings
+  async settingsCurrent () {
+
+
 
     let cfg = {
-      method: 'put',
-      url: this.settingsSetEndpoint({
-        key,
-      }),
+      method: 'get',
+      url: this.settingsCurrentEndpoint({  }),
     }
 
-    cfg.data = {
-      ownerID,
-      value,
-    }
+
     return new Promise((resolve, reject) => {
       this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
     })
   }
 
-  settingsSetEndpoint ({key, } = {}) {
-    return `/settings/${key}`
+  settingsCurrentEndpoint () {
+    return `/settings/current`
   }
 
   // Returns current subscription status
@@ -1249,14 +1237,20 @@ export default class System {
 
   // List applications
   async applicationList () {
-
+    const {name, query, page, perPage, sort, } = arguments[0] || {}
 
 
     let cfg = {
       method: 'get',
       url: this.applicationListEndpoint({  }),
     }
-
+    cfg.params = {
+      name,
+      query,
+      page,
+      perPage,
+      sort,
+    }
 
     return new Promise((resolve, reject) => {
       this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
@@ -1840,7 +1834,7 @@ export default class System {
 
   // List/read reminders
   async reminderList () {
-    const {resource, assignedTo, scheduledFrom, scheduledUntil, scheduledOnly, excludeDismissed, page, perPage, } = arguments[0] || {}
+    const {reminderID, resource, assignedTo, scheduledFrom, scheduledUntil, scheduledOnly, excludeDismissed, page, perPage, sort, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1848,6 +1842,7 @@ export default class System {
       url: this.reminderListEndpoint({  }),
     }
     cfg.params = {
+      reminderID,
       resource,
       assignedTo,
       scheduledFrom,
@@ -1856,6 +1851,7 @@ export default class System {
       excludeDismissed,
       page,
       perPage,
+      sort,
     }
 
     return new Promise((resolve, reject) => {

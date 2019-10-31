@@ -1456,36 +1456,24 @@ export default class Messaging {
     return `/settings/${key}`
   }
 
-  // Set a value for a key
-  async settingsSet () {
-    const {key, ownerID, value, } = arguments[0] || {}
-    if (!key) {
-      console.error('settingsSet failed, field key is empty', arguments) // log error so we can debug/trace it
-      throw Error('field key is empty')
-    }
-    if (!value) {
-      console.error('settingsSet failed, field value is empty', arguments) // log error so we can debug/trace it
-      throw Error('field value is empty')
-    }
+  // Current compose settings
+  async settingsCurrent () {
+
+
 
     let cfg = {
-      method: 'put',
-      url: this.settingsSetEndpoint({
-        key,
-      }),
+      method: 'get',
+      url: this.settingsCurrentEndpoint({  }),
     }
 
-    cfg.data = {
-      ownerID,
-      value,
-    }
+
     return new Promise((resolve, reject) => {
       this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
     })
   }
 
-  settingsSetEndpoint ({key, } = {}) {
-    return `/settings/${key}`
+  settingsCurrentEndpoint () {
+    return `/settings/current`
   }
 
 }
