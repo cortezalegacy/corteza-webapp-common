@@ -72,7 +72,7 @@ export default class Compose {
 
   // List namespaces
   async namespaceList () {
-    const {query, slug, page, perPage, } = arguments[0] || {}
+    const {query, slug, page, perPage, sort, } = arguments[0] || {}
 
 
     let cfg = {
@@ -84,6 +84,7 @@ export default class Compose {
       slug,
       page,
       perPage,
+      sort,
     }
 
     return new Promise((resolve, reject) => {
@@ -218,7 +219,7 @@ export default class Compose {
 
   // List available pages
   async pageList () {
-    const {namespaceID, selfID, query, handle, page, perPage, } = arguments[0] || {}
+    const {namespaceID, selfID, query, handle, page, perPage, sort, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('pageList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -236,6 +237,7 @@ export default class Compose {
       handle,
       page,
       perPage,
+      sort,
     }
 
     return new Promise((resolve, reject) => {
@@ -493,7 +495,7 @@ export default class Compose {
 
   // List modules
   async moduleList () {
-    const {namespaceID, query, name, handle, page, perPage, } = arguments[0] || {}
+    const {namespaceID, query, name, handle, page, perPage, sort, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('moduleList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -511,6 +513,7 @@ export default class Compose {
       handle,
       page,
       perPage,
+      sort,
     }
 
     return new Promise((resolve, reject) => {
@@ -1133,7 +1136,7 @@ export default class Compose {
 
   // List/read charts
   async chartList () {
-    const {namespaceID, query, handle, page, perPage, } = arguments[0] || {}
+    const {namespaceID, query, handle, page, perPage, sort, } = arguments[0] || {}
     if (!namespaceID) {
       console.error('chartList failed, field namespaceID is empty', arguments) // log error so we can debug/trace it
       throw Error('field namespaceID is empty')
@@ -1150,6 +1153,7 @@ export default class Compose {
       handle,
       page,
       perPage,
+      sort,
     }
 
     return new Promise((resolve, reject) => {
@@ -2190,36 +2194,24 @@ export default class Compose {
     return `/settings/${key}`
   }
 
-  // Set a value for a key
-  async settingsSet () {
-    const {key, ownerID, value, } = arguments[0] || {}
-    if (!key) {
-      console.error('settingsSet failed, field key is empty', arguments) // log error so we can debug/trace it
-      throw Error('field key is empty')
-    }
-    if (!value) {
-      console.error('settingsSet failed, field value is empty', arguments) // log error so we can debug/trace it
-      throw Error('field value is empty')
-    }
+  // Current compose settings
+  async settingsCurrent () {
+
+
 
     let cfg = {
-      method: 'put',
-      url: this.settingsSetEndpoint({
-        key,
-      }),
+      method: 'get',
+      url: this.settingsCurrentEndpoint({  }),
     }
 
-    cfg.data = {
-      ownerID,
-      value,
-    }
+
     return new Promise((resolve, reject) => {
       this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
     })
   }
 
-  settingsSetEndpoint ({key, } = {}) {
-    return `/settings/${key}`
+  settingsCurrentEndpoint () {
+    return `/settings/current`
   }
 
 }
