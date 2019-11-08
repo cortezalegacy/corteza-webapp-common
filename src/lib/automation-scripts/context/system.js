@@ -212,7 +212,7 @@ class SystemHelper {
    * @return {Promise<Role>}
    */
   async findRoleByHandle (handle) {
-    return this.findRoles({ handle }).then(({ set, filter }) => {
+    return this.findRoles(handle).then(({ set, filter }) => {
       if (filter.count === 0) {
         return Promise.reject(new Error('role not found'))
       }
