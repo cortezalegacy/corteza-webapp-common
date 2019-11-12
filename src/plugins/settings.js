@@ -9,9 +9,7 @@ export class Settings {
   }
 
   async init () {
-    this.api.settingsCurrent().then(settings => {
-      this.current = settings
-    })
+    return this.api.settingsCurrent()
   }
 }
 
