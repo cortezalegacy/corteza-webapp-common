@@ -618,7 +618,7 @@ export default class System {
 
   // List roles
   async roleList () {
-    const {query, } = arguments[0] || {}
+    const {query, deleted, archived, page, perPage, sort, } = arguments[0] || {}
 
 
     let cfg = {
@@ -627,6 +627,11 @@ export default class System {
     }
     cfg.params = {
       query,
+      deleted,
+      archived,
+      page,
+      perPage,
+      sort,
     }
 
     return new Promise((resolve, reject) => {
@@ -771,6 +776,56 @@ export default class System {
 
   roleArchiveEndpoint ({roleID, } = {}) {
     return `/roles/${roleID}/archive`
+  }
+
+  // Unarchive role
+  async roleUnarchive () {
+    const {roleID, } = arguments[0] || {}
+    if (!roleID) {
+      console.error('roleUnarchive failed, field roleID is empty', arguments) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.roleUnarchiveEndpoint({
+        roleID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  roleUnarchiveEndpoint ({roleID, } = {}) {
+    return `/roles/${roleID}/unarchive`
+  }
+
+  // Undelete role
+  async roleUndelete () {
+    const {roleID, } = arguments[0] || {}
+    if (!roleID) {
+      console.error('roleUndelete failed, field roleID is empty', arguments) // log error so we can debug/trace it
+      throw Error('field roleID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.roleUndeleteEndpoint({
+        roleID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  roleUndeleteEndpoint ({roleID, } = {}) {
+    return `/roles/${roleID}/undelete`
   }
 
   // Move role to different organisation
@@ -922,7 +977,7 @@ export default class System {
 
   // Search users (Directory)
   async userList () {
-    const {userID, roleID, query, username, email, handle, kind, incDeleted, incSuspended, sort, page, perPage, } = arguments[0] || {}
+    const {userID, roleID, query, username, email, handle, kind, incDeleted, incSuspended, deleted, suspended, sort, page, perPage, } = arguments[0] || {}
 
 
     let cfg = {
@@ -939,6 +994,8 @@ export default class System {
       kind,
       incDeleted,
       incSuspended,
+      deleted,
+      suspended,
       sort,
       page,
       perPage,
@@ -1119,6 +1176,31 @@ export default class System {
     return `/users/${userID}/unsuspend`
   }
 
+  // Undelete user
+  async userUndelete () {
+    const {userID, } = arguments[0] || {}
+    if (!userID) {
+      console.error('userUndelete failed, field userID is empty', arguments) // log error so we can debug/trace it
+      throw Error('field userID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.userUndeleteEndpoint({
+        userID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  userUndeleteEndpoint ({userID, } = {}) {
+    return `/users/${userID}/undelete`
+  }
+
   // Set&#x27;s or changes user&#x27;s password
   async userSetPassword () {
     const {userID, password, } = arguments[0] || {}
@@ -1237,7 +1319,7 @@ export default class System {
 
   // List applications
   async applicationList () {
-    const {name, query, page, perPage, sort, } = arguments[0] || {}
+    const {name, query, deleted, page, perPage, sort, } = arguments[0] || {}
 
 
     let cfg = {
@@ -1247,6 +1329,7 @@ export default class System {
     cfg.params = {
       name,
       query,
+      deleted,
       page,
       perPage,
       sort,
@@ -1371,6 +1454,31 @@ export default class System {
 
   applicationDeleteEndpoint ({applicationID, } = {}) {
     return `/application/${applicationID}`
+  }
+
+  // Undelete application
+  async applicationUndelete () {
+    const {applicationID, } = arguments[0] || {}
+    if (!applicationID) {
+      console.error('applicationUndelete failed, field applicationID is empty', arguments) // log error so we can debug/trace it
+      throw Error('field applicationID is empty')
+    }
+
+    let cfg = {
+      method: 'post',
+      url: this.applicationUndeleteEndpoint({
+        applicationID,
+      }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  applicationUndeleteEndpoint ({applicationID, } = {}) {
+    return `/application/${applicationID}/undelete`
   }
 
   // Retrieve defined permissions
