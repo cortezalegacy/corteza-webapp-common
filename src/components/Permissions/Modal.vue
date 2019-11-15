@@ -56,6 +56,8 @@ export default {
           return this.$t('permission.setFor', { target: this.$t(`permission.base.${this.resource}`) })
         }
       }
+
+      return undefined
     },
   },
 
