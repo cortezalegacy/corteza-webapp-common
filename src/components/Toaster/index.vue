@@ -1,35 +1,37 @@
 <template>
   <div>
-    <b-toast v-for="t in toasts"
-             :key="t.id"
-             visible
-             v-bind="t.options || {}"
-             :title="t.payload.title"
-             :no-close-button="!t.actions.hide"
-             @hide="t.actions.hide ? t.actions.hide.cb(t) : evtSink"
-             toast-class="overflow-unset">
-
-      <b-card header-bg-variant="transparent"
-              bg-variant="transparent"
-              body-class="p-0"
-              class="border-0">
-
+    <b-toast
+      v-for="t in toasts"
+      :key="t.id"
+      visible
+      v-bind="t.options || {}"
+      :title="t.payload.title"
+      :no-close-button="!t.actions.hide"
+      toast-class="overflow-unset"
+      @hide="t.actions.hide ? t.actions.hide.cb(t) : evtSink"
+    >
+      <b-card
+        header-bg-variant="transparent"
+        bg-variant="transparent"
+        body-class="p-0"
+        class="border-0"
+      >
         <b-card-text>
           {{ t.payload.notes }}
         </b-card-text>
 
         <b-card-text v-if="t.payload.link">
           <t-link :toast="t" />
-
         </b-card-text>
 
-        <component v-for="([name, act]) in extraActions(t)"
-                   :key="name"
-                   :is="actComponent(act)"
-                   class="mr-1"
-                   v-bind="act"
-                   @action="act.cb ? act.cb(t, $event) : evtSink" />
-
+        <component
+          :is="actComponent(act)"
+          v-for="([name, act]) in extraActions(t)"
+          :key="name"
+          class="mr-1"
+          v-bind="act"
+          @action="act.cb ? act.cb(t, $event) : evtSink"
+        />
       </b-card>
     </b-toast>
   </div>

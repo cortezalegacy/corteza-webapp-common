@@ -1,20 +1,29 @@
 <template>
-  <b-row no-gutters class="mb-1">
+  <b-row
+    no-gutters
+    class="mb-1"
+  >
     <b-col cols="4">
-      <access :access="access"
-              :current="current"
-              :enabled="enabled"
-              @update="onUpdate" />
+      <access
+        :access="access"
+        :current="current"
+        :enabled="enabled"
+        @update="onUpdate"
+      />
 
       <b-button
+        v-show="isChanged"
         variant="link"
         @click="onReset"
-        v-show="isChanged">
+      >
         {{ $t('permission.resetBack', {current}) }}
       </b-button>
     </b-col>
-    <b-col cols="8" class="mb-4">
-      <b v-html="title || `${operation} on ${resource}`"/>
+    <b-col
+      cols="8"
+      class="mb-4"
+    >
+      <b v-html="title || `${operation} on ${resource}`" />
       <div>{{ description || '&nbsp;' }}</div>
     </b-col>
   </b-row>
@@ -42,11 +51,13 @@ export default {
     title: {
       type: String,
       required: false,
+      default: undefined,
     },
 
     description: {
       type: String,
       required: false,
+      default: undefined,
     },
 
     enabled: {

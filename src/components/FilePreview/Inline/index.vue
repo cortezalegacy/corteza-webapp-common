@@ -2,13 +2,13 @@
   <div class="inline">
     <main>
       <component
-        inline
         :is="previewType"
-        v-on="$listeners"
+        inline
         v-bind="$attrs"
         :max-pages="1"
-        :initial-scale="2" />
-
+        :initial-scale="2"
+        v-on="$listeners"
+      />
     </main>
   </div>
 </template>

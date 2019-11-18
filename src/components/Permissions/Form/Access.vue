@@ -1,9 +1,11 @@
 <template>
-  <b-form-radio-group buttons
-                      v-model="selected"
-                      :disabled="!enabled"
-                      :button-variant="variant"
-                      :options="permissionOptions" />
+  <b-form-radio-group
+    v-model="selected"
+    buttons
+    :disabled="!enabled"
+    :button-variant="variant"
+    :options="permissionOptions"
+  />
 </template>
 
 <script>
@@ -17,11 +19,13 @@ export default {
     access: {
       type: String,
       required: false,
+      default: undefined,
     },
 
     current: {
       type: String,
       required: false,
+      default: undefined,
     },
   },
 

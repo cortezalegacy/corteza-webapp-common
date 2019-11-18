@@ -1,31 +1,37 @@
 <template>
   <span class="text-center">
     <span v-if="!inConfirmation">
-      <b-button :variant="variant"
-                :size="size"
-                @click.prevent="onPrompt"
-                :disabled="disabled"
-                :class="[ borderless && 'border-0' ]">
+      <b-button
+        :variant="variant"
+        :size="size"
+        :disabled="disabled"
+        :class="[ borderless && 'border-0' ]"
+        @click.prevent="onPrompt"
+      >
 
-      <slot />
-    </b-button>
+        <slot />
+      </b-button>
 
     </span>
     <span v-else>
-      <b-button :variant="variantOk"
-                :size="sizeConfirm"
-                :disabled="okDisabled"
-                class="mr-1"
-                :class="[ borderless && 'border-0' ]"
-                @click.prevent="onConfirmation()">
+      <b-button
+        :variant="variantOk"
+        :size="sizeConfirm"
+        :disabled="okDisabled"
+        class="mr-1"
+        :class="[ borderless && 'border-0' ]"
+        @click.prevent="onConfirmation()"
+      >
 
         <slot name="yes" />
       </b-button>
-      <b-button :variant="variantCancel"
-                :size="sizeConfirm"
-                :disabled="cancelDisabled"
-                :class="[ borderless && 'border-0' ]"
-                @click.prevent="onCancel()">
+      <b-button
+        :variant="variantCancel"
+        :size="sizeConfirm"
+        :disabled="cancelDisabled"
+        :class="[ borderless && 'border-0' ]"
+        @click.prevent="onCancel()"
+      >
 
         <slot name="no" />
       </b-button>
@@ -96,11 +102,11 @@ export default {
       this.inConfirmation = false
       this.$emit('confirmed')
     },
-    
+
     onCancel () {
       this.inConfirmation = false
       this.$emit('canceled')
-    }
+    },
   },
 }
 </script>

@@ -1,15 +1,18 @@
 <template>
   <b-form-group :label="label">
-    <b-form-select v-model="cValue"
-                   class="d-inline"
-                   :class="{ 'w-50': !simple }"
-                   :options="cOptions"></b-form-select>
+    <b-form-select
+      v-model="cValue"
+      class="d-inline"
+      :class="{ 'w-50': !simple }"
+      :options="cOptions"
+    />
 
-    <b-form-input v-if="!simple"
-                  type="text"
-                  class="d-inline w-50"
-                  v-model="cValue" />
-
+    <b-form-input
+      v-if="!simple"
+      v-model="cValue"
+      type="text"
+      class="d-inline w-50"
+    />
   </b-form-group>
 </template>
 <script>

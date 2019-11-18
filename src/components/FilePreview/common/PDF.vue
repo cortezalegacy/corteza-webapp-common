@@ -1,14 +1,15 @@
 <template>
   <div
-    @click="$emit('openPreview', { pdf })"
     :style="previewStyle"
-    :class="[...previewClass, 'pdf-preview', inline ? 'inline' : '', $listeners.click ? 'clickable' : '']">
-
+    :class="[...previewClass, 'pdf-preview', inline ? 'inline' : '', $listeners.click ? 'clickable' : '']"
+    @click="$emit('openPreview', { pdf })"
+  >
     <!-- Container for pdf's pages -->
     <div
       v-show="show"
+      ref="pages"
       class="pages"
-      ref="pages"></div>
+    />
 
     <div v-if="!show && labels.loading">
       <p>{{ labels.loading }}</p>
@@ -46,11 +47,13 @@ export default {
   props: {
     maxPages: {
       required: false,
+      type: Number,
       default: 5,
     },
 
     initialScale: {
       required: false,
+      type: Number,
       default: 1,
     },
   },

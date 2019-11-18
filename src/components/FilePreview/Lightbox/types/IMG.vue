@@ -1,6 +1,11 @@
 <template>
   <div class="popup-img-preview">
-    <photo-swipe @close="() => $emit('close')" :isOpen="true" :items="items" :options="options" />
+    <photo-swipe
+      :is-open="true"
+      :items="items"
+      :options="options"
+      @close="() => $emit('close')"
+    />
   </div>
 </template>
 

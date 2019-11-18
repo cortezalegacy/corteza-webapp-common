@@ -1,15 +1,18 @@
 <template>
   <b-form-group :label="label">
-    <b-form-input v-if="!noDate"
-                  type="date"
-                  class="d-inline w-50"
-                  v-model="date" />
+    <b-form-input
+      v-if="!noDate"
+      v-model="date"
+      type="date"
+      class="d-inline w-50"
+    />
 
-    <b-form-input v-if="!noTime"
-                  type="time"
-                  class="d-inline w-50"
-                  v-model="time" />
-
+    <b-form-input
+      v-if="!noTime"
+      v-model="time"
+      type="time"
+      class="d-inline w-50"
+    />
   </b-form-group>
 </template>
 <script>

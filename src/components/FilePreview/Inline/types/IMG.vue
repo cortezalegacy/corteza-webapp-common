@@ -1,18 +1,19 @@
 <template>
   <div class="inline">
-    <img ref="image"
-         @click="$emit('openPreview', {})"
-         :key="src"
-         :src="src"
-         :title="title"
-         :alt="alt"
-         :class="getClass"
-         :style="previewStyle"
-         @error.once="reloadBrokenImage"
-         @load="loaded=true"
-         :width="getWidth"
-         :height="getHeight">
-
+    <img
+      ref="image"
+      :key="src"
+      :src="src"
+      :title="title"
+      :alt="alt"
+      :class="getClass"
+      :style="previewStyle"
+      :width="getWidth"
+      :height="getHeight"
+      @click="$emit('openPreview', {})"
+      @error.once="reloadBrokenImage"
+      @load="loaded=true"
+    >
   </div>
 </template>
 
@@ -25,10 +26,12 @@ export default {
   props: {
     alt: {
       required: false,
+      type: String,
       default: null,
     },
     title: {
       required: false,
+      type: String,
       default: null,
     },
   },
@@ -63,6 +66,8 @@ export default {
     reloadBrokenImage (ev) {
       if (ev.target && ev.target.src) {
         window.setTimeout(() => {
+          // This forces Vue to re-try image download
+          // eslint-disable-next-line
           ev.target.src = ev.target.src
         }, 500)
       }

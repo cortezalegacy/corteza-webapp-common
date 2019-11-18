@@ -4,12 +4,13 @@
       <span v-html="label" />
     </template>
 
-    <component v-for="(opt, i) in options.items || []"
-               :key="i"
-               @click="$emit('action', opt.value)"
-               v-bind="opt"
-               :is="fromKind(opt)">
-
+    <component
+      :is="fromKind(opt)"
+      v-for="(opt, i) in options.items || []"
+      :key="i"
+      v-bind="opt"
+      @click="$emit('action', opt.value)"
+    >
       <span v-html="opt.label" />
     </component>
   </b-dropdown>

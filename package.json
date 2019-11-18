@@ -2,14 +2,15 @@
   "name": "corteza-webapp-common",
   "description": "Corteza common plugins, libs, components and API client",
   "author": "Denis Arh <denis.arh@crust.tech>",
-  "version": "2019.9.0-rc.48",
+  "version": "2019.9.0-rc.49",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "codegen:corteza-api-client": "node tools/codegen/corteza-api-client.js",
     "docsgen": "./node_modules/.bin/esdoc",
     "docsgen:watch": "nodemon -w src/ --exec 'yarn docsgen'",
-    "test:unit": "mocha -r esm -r jsdom-global/register --recursive"
+    "test:unit": "mocha -r esm -r jsdom-global/register --recursive",
+    "lint": "eslint --ext .js,.vue src/**/*"
   },
   "dependencies": {
     "diff": "4.0.1",
@@ -38,6 +39,10 @@
     "esdoc-standard-plugin": "^1.0.0",
     "esformatter": "^0.10.0",
     "esformatter-add-trailing-commas": "^1.1.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "5.2.3",
+    "babel-eslint": "10.0.2",
     "esm": "^3.2.25",
     "handlebars": "^4.0.14",
     "jsdom": "15.1.1",

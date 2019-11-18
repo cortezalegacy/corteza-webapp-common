@@ -1,16 +1,23 @@
 <template>
   <lightbox v-on="$listeners">
     <!-- Proxy slots -->
-    <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope">
-      <slot :name="slot" v-bind="scope" v-on="$listeners"/>
+    <template
+      v-for="(_, slot) of $scopedSlots"
+      v-slot:[slot]="scope"
+    >
+      <slot
+        :name="slot"
+        v-bind="scope"
+        v-on="$listeners"
+      />
     </template>
 
     <component
-      slot="main"
       :is="previewType"
+      slot="main"
+      v-bind="$attrs"
       v-on="$listeners"
-      v-bind="$attrs" />
-
+    />
   </lightbox>
 </template>
 

@@ -1,13 +1,16 @@
 <template>
   <div>
-    <a v-if="toast.link"
-       v-bind="toast.linkOpts"
-       v-html="toast.linkLabel" />
+    <a
+      v-if="toast.link"
+      v-bind="toast.linkOpts"
+      v-html="toast.linkLabel"
+    />
 
-    <router-link v-else-if="toast.routerLink"
-                 v-bind="toast.linkOpts"
-                 :to="toast.routerLink">
-
+    <router-link
+      v-else-if="toast.routerLink"
+      v-bind="toast.linkOpts"
+      :to="toast.routerLink"
+    >
       <span v-html="toast.linkLabel" />
     </router-link>
   </div>

@@ -1,10 +1,18 @@
 <template>
-    <a v-if="link" class="pointer" @click="onClick">
-      <font-awesome-icon :icon="['fas', 'lock']"></font-awesome-icon>
-    </a>
-    <b-button v-else @click="onClick" :variant="buttonVariant">
-      <slot><font-awesome-icon :icon="['fas', 'lock']"></font-awesome-icon></slot>
-    </b-button>
+  <a
+    v-if="link"
+    class="pointer"
+    @click="onClick"
+  >
+    <font-awesome-icon :icon="['fas', 'lock']" />
+  </a>
+  <b-button
+    v-else
+    :variant="buttonVariant"
+    @click="onClick"
+  >
+    <slot><font-awesome-icon :icon="['fas', 'lock']" /></slot>
+  </b-button>
 </template>
 <script>
 import { modalOpenEventName } from './def'
@@ -21,6 +29,7 @@ export default {
 
     buttonVariant: {
       type: String,
+      default: undefined,
     },
 
     resource: {
@@ -30,6 +39,7 @@ export default {
 
     title: {
       type: String,
+      default: undefined,
     },
 
     modalOpenEvent: {

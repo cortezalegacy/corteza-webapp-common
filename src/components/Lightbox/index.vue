@@ -2,11 +2,16 @@
   <div class="lightbox">
     <header>
       <div class="left">
-        <slot name="header.left"></slot>
+        <slot name="header.left" />
       </div>
       <div class="right">
-        <slot name="header.right"></slot>
-        <button class="closer" @click="$emit('close')">&times;</button>
+        <slot name="header.right" />
+        <button
+          class="closer"
+          @click="$emit('close')"
+        >
+          &times;
+        </button>
       </div>
     </header>
     <main>

@@ -1,22 +1,26 @@
 <template>
-  <aside class="sidebar d-flex flex-column vh-100"
-         :class="[ position, visible ? 'visible' : null ]"
-         :style="getStyle">
-
-    <portal v-if="!disableToggle"
-            :to="`name-${name}`">
-
-      <b-button variant="link"
-                class="p-0 text-dark"
-                @click="toggle">
-
+  <aside
+    class="sidebar d-flex flex-column vh-100"
+    :class="[ position, visible ? 'visible' : null ]"
+    :style="getStyle"
+  >
+    <portal
+      v-if="!disableToggle"
+      :to="`name-${name}`"
+    >
+      <b-button
+        variant="link"
+        class="p-0 text-dark"
+        @click="toggle"
+      >
         <font-awesome-icon :icon="['fas', 'bars']" />
       </b-button>
     </portal>
 
-    <header v-if="$slots.header"
-            class="p-0 border-0 border-bottom-primary">
-
+    <header
+      v-if="$slots.header"
+      class="p-0 border-0 border-bottom-primary"
+    >
       <slot name="header" />
     </header>
 
@@ -24,9 +28,10 @@
       <slot />
     </div>
 
-    <footer v-if="$slots.footer"
-                      class="p-0 border-0 border-bottom-primary">
-
+    <footer
+      v-if="$slots.footer"
+      class="p-0 border-0 border-bottom-primary"
+    >
       <slot name="footer" />
     </footer>
   </aside>

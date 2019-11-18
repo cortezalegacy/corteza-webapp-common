@@ -4,7 +4,8 @@
       v-for="p in rules"
       :key="p.resource + p.operation"
       v-bind="p"
-      @update="onUpdate" />
+      @update="onUpdate"
+    />
   </b-container>
 </template>
 

@@ -1,7 +1,8 @@
 <template>
-  <b-button v-bind="options"
-            @click="$emit('action')">
-
+  <b-button
+    v-bind="options"
+    @click="$emit('action')"
+  >
     <span v-html="label" />
   </b-button>
 </template>

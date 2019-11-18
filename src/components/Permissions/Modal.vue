@@ -4,10 +4,15 @@
       v-model="showModal"
       hide-footer
       size="xl"
-      @hide="onHide"
       :title="getTitle"
-      lazy>
-      <permissions-form v-if="resource" :resource="resource" :target="title" />
+      lazy
+      @hide="onHide"
+    >
+      <permissions-form
+        v-if="resource"
+        :resource="resource"
+        :target="title"
+      />
     </b-modal>
   </div>
 </template>

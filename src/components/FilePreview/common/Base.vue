@@ -3,16 +3,19 @@ export default {
   props: {
     labels: {
       required: false,
+      type: Object,
       default: () => ({}),
     },
 
     src: {
       required: true,
+      type: [ String, Object ],
       default: null,
     },
 
     mime: {
       required: false,
+      type: String,
       default: undefined,
     },
 
@@ -23,16 +26,19 @@ export default {
 
     name: {
       required: false,
+      type: String,
       default: null,
     },
 
     previewStyle: {
       required: false,
+      type: Object,
       default: () => ({}),
     },
 
     previewClass: {
       required: false,
+      type: Array,
       default: () => [],
     },
 

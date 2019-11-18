@@ -9,9 +9,8 @@ export default {
       const component = getComponent({ type: this.$attrs.mime, src: this.$attrs.src, name: this.$attrs.name })
       if (!component) {
         this.$emit('previewUnavailable', { type: this.$attrs.mime })
-      } else {
-        return component
       }
+      return component
     },
   },
 }

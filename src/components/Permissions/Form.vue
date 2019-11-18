@@ -1,26 +1,41 @@
 <template>
-  <b-form  @submit.prevent="onSubmit">
+  <b-form @submit.prevent="onSubmit">
     <b-row>
-      <b-col class="role-list" cols="3">
+      <b-col
+        class="role-list"
+        cols="3"
+      >
         <b-list-group>
           <b-list-group-item
-            v-for="r in roles" :key="r.roleID"
+            v-for="r in roles"
+            :key="r.roleID"
             :active="r.roleID === currentRoleID"
             active-class="primary"
             variant="outline-primary"
-            @click="onRoleChange(r)" >
-
+            @click="onRoleChange(r)"
+          >
             {{ r.name || r.handle || r.roleID || $t('role.unnamed') }}
           </b-list-group-item>
         </b-list-group>
       </b-col>
-      <b-col class="rule-list" cols="9">
+      <b-col
+        class="rule-list"
+        cols="9"
+      >
         <rules :rules.sync="rules" />
       </b-col>
     </b-row>
     <b-row class="footer">
-      <b-col class="rule-list text-right" cols="9" offset="3">
-        <b-button type="submit" variant="primary" :disabled="disabled">
+      <b-col
+        class="rule-list text-right"
+        cols="9"
+        offset="3"
+      >
+        <b-button
+          type="submit"
+          variant="primary"
+          :disabled="disabled"
+        >
           {{ $t('permission.saveChanges') }}
         </b-button>
       </b-col>
@@ -44,6 +59,7 @@ export default {
     target: {
       type: String,
       required: false,
+      default: undefined,
     },
 
     backendServiceName: {
