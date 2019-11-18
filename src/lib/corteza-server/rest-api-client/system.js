@@ -2155,4 +2155,24 @@ export default class System {
     return `/reminder/${reminderID}/snooze`
   }
 
+  // List system statistics
+  async statsList () {
+
+
+
+    let cfg = {
+      method: 'get',
+      url: this.statsListEndpoint({  }),
+    }
+
+
+    return new Promise((resolve, reject) => {
+      this.api().request(cfg).then(this.stdResolve(resolve, reject), this.stdReject(reject))
+    })
+  }
+
+  statsListEndpoint () {
+    return `/stats/`
+  }
+
 }
