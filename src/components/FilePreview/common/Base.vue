@@ -10,7 +10,7 @@ export default {
     src: {
       required: true,
       type: [ String, Object ],
-      default: null,
+      default: undefined,
     },
 
     mime: {
