@@ -11,6 +11,7 @@ export default class Tag extends Node {
     return {
       onAssociate: () => {},
       associations: () => [],
+      onManage: () => {},
     }
   }
 

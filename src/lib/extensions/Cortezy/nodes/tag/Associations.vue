@@ -6,7 +6,7 @@
       class="association"
       :class="getClass(asc)"
       :style="getStyle(asc)"
-      @click="onClick(asc)"
+      @mousedown.stop.prevent="onClick(asc)"
     >
       <font-awesome-icon :icon="icon(asc)" />
     </button>

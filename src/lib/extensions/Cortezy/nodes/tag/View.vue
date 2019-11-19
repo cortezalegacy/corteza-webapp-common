@@ -45,6 +45,11 @@ export default {
   },
 
   methods: {
+    onShow () {
+      this.toggleAsc(false)
+      this.options.onManage(this.node)
+    },
+
     /**
      * Helper method to toggle inline associations display
      * @param {Boolean} s Is shown
@@ -80,7 +85,7 @@ export default {
         interactive="true"
         boundary="viewport"
         theme="light"
-        onShow={() => this.toggleAsc(false)}
+        onShow={() => this.onShow()}
         onHide={() => this.toggleAsc(true)}>
 
         <template slot="trigger">
