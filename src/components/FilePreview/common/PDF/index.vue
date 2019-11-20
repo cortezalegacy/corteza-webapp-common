@@ -49,9 +49,12 @@
 
 <script>
 import pdfjs from 'pdfjs-dist'
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
 import Base from '../Base'
 import { makePlaceholder, makeFailedPage, Page, Document } from './helpers'
 import { sleep } from 'corteza-webapp-common/src/lib/utils'
+
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker
 
 export default {
   extends: Base,
