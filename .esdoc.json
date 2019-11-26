@@ -8,12 +8,6 @@
       "option": {
         "accessor": {
           "access": ["public"]
-        },
-        "manual": {
-          "files": [
-            "./manual/automation-scripts/README.md",
-            "./manual/automation-scripts/filtering.md"
-          ]
         }
       }
     }
