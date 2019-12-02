@@ -2,7 +2,7 @@
   "name": "corteza-webapp-common",
   "description": "Corteza common plugins, libs, components and API client",
   "author": "Denis Arh <denis.arh@crust.tech>",
-  "version": "2019.9.0-rc.52",
+  "version": "2019.9.0-rc.53",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "diff": "4.0.1",
-    "mime-types": "2.1.24",
+    "mime-types": "^2.1.25",
     "pdfjs-dist": "2.1.266",
     "qs": "^6.8.0",
     "v-photoswipe": "https://github.com/tjerman/v-photoswipe#master",
@@ -31,8 +31,10 @@
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "axios": "^0.18.0",
+    "babel-eslint": "10.0.2",
     "babel-plugin-istanbul": "^5.2.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
@@ -41,11 +43,8 @@
     "esdoc-standard-plugin": "^1.0.0",
     "esformatter": "^0.10.0",
     "esformatter-add-trailing-commas": "^1.1.0",
-    "@vue/eslint-config-standard": "^4.0.0",
     "eslint": "^5.8.0",
-    "nyc": "^14.1.1",
     "eslint-plugin-vue": "5.2.3",
-    "babel-eslint": "10.0.2",
     "esm": "^3.2.25",
     "handlebars": "^4.0.14",
     "jsdom": "15.1.1",
@@ -53,10 +52,10 @@
     "lodash": "^4.17.13",
     "mocha": "^6.2.0",
     "moment": "^2.22.2",
+    "nyc": "^14.1.1",
     "portal-vue": "^2.1.0",
     "sinon": "7.4.1"
   },
-
   "nyc": {
     "extension": [
       ".js"
