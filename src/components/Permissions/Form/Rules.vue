@@ -1,9 +1,10 @@
 <template>
   <b-container>
     <rule
-      v-for="p in rules"
+      v-for="(p, i) in rules"
       :key="p.resource + p.operation"
       v-bind="p"
+      :class="{ 'mt-4': i > 0 }"
       @update="onUpdate"
     />
   </b-container>

@@ -1,9 +1,14 @@
 <template>
   <b-row
     no-gutters
-    class="mb-1"
+    class="mb-lg-1"
   >
-    <b-col cols="4">
+    <b-col
+      cols="12"
+      lg="5"
+      order="2"
+      order-lg="1"
+    >
       <access
         :access="access"
         :current="current"
@@ -20,8 +25,11 @@
       </b-button>
     </b-col>
     <b-col
-      cols="8"
-      class="mb-4"
+      cols="12"
+      lg="7"
+      class="mb-lg-4"
+      order="1"
+      order-lg="2"
     >
       <b v-html="title || `${operation} on ${resource}`" />
       <div>{{ description || '&nbsp;' }}</div>

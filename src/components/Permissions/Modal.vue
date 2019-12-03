@@ -3,7 +3,7 @@
     <b-modal
       v-model="showModal"
       hide-footer
-      size="xl"
+      size="lg"
       :title="getTitle"
       lazy
       @hide="onHide"

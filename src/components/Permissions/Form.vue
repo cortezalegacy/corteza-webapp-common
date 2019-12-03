@@ -3,29 +3,45 @@
     <b-row>
       <b-col
         class="role-list"
-        cols="3"
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
       >
-        <b-list-group>
+        <b-list-group class="d-none d-sm-block">
           <b-list-group-item
             v-for="r in roles"
             :key="r.roleID"
-            :active="r.roleID === currentRoleID"
+            :active="r.roleID === currentRole.roleID"
             active-class="primary"
             variant="outline-primary"
+            class="text-break"
             @click="onRoleChange(r)"
           >
             {{ r.name || r.handle || r.roleID || $t('role.unnamed') }}
           </b-list-group-item>
         </b-list-group>
+        <vue-select
+          key="roleID"
+          v-model="currentRole"
+          label="name"
+          class="mb-4"
+          :clearable="false"
+          :options="roles"
+          @input="onRoleChange"
+        />
       </b-col>
       <b-col
         class="rule-list"
-        cols="9"
+        cols="12"
+        sm="6"
+        md="8"
+        lg="9"
       >
         <rules :rules.sync="rules" />
       </b-col>
     </b-row>
-    <b-row class="footer">
+    <b-row class="footer mt-3">
       <b-col
         class="rule-list text-right"
         cols="9"
@@ -44,10 +60,12 @@
 </template>
 <script>
 import Rules from './Form/Rules'
+import { VueSelect } from 'vue-select'
 
 export default {
   components: {
     Rules,
+    VueSelect,
   },
 
   props: {
@@ -86,7 +104,7 @@ export default {
       roles: [],
 
       // ID of the current role
-      currentRoleID: undefined,
+      currentRole: {},
     }
   },
 
@@ -111,18 +129,18 @@ export default {
   },
 
   methods: {
-    onRoleChange ({ roleID }) {
-      this.currentRoleID = roleID
-      this.fetchRules(roleID)
+    onRoleChange (role) {
+      this.currentRole = role
+      this.fetchRules(role.roleID)
     },
 
     onSubmit () {
       this.processing = true
       const rules = this.collectChangedRules()
-      const roleID = this.currentRoleID
+      const { roleID } = this.currentRole
 
       this.api.permissionsUpdate({ roleID, rules }).then((rules) => {
-        this.fetchRules(this.currentRoleID)
+        this.fetchRules(roleID)
         this.processing = false
       })
     },
