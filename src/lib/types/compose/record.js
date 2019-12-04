@@ -49,6 +49,7 @@ export default class Record extends ComposeObject {
     Object.freeze(this[fields])
 
     this[resetValues]()
+    this.compareToValues = {}
 
     this.recordID = PropCast(ID, r.recordID)
 
@@ -62,7 +63,8 @@ export default class Record extends ComposeObject {
     this.deletedAt = PropCast(ISO8601, r.deletedAt)
 
     if (r.values !== undefined) {
-      this.setValues(r.values)
+      this.prepareValues(r.values, this.values)
+      this.prepareValues(r.values, this.compareToValues)
     }
   }
 
@@ -109,22 +111,27 @@ export default class Record extends ComposeObject {
     return arr
   }
 
-  setValues (input = []) {
+  /**
+   * Updates record's values object with provided input
+   * @param {Array|Object} input Values to use
+   * @param {Object} values Record's values object to update
+   */
+  prepareValues (input = [], values = this.values) {
     if (Array.isArray(input)) {
       input.filter(({ name }) => this[fields][name] !== undefined && !reservedFieldNames.includes(name)).forEach(({ name, value }) => {
         const { isMulti = false } = this[fields][name]
         if (isMulti) {
-          this.values[name].push(value)
+          values[name].push(value)
         } else {
-          this.values[name] = value
+          values[name] = value
         }
       })
     } else if (typeof input === 'object') {
-      const values = (input instanceof Record) ? input.values : input
+      const vv = (input instanceof Record) ? input.values : input
 
       for (let p in input) {
         if (!reservedFieldNames.includes(p)) {
-          this.values[p] = values[p]
+          values[p] = vv[p]
         }
       }
     } else {
@@ -134,7 +141,7 @@ export default class Record extends ComposeObject {
 
   isValid () {
     return this.module.fields
-      .map(f => f.validate(this.values[f.name]).length === 0)
+      .map(f => f.validate(this.values[f.name], this.compareToValues[f.name]).length === 0)
       .filter(v => !v).length === 0
   }
 }
