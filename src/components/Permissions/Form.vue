@@ -25,7 +25,7 @@
           key="roleID"
           v-model="currentRole"
           label="name"
-          class="mb-4"
+          class="mb-4 d-block d-sm-none"
           :clearable="false"
           :options="roles"
           @input="onRoleChange"
