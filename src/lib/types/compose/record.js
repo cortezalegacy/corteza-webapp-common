@@ -111,6 +111,10 @@ export default class Record extends ComposeObject {
     return arr
   }
 
+  setValues (input = []) {
+    this.prepareValues(input, this.values)
+  }
+
   /**
    * Updates record's values object with provided input
    * @param {Array|Object} input Values to use
@@ -121,6 +125,9 @@ export default class Record extends ComposeObject {
       input.filter(({ name }) => this[fields][name] !== undefined && !reservedFieldNames.includes(name)).forEach(({ name, value }) => {
         const { isMulti = false } = this[fields][name]
         if (isMulti) {
+          if (!Array.isArray(values[name])) {
+            values[name] = []
+          }
           values[name].push(value)
         } else {
           values[name] = value

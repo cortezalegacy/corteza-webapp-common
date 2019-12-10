@@ -32,4 +32,20 @@ describe('/src/lib/types/compose/record.js', () => {
       expect(serialized[0]).to.deep.include({ name: 'f1', value: 'EDITED' })
     })
   })
+
+  describe('prepare values', () => {
+    it('prepares multi values', () => {
+      module = new Module({
+        moduleID: '111',
+        fields: [
+          { name: 'f1', kind: 'String', isMulti: true },
+        ],
+      })
+
+      const r1 = new Record(module, { values: [ { name: 'f1', value: 'value1' } ] })
+
+      const prepared = r1.values
+      expect(prepared).to.deep.include({ f1: ['value1'] })
+    })
+  })
 })
