@@ -137,7 +137,7 @@ class ComposeUIHelper {
    * Show a warning alert
    *
    * @example
-   * ComposeUI.success('Could not save your changes')
+   * ComposeUI.warning('Could not save your changes')
    *
    * @param message
    */
